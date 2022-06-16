@@ -1,0 +1,9 @@
+*.sln
+*.meta
+/.vscode
+/Logs
+/Packages
+/UserSettings
+/Library
+/Temp
+/ProjectSettings
