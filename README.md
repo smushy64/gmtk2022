@@ -10,7 +10,6 @@
 ## Credits
 ### Danger Noodle Games
 - [smushy64](https://github.com/smushy64) (Alicia) | C#, 2D/3D assets
-- TOXICWIZRD | 3D assets
 - tumor | Music, SFX
 - Vurik | C#
 - Jatsko | Promotion
