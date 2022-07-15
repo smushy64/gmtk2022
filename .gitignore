@@ -19,6 +19,7 @@
 *.aab
 *.unitypackage
 *.app
+.vs/
 sysinfo.txt
 
 /.vscode
