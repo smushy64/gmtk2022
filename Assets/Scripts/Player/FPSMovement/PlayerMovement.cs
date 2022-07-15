@@ -9,6 +9,7 @@ namespace Docien.FPSMovement
     public class PlayerMovement : MonoBehaviour
     {
         public Action<float> onLanded;
+        public Action onJump;
         public Action<bool> onStanceChanged;
 
         [SerializeField] private Transform m_Orientation;
@@ -68,7 +69,7 @@ namespace Docien.FPSMovement
         private Vector3 m_GroundConnectionLocalPosition, m_GroundConnectionWorldPosition = Vector3.zero;
         private float m_TimeOnGround, m_TimeInAir, m_JumpBufferTimer, m_TimeSinceLastJump, m_TimeSinceLastSlide = 0f;
         private float m_Submergance = 0f;
-        private bool m_JumpBuffer, m_HoldingJump, m_DesiresCrouch = false;
+        private bool m_JumpBuffer, m_HoldingJump, m_DidJump, m_DesiresCrouch = false;
         private bool m_IsCrouched, m_IsSliding, m_IsSwimming, m_IsWallRunning = false;
         private bool m_IsGrounded, m_WasGrounded = true;
         private bool m_IsTouchingWall = false;
@@ -161,8 +162,10 @@ namespace Docien.FPSMovement
             float jumpForce = Mathf.Sqrt(2f * -Physics.gravity.y * height);
             m_Rigidbody.velocity = new Vector3(m_Rigidbody.velocity.x, jumpForce + m_GroundVel.y, m_Rigidbody.velocity.z);
 
+            m_DidJump = true;
             m_JumpBuffer = false;
             m_TimeSinceLastJump = 0f;
+            onJump?.Invoke();
         }
 
         private void WallJump()
@@ -288,6 +291,7 @@ namespace Docien.FPSMovement
 
             if (!m_WasGrounded)
             {
+                m_DidJump = false;
                 onLanded?.Invoke(m_PreviousVel.y);
             }
         }
@@ -344,7 +348,17 @@ namespace Docien.FPSMovement
                 m_TimeOnGround = 0f;
 
                 AirMove(m_AirMovementSettings);
-                m_Rigidbody.AddForce(Physics.gravity, ForceMode.Acceleration);
+
+                float gravityMult = 1f;
+                if (m_DidJump)
+                {
+                    if (!m_HoldingJump && m_Rigidbody.velocity.y > 0f)
+                    {
+                        gravityMult = 2f;
+                    }
+                }
+
+                m_Rigidbody.AddForce(Physics.gravity * gravityMult, ForceMode.Acceleration);
 
                 if (m_JumpBuffer)
                 {
