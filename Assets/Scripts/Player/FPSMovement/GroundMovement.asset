@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: GroundMovement
   m_EditorClassIdentifier: 
   m_MaxSpeed: 15
-  m_Acceleration: 80
+  m_Acceleration: 120
   m_Friction: 6
   m_StoppingSpeed: 7
   m_AccelerationMultiplierFromDot:
