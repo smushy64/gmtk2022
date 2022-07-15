@@ -37,7 +37,13 @@ public class EnemyNavMesh : MonoBehaviour
 
     [SerializeField] private float ChasingRange, RangeToAttack;
 
+    [SerializeField] private bool CanJump = false;
     [SerializeField] private bool IsRangedEnemy = false;
+
+    [Header("Attack")]
+    [SerializeField] private GameObject ProjectilePrefab;
+    [SerializeField] private Transform shootpoint;
+    [SerializeField] private float ProjectileSpeed;
 
     private void Start()
     {
@@ -47,17 +53,20 @@ public class EnemyNavMesh : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (IsGrounded() == false && !Jumped)
+        if (CanJump)
         {
-            Jumped = true;
-            NormalSpeed = agent.speed;
-            Speed = agent.speed * JumpSpeedIncreaseMultiplayer;
-            StartCoroutine(Jump());
-        }
-        else if (IsGrounded() == true && Jumped)
-        {
-            Jumped = false;
-            Speed = NormalSpeed;
+            if (IsGrounded() == false && !Jumped)
+            {
+                Jumped = true;
+                NormalSpeed = agent.speed;
+                Speed = agent.speed * JumpSpeedIncreaseMultiplayer;
+                StartCoroutine(Jump());
+            }
+            else if (IsGrounded() == true && Jumped)
+            {
+                Jumped = false;
+                Speed = NormalSpeed;
+            }
         }
 
         playerInChaseRange = Physics.CheckSphere(transform.position, ChasingRange, playerLayer);
@@ -103,6 +112,9 @@ public class EnemyNavMesh : MonoBehaviour
         }
         agent.speed = Speed * ChaseSpeedMultiplier;
 
+        if (IsRangedEnemy)
+            transform.LookAt(player.transform.position);
+
         agent.SetDestination(player.position);
     }
     private bool OnAttack = false, IsChasing = false;
@@ -118,11 +130,20 @@ public class EnemyNavMesh : MonoBehaviour
         agent.stoppingDistance = StopDistance;
         agent.speed = Speed * AttackSpeedMultiplier;
 
+        if (IsRangedEnemy)
+            transform.LookAt(player.transform.position);
+
         agent.SetDestination(player.position);
 
         if (!AttackedBool)
         {
             //attack is here
+
+            if(IsRangedEnemy)
+            {
+                GameObject bullet = Instantiate(ProjectilePrefab, shootpoint.transform.position, shootpoint.rotation) as GameObject;
+                bullet.GetComponent<Rigidbody>().AddForce(shootpoint.forward * ProjectileSpeed);
+            }
 
             AttackedBool = true;
             Invoke(nameof(ResetAttack), timeBetweenAttacks); //delays the attack
