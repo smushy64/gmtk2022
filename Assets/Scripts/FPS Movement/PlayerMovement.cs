@@ -84,6 +84,11 @@ namespace Docien.FPSMovement
         public Vector3 WorldPositionCenter => transform.position + m_Collider.center;
         public Vector3 WallNormal => m_WallNormal;
 
+        public void ToggleCrouching(bool toggle) => m_CrouchingEnabled = toggle;
+        public void ToggleSliding(bool toggle) => m_EnableSliding = toggle;
+        public void ToggleWalljumping(bool toggle) => m_WallJumpEnabled = toggle;
+        public void ToggleWallrunning(bool toggle) => m_WallRunEnabled = toggle;
+
         private void Awake()
         {
             m_Rigidbody = GetComponent<Rigidbody>();
