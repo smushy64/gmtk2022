@@ -141,6 +141,8 @@ public class GunAnimator : MonoBehaviour
     }
 
     void SwitchWeaponModel() {
+        if( weapons.CurrentWeapon == null )
+            return;
         pistol.gameObject.SetActive(false);
         shotgun.gameObject.SetActive(false);
         switch( weapons.CurrentWeapon.type ) {

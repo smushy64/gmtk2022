@@ -50,7 +50,6 @@ namespace Docien.FPSMovement
 
         private void OnPlayerLanded(float fallingVelocity)
         {
-            Debug.Log(fallingVelocity);
             float totalSpringForce = m_LandingForceCurve.Evaluate(-fallingVelocity);
             if (m_Movement.IsCrouching)
                 totalSpringForce *= m_CrouchForceMultiplier;
