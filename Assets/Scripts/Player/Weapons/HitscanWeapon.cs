@@ -11,6 +11,7 @@ public class HitscanWeapon : MonoBehaviour
     [SerializeField] private float fireRate = 1f;
     [SerializeField] private float reloadDuration = 1f;
     [SerializeField] private float spread = 0f;
+    [SerializeField] private float Damage = 1f;
     [SerializeField] private int pelletsPerShot = 1;
     private WeaponAnimator animator;
     private float timeSinceLastShot = 0f;
@@ -52,6 +53,12 @@ public class HitscanWeapon : MonoBehaviour
             if (Physics.Raycast(ray, out RaycastHit hit, 100f))
             {
                 Debug.DrawLine(origin, hit.point, Color.blue, 3f);
+
+                //added this for rn just to kill enemies
+                if (hit.transform.gameObject.GetComponent<Enemy>())
+                    hit.transform.gameObject.GetComponent<Enemy>().TakeDamage(Damage);
+                else if (hit.transform.gameObject.GetComponent<Enemy>() == null && hit.transform.gameObject.GetComponentInParent<Enemy>() != null)
+                    hit.transform.gameObject.GetComponentInParent<Enemy>().TakeDamage(Damage);
             }
             else
             {

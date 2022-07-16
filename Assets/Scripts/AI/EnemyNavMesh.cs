@@ -1,9 +1,12 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class EnemyNavMesh : MonoBehaviour
 {
+    public int ScoreToAdd = 1;
+
     [Header("NavMesh Logics")]
     [SerializeField] private Transform player;
     [SerializeField] private NavMeshAgent agent;
@@ -39,12 +42,15 @@ public class EnemyNavMesh : MonoBehaviour
 
     [SerializeField] private bool CanJump = false;
     [SerializeField] private bool IsRangedEnemy = false;
+    [SerializeField] private bool IsFlyingEnemy = false;
+    [SerializeField] private bool CanExplode = false;
 
     [Header("Attack")]
-    [SerializeField] private GameObject ProjectilePrefab;
+    [SerializeField] private float Damage;
+    [SerializeField] private GameObject ProjectilePrefab, ExplodeParticle;
     [SerializeField] private Transform shootpoint;
     [SerializeField] private float ProjectileSpeed;
-
+    [HideInInspector] public bool Exploded = false;
     private void Start()
     {
         player = GameObject.Find("Player").transform;
@@ -58,14 +64,15 @@ public class EnemyNavMesh : MonoBehaviour
             if (IsGrounded() == false && !Jumped)
             {
                 Jumped = true;
-                NormalSpeed = agent.speed;
+                NormalSpeed = Speed;
                 Speed = agent.speed * JumpSpeedIncreaseMultiplayer;
                 StartCoroutine(Jump());
             }
             else if (IsGrounded() == true && Jumped)
             {
-                Jumped = false;
                 Speed = NormalSpeed;
+                agent.speed = Speed;
+                Jumped = false;
             }
         }
 
@@ -112,7 +119,7 @@ public class EnemyNavMesh : MonoBehaviour
         }
         agent.speed = Speed * ChaseSpeedMultiplier;
 
-        if (IsRangedEnemy)
+        if (IsRangedEnemy && !IsFlyingEnemy)
             transform.LookAt(player.transform.position);
 
         agent.SetDestination(player.position);
@@ -130,7 +137,9 @@ public class EnemyNavMesh : MonoBehaviour
         agent.stoppingDistance = StopDistance;
         agent.speed = Speed * AttackSpeedMultiplier;
 
-        if (IsRangedEnemy)
+        if (IsFlyingEnemy)
+            shootpoint.transform.LookAt(player.transform.position);
+        if (IsRangedEnemy && !IsFlyingEnemy)
             transform.LookAt(player.transform.position);
 
         agent.SetDestination(player.position);
@@ -142,7 +151,23 @@ public class EnemyNavMesh : MonoBehaviour
             if(IsRangedEnemy)
             {
                 GameObject bullet = Instantiate(ProjectilePrefab, shootpoint.transform.position, shootpoint.rotation) as GameObject;
+                bullet.GetComponent<Bullet>().Damage = Damage;
                 bullet.GetComponent<Rigidbody>().AddForce(shootpoint.forward * ProjectileSpeed);
+            }
+            if (CanExplode)
+            {
+                FindObjectOfType<EnemyManager>().ResetCombo();
+                Exploded = true;
+                Instantiate(ExplodeParticle, this.transform.position, Quaternion.identity);
+                Destroy(this.gameObject);
+            }
+            if(!IsRangedEnemy && !CanExplode && !IsFlyingEnemy)
+            {
+                Collider[] touching = Physics.OverlapSphere(this.transform.position, 1, playerLayer, QueryTriggerInteraction.Ignore); // chekcs if enemy is spawned inside an object
+                if (touching.Length != 0)
+                {
+                    player.transform.gameObject.GetComponent<SimpleHealth>().TakeDamage(Damage);
+                }
             }
 
             AttackedBool = true;
@@ -193,5 +218,12 @@ public class EnemyNavMesh : MonoBehaviour
                 transform.localScale = new Vector3(1, transform.localScale.y + .025f, 1);
             yield return new WaitForSeconds(.025f);
         }
+    }
+    private void OnDestroy()
+    {
+        EnemyActions.OnEnemyKilled?.Invoke(this);
+
+        if (playerInAttackRange)
+            EnemyActions.RemoveEnemyAttacking?.Invoke(this);
     }
 }
