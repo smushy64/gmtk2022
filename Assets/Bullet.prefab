@@ -111,7 +111,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!114 &3732826393413269237
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb0a01fd627cbbe4785eeaa39e397e4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LifeTime: 0.75
+  LifeTime: 5
 --- !u!114 &548250355695385860
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,3 +142,4 @@ MonoBehaviour:
   whatCanBeHit:
     serializedVersion: 2
     m_Bits: 4294967295
+  Damage: 0

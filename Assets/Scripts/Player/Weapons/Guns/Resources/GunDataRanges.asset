@@ -1,0 +1,50 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0235af17f83b1642831075e47dd5ab2, type: 3}
+  m_Name: GunDataRanges
+  m_EditorClassIdentifier: 
+  shotgunDamagePerShotMultiplier: 0.2
+  commonDamagePerShotRange: {x: 10, y: 20}
+  commonMagazineCapacityRange: {x: 1, y: 15}
+  commonPelletsPerShotRange: {x: 10, y: 15}
+  commonAmmoConsumptionPerShot: {x: 1, y: 1}
+  commonRecoilMultiplier: {x: 1, y: 1}
+  goodDamagePerShotRange: {x: 10, y: 20}
+  goodMagazineCapacityRange: {x: 2, y: 25}
+  goodPelletsPerShotRange: {x: 12, y: 18}
+  goodAmmoConsumptionPerShot: {x: 1, y: 1}
+  goodRecoilMultiplier: {x: 0.8, y: 1}
+  greatDamagePerShotRange: {x: 15, y: 20}
+  greatMagazineCapacityRange: {x: 3, y: 50}
+  greatPelletsPerShotRange: {x: 15, y: 18}
+  greatAmmoConsumptionPerShot: {x: 1, y: 1}
+  greatRecoilMultiplier: {x: 0.7, y: 0.95}
+  mediocreDamagePerShotRange: {x: 9, y: 18}
+  mediocreMagazineCapacityRange: {x: 1, y: 8}
+  mediocrePelletsPerShotRange: {x: 8, y: 12}
+  mediocreAmmoConsumptionPerShot: {x: 1, y: 2}
+  mediocreRecoilMultiplier: {x: 1.1, y: 1.25}
+  terribleDamagePerShotRange: {x: 4, y: 8}
+  terribleMagazineCapacityRange: {x: 2, y: 8}
+  terriblePelletsPerShotRange: {x: 5, y: 10}
+  terribleAmmoConsumptionPerShot: {x: 1, y: 5}
+  terribleRecoilMultiplier: {x: 1.25, y: 1.5}
+  incredibleDamagePerShotRange: {x: 15, y: 30}
+  incredibleMagazineCapacityRange: {x: 20, y: 100}
+  incrediblePelletsPerShotRange: {x: 20, y: 30}
+  incredibleAmmoConsumptionPerShot: {x: 1, y: 1}
+  incredibleRecoilMultiplier: {x: 0.5, y: 0.7}
+  legendaryDamagePerShotRange: {x: 40, y: 50}
+  legendaryMagazineCapacityRange: {x: 30, y: 150}
+  legendaryPelletsPerShotRange: {x: 35, y: 45}
+  legendaryAmmoConsumptionPerShot: {x: 1, y: 1}
+  legendaryRecoilMultiplier: {x: 0.25, y: 0.5}

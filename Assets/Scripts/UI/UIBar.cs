@@ -17,7 +17,11 @@ public class UIBar : MonoBehaviour
 
     public float Value { get; private set; } = 0.5f;
 
-    public void SetValue( float value ) => Value = Mathf.Clamp01( value );
+    public void SetValue(float value) 
+    { 
+        Value = Mathf.Clamp01(value);
+        RecalculateFill();
+    }
 
     Image backgroundImage;
     Image fillImage;

@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/VurikAI.unity
+    guid: 0dbe14638131e69439e7c420e04a983b
   m_configObjects: {}
