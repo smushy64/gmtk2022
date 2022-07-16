@@ -368,7 +368,7 @@ MonoBehaviour:
   maxLookAngle: {x: 5, y: 5}
   damping: 1
   frequency: 10
-  lookDamping: 1
+  lookDamping: 0.6
   lookFrequency: 15
 --- !u!1 &870979995
 GameObject:
