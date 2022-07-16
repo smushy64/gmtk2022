@@ -15,6 +15,10 @@ namespace Docien.FPSMovement
         private Vector2 lastDelta = Vector2.zero;
 
         public Vector2 LastDelta => lastDelta;
+        float mouseOffset = 0f;
+        float mouseOffsetTarget = 0f;
+        bool recoilRightBias = true;
+        const float RECOIL_OFFSET = 0.2f;
 
         private void Awake()
         {
@@ -26,6 +30,8 @@ namespace Docien.FPSMovement
         private void LateUpdate()
         {
             Vector2 mouseDelta = m_LookAction.ReadValue<Vector2>() * (m_Sensitivity / 100f);
+            mouseDelta.y -= mouseOffset;
+            mouseDelta.x -= recoilRightBias ? -(mouseOffset / 2f) : (mouseOffset / 2f);
             lastDelta = mouseDelta;
             Vector3 eulerAngles = ConvertEulerToHalfRotation(m_Orientation.localEulerAngles);
             // Yaw - Horizontal Mouse Movement
@@ -34,6 +40,20 @@ namespace Docien.FPSMovement
             eulerAngles.x = Mathf.Clamp(mouseDelta.y + eulerAngles.x, m_PitchLimits.x, m_PitchLimits.y);
 
             m_Orientation.localRotation = Quaternion.Euler(eulerAngles);
+
+            InterpolateMouseOffset();
+        }
+
+        void InterpolateMouseOffset() {
+            mouseOffset = Mathf.LerpUnclamped(mouseOffset, mouseOffsetTarget, Time.deltaTime * 50f);
+            if( Mathf.Abs( mouseOffset ) >= Mathf.Abs( mouseOffset ) ) {
+                mouseOffsetTarget = Mathf.Lerp( mouseOffsetTarget, 0f, Time.deltaTime * 100f );
+            }
+        }
+
+        public void Recoil() {
+            mouseOffsetTarget += RECOIL_OFFSET;
+            recoilRightBias = (Random.Range( 0, 2 ) > 0) ? !recoilRightBias : recoilRightBias;
         }
 
         /// <summary>

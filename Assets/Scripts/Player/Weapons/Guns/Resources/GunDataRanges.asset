@@ -13,6 +13,8 @@ MonoBehaviour:
   m_Name: GunDataRanges
   m_EditorClassIdentifier: 
   shotgunDamagePerShotMultiplier: 0.2
+  rifleFireRateMultipler: 0.2
+  pistolFireRateMultiplier: 0.6
   common:
     DamagePerShot: {x: 15, y: 25}
     DelayBetweenShots: {x: 1, y: 1}

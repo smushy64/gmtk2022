@@ -63,7 +63,7 @@
                     "name": "Change Weapon",
                     "type": "Value",
                     "id": "d14e913f-0333-4de8-a317-b7131309a0c4",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -258,7 +258,7 @@
                 {
                     "name": "",
                     "id": "37aeea7e-e70c-49bb-a84d-9a5ec79f7ce5",
-                    "path": "<Mouse>/scroll",
+                    "path": "<Mouse>/scroll/y",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -267,9 +267,9 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "Change Weapon",
-                    "id": "0fad8b5a-4bf8-4e07-917c-6d98883009b0",
-                    "path": "2DVector",
+                    "name": "dpad",
+                    "id": "8560be5e-51a5-4fc9-82fe-f42679ec62a1",
+                    "path": "1DAxis",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -278,19 +278,8 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "up",
-                    "id": "8efcf8cd-600a-4792-b26b-957b6621ad26",
-                    "path": "<Gamepad>/dpad/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Change Weapon",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "ba66399a-48a8-4e4a-8a08-4126bc0d4ac9",
+                    "name": "negative",
+                    "id": "3e71dca8-3bfc-42d8-8c0a-5661bf0a298e",
                     "path": "<Gamepad>/dpad/left",
                     "interactions": "",
                     "processors": "",
@@ -300,20 +289,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "left",
-                    "id": "925ab3ca-ca93-494b-90ba-a90bd79e2792",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Change Weapon",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "0ced1707-4dea-49fb-94b5-682cbb181df1",
-                    "path": "",
+                    "name": "positive",
+                    "id": "d24cb045-71df-4724-89f2-ed23fda6234a",
+                    "path": "<Gamepad>/dpad/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

@@ -73,6 +73,10 @@ public class GunDataRanges : ScriptableObject
 
     [Header("Shotgun Damage Per Shot Multiplier")]
     public float shotgunDamagePerShotMultiplier = 0.2f;
+    [Header("Rifle Fire Rate Multiplier")]
+    public float rifleFireRateMultipler = 0.3f;
+    [Header("Pistol Fire Rate Multiplier")]
+    public float pistolFireRateMultiplier = 0.8f;
 
     [System.Serializable]
     public struct Ranges {

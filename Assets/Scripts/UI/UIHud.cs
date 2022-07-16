@@ -17,12 +17,19 @@ public class UIHud : MonoBehaviour
     }
 
     public void UpdateAmmo( int count, int totalMagazine, int totalReserve ) {
+        ammoCounter.gameObject.SetActive(true);
+        ammoType.gameObject.SetActive(true);
         ammoCounter.UpdateCounter(count, totalReserve);
         ammoBar.SetValue( (float)count / (float)totalMagazine );
     }
 
     public void UpdateAmmoType( GunType type ) {
         ammoType.SetAmmoType(type);
+    }
+
+    public void DisableAmmo() {
+        ammoCounter.gameObject.SetActive(false);
+        ammoType.gameObject.SetActive(false);
     }
 
 }
