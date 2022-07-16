@@ -6,7 +6,7 @@ using System;
 
 public class HitscanWeapon : MonoBehaviour
 {
-    [SerializeField] private AmmoType type;
+    [SerializeField] private Ammo.Type type;
     [SerializeField] private int maxAmmoPerMagazine = 10;
     [SerializeField] private float fireRate = 1f;
     [SerializeField] private float reloadDuration = 1f;
@@ -17,7 +17,7 @@ public class HitscanWeapon : MonoBehaviour
     private int ammoInMag = 0;
     private bool isReloading = false;
 
-    public AmmoType Type => type;
+    public Ammo.Type Type => type;
     public bool CanFire => timeSinceLastShot >= 1f / fireRate;
     public bool CanReload => !IsReloading && AmmoLeftAsPercentage < 1f;
     public int MaxAmmo => maxAmmoPerMagazine;

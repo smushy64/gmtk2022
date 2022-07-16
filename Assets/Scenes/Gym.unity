@@ -176,6 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 257800435}
   - component: {fileID: 257800436}
+  - component: {fileID: 257800437}
   m_Layer: 0
   m_Name: WeaponHolder
   m_TagString: Untagged
@@ -213,9 +214,21 @@ MonoBehaviour:
   cam: {fileID: 1769081235}
   pivot: {fileID: 726214083}
   weapon: {fileID: 1835031881}
-  maxShotgunReserve: 1000
-  maxPistolReserve: 1000
-  maxRifleReserve: 1000
+--- !u!114 &257800437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 257800434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 632378751d50c5a4cb0e91092e015f73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxShotgunReserve: 100
+  maxPistolReserve: 100
+  maxRifleReserve: 100
 --- !u!850595691 &372791164
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -351,8 +364,12 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   jumpingVelocity: {x: 0, y: -3}
+  lookStrength: {x: 5, y: 5}
+  maxLookAngle: {x: 5, y: 5}
   damping: 1
   frequency: 10
+  lookDamping: 1
+  lookFrequency: 15
 --- !u!1 &870979995
 GameObject:
   m_ObjectHideFlags: 3

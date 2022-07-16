@@ -12,6 +12,9 @@ namespace Docien.FPSMovement
 
         private PlayerInput m_PlayerInput;
         private InputAction m_LookAction;
+        private Vector2 lastDelta = Vector2.zero;
+
+        public Vector2 LastDelta => lastDelta;
 
         private void Awake()
         {
@@ -23,6 +26,7 @@ namespace Docien.FPSMovement
         private void LateUpdate()
         {
             Vector2 mouseDelta = m_LookAction.ReadValue<Vector2>() * (m_Sensitivity / 100f);
+            lastDelta = mouseDelta;
             Vector3 eulerAngles = ConvertEulerToHalfRotation(m_Orientation.localEulerAngles);
             // Yaw - Horizontal Mouse Movement
             eulerAngles.y += mouseDelta.x;
