@@ -7,6 +7,8 @@ public class UIHud : MonoBehaviour
     UIBar reticleHealthBar, healthBar, ammoBar;
     [SerializeField]
     UIAmmoCounter ammoCounter;
+    [SerializeField]
+    UIAmmoType ammoType;
 
     public void UpdateHealth( float newHealth, float maxHealth ) {
         float value = newHealth / maxHealth;
@@ -14,9 +16,13 @@ public class UIHud : MonoBehaviour
         healthBar.SetValue(value);
     }
 
-    public void UpdateAmmo( int count, int totalMagazine, int totalReserve) {
+    public void UpdateAmmo( int count, int totalMagazine, int totalReserve ) {
         ammoCounter.UpdateCounter(count, totalReserve);
         ammoBar.SetValue( (float)count / (float)totalMagazine );
+    }
+
+    public void UpdateAmmoType( GunType type ) {
+        ammoType.SetAmmoType(type);
     }
 
 }

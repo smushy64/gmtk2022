@@ -60,7 +60,10 @@ namespace Docien.FPSMovement
 
             Vector3 newPosition = Vector3.Lerp(positionLeft, positionRight, current.x);
             float newLean = (current.x * 2f - 1f) * maxLeanDegrees;
-            lookTarget = new Vector2(Mathf.Clamp(look.LastDelta.x * lookStrength.x, -maxLookAngle.x, maxLookAngle.x), Mathf.Clamp(look.LastDelta.y * lookStrength.y, -maxLookAngle.y, maxLookAngle.y));
+            lookTarget = new Vector2(
+                Mathf.Clamp(look.LastDelta.x * lookStrength.x, -maxLookAngle.x, maxLookAngle.x),
+                Mathf.Clamp(look.LastDelta.y * lookStrength.y, -maxLookAngle.y, maxLookAngle.y)
+            );
             SpringMotion.CalcDampedSimpleHarmonicMotion(ref lookCurrent, ref lookVel, lookTarget,
                 Time.deltaTime, lookFrequency, lookDamping);
 

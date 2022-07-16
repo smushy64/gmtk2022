@@ -13,38 +13,52 @@ MonoBehaviour:
   m_Name: GunDataRanges
   m_EditorClassIdentifier: 
   shotgunDamagePerShotMultiplier: 0.2
-  commonDamagePerShotRange: {x: 10, y: 20}
-  commonMagazineCapacityRange: {x: 1, y: 15}
-  commonPelletsPerShotRange: {x: 10, y: 15}
-  commonAmmoConsumptionPerShot: {x: 1, y: 1}
-  commonRecoilMultiplier: {x: 1, y: 1}
-  goodDamagePerShotRange: {x: 10, y: 20}
-  goodMagazineCapacityRange: {x: 2, y: 25}
-  goodPelletsPerShotRange: {x: 12, y: 18}
-  goodAmmoConsumptionPerShot: {x: 1, y: 1}
-  goodRecoilMultiplier: {x: 0.8, y: 1}
-  greatDamagePerShotRange: {x: 15, y: 20}
-  greatMagazineCapacityRange: {x: 3, y: 50}
-  greatPelletsPerShotRange: {x: 15, y: 18}
-  greatAmmoConsumptionPerShot: {x: 1, y: 1}
-  greatRecoilMultiplier: {x: 0.7, y: 0.95}
-  mediocreDamagePerShotRange: {x: 9, y: 18}
-  mediocreMagazineCapacityRange: {x: 1, y: 8}
-  mediocrePelletsPerShotRange: {x: 8, y: 12}
-  mediocreAmmoConsumptionPerShot: {x: 1, y: 2}
-  mediocreRecoilMultiplier: {x: 1.1, y: 1.25}
-  terribleDamagePerShotRange: {x: 4, y: 8}
-  terribleMagazineCapacityRange: {x: 2, y: 8}
-  terriblePelletsPerShotRange: {x: 5, y: 10}
-  terribleAmmoConsumptionPerShot: {x: 1, y: 5}
-  terribleRecoilMultiplier: {x: 1.25, y: 1.5}
-  incredibleDamagePerShotRange: {x: 15, y: 30}
-  incredibleMagazineCapacityRange: {x: 20, y: 100}
-  incrediblePelletsPerShotRange: {x: 20, y: 30}
-  incredibleAmmoConsumptionPerShot: {x: 1, y: 1}
-  incredibleRecoilMultiplier: {x: 0.5, y: 0.7}
-  legendaryDamagePerShotRange: {x: 40, y: 50}
-  legendaryMagazineCapacityRange: {x: 30, y: 150}
-  legendaryPelletsPerShotRange: {x: 35, y: 45}
-  legendaryAmmoConsumptionPerShot: {x: 1, y: 1}
-  legendaryRecoilMultiplier: {x: 0.25, y: 0.5}
+  common:
+    DamagePerShot: {x: 15, y: 25}
+    DelayBetweenShots: {x: 1, y: 1}
+    MagazineCapacity: {x: 10, y: 15}
+    PelletsPerShot: {x: 5, y: 10}
+    AmmoConsumptionPerShot: {x: 1, y: 1}
+    RecoilMultiplier: {x: 1, y: 1}
+  good:
+    DamagePerShot: {x: 15, y: 30}
+    DelayBetweenShots: {x: 0.8, y: 1}
+    MagazineCapacity: {x: 10, y: 20}
+    PelletsPerShot: {x: 8, y: 12}
+    AmmoConsumptionPerShot: {x: 1, y: 1}
+    RecoilMultiplier: {x: 0.95, y: 1}
+  great:
+    DamagePerShot: {x: 20, y: 35}
+    DelayBetweenShots: {x: 0.75, y: 0.9}
+    MagazineCapacity: {x: 10, y: 30}
+    PelletsPerShot: {x: 12, y: 18}
+    AmmoConsumptionPerShot: {x: 1, y: 1}
+    RecoilMultiplier: {x: 0.85, y: 1}
+  mediocre:
+    DamagePerShot: {x: 10, y: 20}
+    DelayBetweenShots: {x: 1, y: 1.1}
+    MagazineCapacity: {x: 5, y: 12}
+    PelletsPerShot: {x: 4, y: 8}
+    AmmoConsumptionPerShot: {x: 1, y: 2}
+    RecoilMultiplier: {x: 1, y: 1.15}
+  terrible:
+    DamagePerShot: {x: 8, y: 15}
+    DelayBetweenShots: {x: 1, y: 1.2}
+    MagazineCapacity: {x: 4, y: 10}
+    PelletsPerShot: {x: 3, y: 6}
+    AmmoConsumptionPerShot: {x: 1, y: 3}
+    RecoilMultiplier: {x: 1.15, y: 1.3}
+  incredible:
+    DamagePerShot: {x: 25, y: 35}
+    DelayBetweenShots: {x: 0.7, y: 0.85}
+    MagazineCapacity: {x: 20, y: 40}
+    PelletsPerShot: {x: 12, y: 18}
+    AmmoConsumptionPerShot: {x: 1, y: 1}
+    RecoilMultiplier: {x: 0.75, y: 0.95}
+  legendary:
+    DamagePerShot: {x: 30, y: 45}
+    DelayBetweenShots: {x: 0.65, y: 0.8}
+    MagazineCapacity: {x: 30, y: 60}
+    PelletsPerShot: {x: 15, y: 20}
+    AmmoConsumptionPerShot: {x: 1, y: 1}
+    RecoilMultiplier: {x: 0.65, y: 0.85}

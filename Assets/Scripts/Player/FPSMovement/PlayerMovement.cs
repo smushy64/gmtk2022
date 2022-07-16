@@ -74,11 +74,15 @@ namespace Docien.FPSMovement
         private bool m_IsGrounded, m_WasGrounded = true;
         private bool m_IsTouchingWall = false;
 
+        Vector2 input;
+
         public bool IsCrouching => m_IsCrouched;
         public bool IsSliding => m_IsSliding;
         public bool IsWallRunning => m_IsWallRunning;
         public bool IsInWater => m_Submergance > 0;
         public bool IsSubmerged => m_Submergance >= m_SubmerganceThreshold;
+        public bool IsGrounded => m_IsGrounded;
+        public Vector2 InputDirection => input;
         public Vector3 TransverseVelocity => new Vector3(m_Rigidbody.velocity.x, 0f, m_Rigidbody.velocity.z);
         public Vector3 RelativeVelocity => m_Rigidbody.velocity - m_GroundVel;
         public Vector3 RelativeTransverseVelocity => new Vector3(m_Rigidbody.velocity.x - m_GroundVel.x, 0f, m_Rigidbody.velocity.z - m_GroundVel.z);
@@ -183,7 +187,7 @@ namespace Docien.FPSMovement
             UpdateJumpBuffer();
 
             m_WasGrounded = m_IsGrounded;
-            m_IsGrounded = IsGrounded() || SnapToGround();
+            m_IsGrounded = GroundCheck() || SnapToGround();
             m_IsWallRunning = false;
 
             UpdateGroundVelocity();
@@ -405,7 +409,7 @@ namespace Docien.FPSMovement
         // Reads movement input, then transforms it into world space.
         private Vector3 GetDesiredMovementDirection()
         {
-            Vector2 input = m_MoveAction.ReadValue<Vector2>();
+            input = m_MoveAction.ReadValue<Vector2>();
             // make sure that our input never exceeds one
             float magnitude = Mathf.Clamp01(input.magnitude);
 
@@ -525,7 +529,7 @@ namespace Docien.FPSMovement
             m_Rigidbody.AddForce(neededFrictionForce, ForceMode.Acceleration);
         }
 
-        private bool IsGrounded()
+        private bool GroundCheck()
         {
             var ray = new Ray(WorldPositionCenter, Vector3.down);
             float sphereCastDistance = (m_Collider.height / 2f) - m_GroundCheckRadius + m_GroundCheckDistance;

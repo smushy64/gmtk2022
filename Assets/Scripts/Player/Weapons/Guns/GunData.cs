@@ -116,7 +116,7 @@ public class GunData
             case GunType.Pistol: return "Pistol";
             case GunType.Shotgun: return "Shotgun";
             case GunType.Rifle: return "Rifle";
-            case GunType.Launcher: return "Rocket Launcher";
+            case GunType.Rocket: return "Rocket Launcher";
             default: case GunType.Energy: return "Energy Gun";
         }
     }
@@ -131,7 +131,7 @@ public enum GunType
     // Auto
     Rifle,
     // Semi, delayed
-    Launcher,
+    Rocket,
     // Continuous
     Energy
 }
