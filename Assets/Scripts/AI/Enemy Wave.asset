@@ -1,0 +1,165 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8df3d11004b38d40917c115b491f5bf, type: 3}
+  m_Name: Enemy Wave
+  m_EditorClassIdentifier: 
+  BasicEnemyPrefab: {fileID: 722317170309931213, guid: cf72d8aa387f0ed4d894f2df054d7893, type: 3}
+  RangedEnemyPrefab: {fileID: 3976502244827298099, guid: af083db8df0c6dc46a87c2b7b8ccc39d, type: 3}
+  ExposiveEnemyPrefab: {fileID: 2173098000810962335, guid: 5b31e80249ca793458d6ca0cbaa061ef, type: 3}
+  FlyingEnemyPrefab: {fileID: 2278191097623394338, guid: 621d1e8a6871f2446bc223c4a1dc2bd1, type: 3}
+  GiantEnemyPrefab: {fileID: 2821285509538308034, guid: 257bb2fc87b299e40bc921d372271f06, type: 3}
+  CurrentWave: 0
+  Waves:
+  - BasicEnemy: 3
+    RangedEnemies: 1
+    ExplosiveEnemies: 0
+    FlyingEnemies: 0
+    GiantEnemies: 0
+    TimeToSpawnBasicEnemy: 0
+    TimeToSpawnRangedEnemy: 3
+    TimeToSpawnExplosiveEnemy: 1
+    TimeToSpawnFlyingEnemy: 0
+    TimeToSpawnGiantEnemy: 0
+    TimeBetweenBasicEnemy: 0.75
+    TimeBetweenRangedEnemy: 0
+    TimeBetweenExplosiveEnemy: 2
+    TimeBetweenFlyingEnemy: 0.75
+    TimeBetweenGiantEnemy: 0
+    ChangeMusic: 1
+    MusicStartTime: 0
+    MusicClip: {fileID: 8300000, guid: 106591edf5314ef4ebc591b4304c4d35, type: 3}
+  - BasicEnemy: 3
+    RangedEnemies: 3
+    ExplosiveEnemies: 1
+    FlyingEnemies: 0
+    GiantEnemies: 0
+    TimeToSpawnBasicEnemy: 0
+    TimeToSpawnRangedEnemy: 3
+    TimeToSpawnExplosiveEnemy: 10
+    TimeToSpawnFlyingEnemy: 0
+    TimeToSpawnGiantEnemy: 0
+    TimeBetweenBasicEnemy: 0.75
+    TimeBetweenRangedEnemy: 1.5
+    TimeBetweenExplosiveEnemy: 0
+    TimeBetweenFlyingEnemy: 0
+    TimeBetweenGiantEnemy: 0
+    ChangeMusic: 0
+    MusicStartTime: 17
+    MusicClip: {fileID: 8300000, guid: 106591edf5314ef4ebc591b4304c4d35, type: 3}
+  - BasicEnemy: 5
+    RangedEnemies: 3
+    ExplosiveEnemies: 3
+    FlyingEnemies: 0
+    GiantEnemies: 0
+    TimeToSpawnBasicEnemy: 0
+    TimeToSpawnRangedEnemy: 3
+    TimeToSpawnExplosiveEnemy: 10
+    TimeToSpawnFlyingEnemy: 0
+    TimeToSpawnGiantEnemy: 0
+    TimeBetweenBasicEnemy: 1
+    TimeBetweenRangedEnemy: 1
+    TimeBetweenExplosiveEnemy: 1
+    TimeBetweenFlyingEnemy: 0
+    TimeBetweenGiantEnemy: 0
+    ChangeMusic: 0
+    MusicStartTime: 0
+    MusicClip: {fileID: 0}
+  - BasicEnemy: 0
+    RangedEnemies: 10
+    ExplosiveEnemies: 0
+    FlyingEnemies: 0
+    GiantEnemies: 0
+    TimeToSpawnBasicEnemy: 0
+    TimeToSpawnRangedEnemy: 0
+    TimeToSpawnExplosiveEnemy: 0
+    TimeToSpawnFlyingEnemy: 0
+    TimeToSpawnGiantEnemy: 0
+    TimeBetweenBasicEnemy: 0
+    TimeBetweenRangedEnemy: 0.75
+    TimeBetweenExplosiveEnemy: 0
+    TimeBetweenFlyingEnemy: 0
+    TimeBetweenGiantEnemy: 0
+    ChangeMusic: 0
+    MusicStartTime: 0
+    MusicClip: {fileID: 0}
+  - BasicEnemy: 3
+    RangedEnemies: 3
+    ExplosiveEnemies: 3
+    FlyingEnemies: 3
+    GiantEnemies: 0
+    TimeToSpawnBasicEnemy: 0
+    TimeToSpawnRangedEnemy: 2
+    TimeToSpawnExplosiveEnemy: 5
+    TimeToSpawnFlyingEnemy: 5
+    TimeToSpawnGiantEnemy: 0
+    TimeBetweenBasicEnemy: 2
+    TimeBetweenRangedEnemy: 0.75
+    TimeBetweenExplosiveEnemy: 4
+    TimeBetweenFlyingEnemy: 3
+    TimeBetweenGiantEnemy: 0
+    ChangeMusic: 0
+    MusicStartTime: 0
+    MusicClip: {fileID: 0}
+  - BasicEnemy: 5
+    RangedEnemies: 3
+    ExplosiveEnemies: 5
+    FlyingEnemies: 5
+    GiantEnemies: 0
+    TimeToSpawnBasicEnemy: 5
+    TimeToSpawnRangedEnemy: 5
+    TimeToSpawnExplosiveEnemy: 5
+    TimeToSpawnFlyingEnemy: 0
+    TimeToSpawnGiantEnemy: 0
+    TimeBetweenBasicEnemy: 2
+    TimeBetweenRangedEnemy: 0.75
+    TimeBetweenExplosiveEnemy: 2
+    TimeBetweenFlyingEnemy: 0.75
+    TimeBetweenGiantEnemy: 0
+    ChangeMusic: 0
+    MusicStartTime: 0
+    MusicClip: {fileID: 0}
+  - BasicEnemy: 3
+    RangedEnemies: 3
+    ExplosiveEnemies: 5
+    FlyingEnemies: 2
+    GiantEnemies: 1
+    TimeToSpawnBasicEnemy: 1
+    TimeToSpawnRangedEnemy: 6
+    TimeToSpawnExplosiveEnemy: 6
+    TimeToSpawnFlyingEnemy: 6
+    TimeToSpawnGiantEnemy: 5
+    TimeBetweenBasicEnemy: 3
+    TimeBetweenRangedEnemy: 0.75
+    TimeBetweenExplosiveEnemy: 0.75
+    TimeBetweenFlyingEnemy: 0.75
+    TimeBetweenGiantEnemy: 0
+    ChangeMusic: 1
+    MusicStartTime: 0
+    MusicClip: {fileID: 8300000, guid: 20db8dd4b75024742b7798d25524327c, type: 3}
+  - BasicEnemy: 5
+    RangedEnemies: 5
+    ExplosiveEnemies: 5
+    FlyingEnemies: 5
+    GiantEnemies: 3
+    TimeToSpawnBasicEnemy: 1
+    TimeToSpawnRangedEnemy: 1
+    TimeToSpawnExplosiveEnemy: 1
+    TimeToSpawnFlyingEnemy: 1
+    TimeToSpawnGiantEnemy: 1
+    TimeBetweenBasicEnemy: 1
+    TimeBetweenRangedEnemy: 0.75
+    TimeBetweenExplosiveEnemy: 1
+    TimeBetweenFlyingEnemy: 0.75
+    TimeBetweenGiantEnemy: 5
+    ChangeMusic: 0
+    MusicStartTime: 0
+    MusicClip: {fileID: 0}
