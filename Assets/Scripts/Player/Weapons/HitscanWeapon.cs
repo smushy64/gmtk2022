@@ -2,13 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
+using System;
 
 public class HitscanWeapon : MonoBehaviour
 {
-    private float fireRate = 1f;
+    [SerializeField] private AmmoType type;
+    [SerializeField] private int maxAmmoPerMagazine = 10;
+    [SerializeField] private float fireRate = 1f;
+    [SerializeField] private float reloadDuration = 1f;
+    [SerializeField] private float spread = 0f;
+    [SerializeField] private int pelletsPerShot = 1;
+    private WeaponAnimator animator;
     private float timeSinceLastShot = 0f;
+    private int ammoInMag = 0;
+    private bool isReloading = false;
 
+    public AmmoType Type => type;
     public bool CanFire => timeSinceLastShot >= 1f / fireRate;
+    public bool CanReload => !IsReloading && AmmoLeftAsPercentage < 1f;
+    public int MaxAmmo => maxAmmoPerMagazine;
+    public int AmmoLeft => ammoInMag;
+    public float AmmoLeftAsPercentage => ammoInMag / (float)maxAmmoPerMagazine;
+    public bool IsReloading => isReloading;
+
+    private void Awake()
+    {
+        animator = GetComponent<WeaponAnimator>();
+        ammoInMag = maxAmmoPerMagazine;
+    }
 
     private void OnEnable()
     {
@@ -24,15 +45,55 @@ public class HitscanWeapon : MonoBehaviour
     public void Fire(Vector3 origin, Vector3 direction)
     {
         timeSinceLastShot = 0f;
+        ammoInMag--;
 
-        Ray ray = new Ray(origin, direction);
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        for (int i = 0; i < pelletsPerShot; i++)
         {
-            Debug.DrawLine(origin, hit.point, Color.blue, 3f);
+            Vector3 dir = CalculateSpread(direction);
+            Ray ray = new Ray(origin, dir);
+            if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+            {
+                Debug.DrawLine(origin, hit.point, Color.blue, 3f);
+            }
+            else
+            {
+                Debug.DrawRay(origin, dir * 100f, Color.red, 3f);
+            }
         }
-        else
+    }
+
+    private Vector3 CalculateSpread(Vector3 dir)
+    {
+        Vector3 rotatedDir = Quaternion.AngleAxis(UnityEngine.Random.Range(0f, spread), Vector3.up) * dir;
+        return Quaternion.AngleAxis(UnityEngine.Random.Range(0f, 360f), dir) * rotatedDir;
+    }
+
+    public void AddAmmo(int amount) => ammoInMag += amount;
+
+    public void StartReload(Action onReloadFinished)
+    {
+        reloadAnimation = StartReloadAnimation(onReloadFinished);
+        StartCoroutine(reloadAnimation);
+    }
+
+    public void StopReload()
+    {
+        if (isReloading && reloadAnimation != null)
         {
-            Debug.DrawRay(origin, direction * 100f, Color.red, 3f);
+            isReloading = false;
+            StopCoroutine(reloadAnimation);
+            animator.QuitReload();
         }
+    }
+
+    IEnumerator reloadAnimation;
+    private IEnumerator StartReloadAnimation(Action onReloadFinished)
+    {
+        isReloading = true;
+        animator.StartReload();
+        yield return new WaitForSeconds(reloadDuration);
+        animator.EndReload();
+        isReloading = false;
+        onReloadFinished?.Invoke();
     }
 }

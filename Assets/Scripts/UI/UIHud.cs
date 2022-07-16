@@ -14,9 +14,9 @@ public class UIHud : MonoBehaviour
         healthBar.SetValue(value);
     }
 
-    public void UpdateAmmo( int count, int total ) {
-        ammoCounter.UpdateCounter(count, total);
-        ammoBar.SetValue( (float)count / (float)total );
+    public void UpdateAmmo( int count, int totalMagazine, int totalReserve) {
+        ammoCounter.UpdateCounter(count, totalReserve);
+        ammoBar.SetValue( (float)count / (float)totalMagazine );
     }
 
 }
