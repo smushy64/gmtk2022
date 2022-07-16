@@ -1,46 +1,105 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using Docien.Springs;
 
 public class WeaponAnimator : MonoBehaviour
 {
     [SerializeField] private float reloadAngle;
-    [SerializeField] private float damping = 0.5f;
-    [SerializeField] private float frequency = 10f;
+    [SerializeField] private float reloadTransitionInDuration;
+    [SerializeField] private float reloadTransitionOutDuration;
+    [SerializeField] private float swapAngle;
+    [SerializeField] private float equipTransitionDuration;
+    [SerializeField] private float unequipTransitionDuration;
 
-    private float target = 0f;
-    private float vel = 0f;
+    private IEnumerator currentAnimation;
 
-    private void Update()
+    #region RELOAD
+    public void StartReload(float duration, Action onComplete)
     {
-        float currentRotationX = transform.localEulerAngles.x;
-        if (currentRotationX > 180f)
-            currentRotationX -= 360f;
-
-        SpringMotion.CalcDampedSimpleHarmonicMotion(ref currentRotationX, ref vel, target, Time.deltaTime, frequency, damping);
-        UpdateRotation(currentRotationX);
+        PlayAnimation(Reload(duration, onComplete));
     }
 
-    public void StartReload()
+    IEnumerator reload;
+    private IEnumerator Reload(float duration, Action onReloadFinished)
     {
-        target = 50f;
+        yield return StartCoroutine(TransitionTo(
+            reloadTransitionInDuration, 
+            transform.localEulerAngles.x, 
+            reloadAngle,
+            EaseInQuad));
+
+        yield return new WaitForSeconds(duration);
+        onReloadFinished?.Invoke();
+
+        yield return StartCoroutine(TransitionTo(
+            reloadTransitionOutDuration,
+            transform.localEulerAngles.x, 
+            0f,
+            EaseOutQuint));
+    }
+    #endregion
+    #region EQUIP
+    public void StartEquip(Action onComplete)
+    {
+        PlayAnimation(Equip(onComplete));
     }
 
-    public void EndReload()
+    IEnumerator equip;
+    private IEnumerator Equip(Action onComplete)
     {
-        target = 0f;
+        yield return StartCoroutine(TransitionTo(
+            equipTransitionDuration,
+            swapAngle,
+            0f,
+            EaseOutQuint));
+
+        onComplete?.Invoke();
+    }
+    #endregion
+    #region UNEQUIP
+    public void StartUnequip(Action onComplete)
+    {
+        PlayAnimation(Unequip(onComplete));
     }
 
-    public void QuitReload()
+    IEnumerator unequip;
+    private IEnumerator Unequip(Action onComplete)
     {
-        target = 0f;
-        vel = 0f;
-        UpdateRotation(target);
+        yield return StartCoroutine(TransitionTo(
+               unequipTransitionDuration,
+               transform.localEulerAngles.x,
+               swapAngle,
+               EaseInQuad));
+
+        onComplete?.Invoke();
+    }
+    #endregion
+
+    private IEnumerator TransitionTo(float duration, float from, float to, Func<float, float> ease)
+    {
+        float timer = 0f;
+        while (timer < duration)
+        {
+            timer += Time.deltaTime;
+            float t = timer / duration;
+            UpdateRotation(Mathf.Lerp(from, to, ease(t)));
+            yield return null;
+        }
     }
 
-    private void UpdateRotation(float newX)
+    private void PlayAnimation(IEnumerator animation)
     {
-        transform.localEulerAngles = new Vector3(newX, transform.localRotation.y, transform.localRotation.z);
+        if (currentAnimation != null)
+            StopCoroutine(currentAnimation);
+
+        currentAnimation = animation;
+        StartCoroutine(currentAnimation);
     }
+
+    #region EASINGS
+    private float EaseOutQuint(float t) => 1 - Mathf.Pow(1 - t, 5f);
+    private float EaseInQuad(float t) => t * t;
+    #endregion
+
+    private void UpdateRotation(float newX) => transform.localEulerAngles = new Vector3(newX, 0f, 0f);
 }

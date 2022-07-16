@@ -15,15 +15,13 @@ public class HitscanWeapon : MonoBehaviour
     private WeaponAnimator animator;
     private float timeSinceLastShot = 0f;
     private int ammoInMag = 0;
-    private bool isReloading = false;
 
     public Ammo.Type Type => type;
     public bool CanFire => timeSinceLastShot >= 1f / fireRate;
-    public bool CanReload => !IsReloading && AmmoLeftAsPercentage < 1f;
+    public bool CanReload => AmmoLeftAsPercentage < 1f;
     public int MaxAmmo => maxAmmoPerMagazine;
     public int AmmoLeft => ammoInMag;
     public float AmmoLeftAsPercentage => ammoInMag / (float)maxAmmoPerMagazine;
-    public bool IsReloading => isReloading;
 
     private void Awake()
     {
@@ -72,28 +70,16 @@ public class HitscanWeapon : MonoBehaviour
 
     public void StartReload(Action onReloadFinished)
     {
-        reloadAnimation = StartReloadAnimation(onReloadFinished);
-        StartCoroutine(reloadAnimation);
+        animator.StartReload(reloadDuration, onReloadFinished);
     }
 
-    public void StopReload()
+    public void Equip(Action onComplete = null)
     {
-        if (isReloading && reloadAnimation != null)
-        {
-            isReloading = false;
-            StopCoroutine(reloadAnimation);
-            animator.QuitReload();
-        }
+        animator.StartEquip(onComplete);
     }
 
-    IEnumerator reloadAnimation;
-    private IEnumerator StartReloadAnimation(Action onReloadFinished)
+    public void Unequip(Action onComplete = null)
     {
-        isReloading = true;
-        animator.StartReload();
-        yield return new WaitForSeconds(reloadDuration);
-        animator.EndReload();
-        isReloading = false;
-        onReloadFinished?.Invoke();
+        animator.StartUnequip(onComplete);
     }
 }

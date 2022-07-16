@@ -913,7 +913,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh36574
+  m_Name: pb_Mesh63928
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1944,5 +1944,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   reloadAngle: 50
-  damping: 0.6
-  frequency: 15
+  reloadTransitionInDuration: 0.1
+  reloadTransitionOutDuration: 0.3
+  swapAngle: 50
+  equipTransitionDuration: 0.2
+  unequipTransitionDuration: 0.1
