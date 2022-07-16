@@ -6,116 +6,113 @@ public class GunDataRanges : ScriptableObject
 
     public Vector2 GetDamagePerShotRange( GunQuality quality ) {
         switch( quality ) {
-            case GunQuality.Good:            return goodDamagePerShotRange;
-            case GunQuality.Great:           return greatDamagePerShotRange;
-            case GunQuality.Terrible:        return terribleDamagePerShotRange;
-            case GunQuality.Mediocre:        return mediocreDamagePerShotRange;
-            case GunQuality.Incredible:      return incredibleDamagePerShotRange;
-            case GunQuality.Legendary:       return legendaryDamagePerShotRange;
-            default: case GunQuality.Common: return commonDamagePerShotRange;
+            case GunQuality.Good:            return good.DamagePerShot;
+            case GunQuality.Great:           return great.DamagePerShot;
+            case GunQuality.Terrible:        return terrible.DamagePerShot;
+            case GunQuality.Mediocre:        return mediocre.DamagePerShot;
+            case GunQuality.Incredible:      return incredible.DamagePerShot;
+            case GunQuality.Legendary:       return legendary.DamagePerShot;
+            default: case GunQuality.Common: return common.DamagePerShot;
         }
     }
     public Vector2Int GetMagazineCapacityRange( GunQuality quality ) {
         switch( quality ) {
-            case GunQuality.Good:            return goodMagazineCapacityRange;
-            case GunQuality.Great:           return greatMagazineCapacityRange;
-            case GunQuality.Terrible:        return terribleMagazineCapacityRange;
-            case GunQuality.Mediocre:        return mediocreMagazineCapacityRange;
-            case GunQuality.Incredible:      return incredibleMagazineCapacityRange;
-            case GunQuality.Legendary:       return legendaryMagazineCapacityRange;
-            default: case GunQuality.Common: return commonMagazineCapacityRange;
+            case GunQuality.Good:            return good.MagazineCapacity;
+            case GunQuality.Great:           return great.MagazineCapacity;
+            case GunQuality.Terrible:        return terrible.MagazineCapacity;
+            case GunQuality.Mediocre:        return mediocre.MagazineCapacity;
+            case GunQuality.Incredible:      return incredible.MagazineCapacity;
+            case GunQuality.Legendary:       return legendary.MagazineCapacity;
+            default: case GunQuality.Common: return common.MagazineCapacity;
         }
     }
     public Vector2Int GetPelletsPerShotRange( GunQuality quality ) {
         switch( quality ) {
-            case GunQuality.Good:            return goodPelletsPerShotRange;
-            case GunQuality.Great:           return greatPelletsPerShotRange;
-            case GunQuality.Terrible:        return terriblePelletsPerShotRange;
-            case GunQuality.Mediocre:        return mediocrePelletsPerShotRange;
-            case GunQuality.Incredible:      return incrediblePelletsPerShotRange;
-            case GunQuality.Legendary:       return legendaryPelletsPerShotRange;
-            default: case GunQuality.Common: return commonPelletsPerShotRange;
+            case GunQuality.Good:            return good.PelletsPerShot;
+            case GunQuality.Great:           return great.PelletsPerShot;
+            case GunQuality.Terrible:        return terrible.PelletsPerShot;
+            case GunQuality.Mediocre:        return mediocre.PelletsPerShot;
+            case GunQuality.Incredible:      return incredible.PelletsPerShot;
+            case GunQuality.Legendary:       return legendary.PelletsPerShot;
+            default: case GunQuality.Common: return common.PelletsPerShot;
         }
     }
     public Vector2Int GetAmmoConsumptionPerShotRange( GunQuality quality ) {
         switch( quality ) {
-            case GunQuality.Good:            return goodAmmoConsumptionPerShot;
-            case GunQuality.Great:           return greatAmmoConsumptionPerShot;
-            case GunQuality.Terrible:        return terribleAmmoConsumptionPerShot;
-            case GunQuality.Mediocre:        return mediocreAmmoConsumptionPerShot;
-            case GunQuality.Incredible:      return incredibleAmmoConsumptionPerShot;
-            case GunQuality.Legendary:       return legendaryAmmoConsumptionPerShot;
-            default: case GunQuality.Common: return commonAmmoConsumptionPerShot;
+            case GunQuality.Good:            return good.AmmoConsumptionPerShot;
+            case GunQuality.Great:           return great.AmmoConsumptionPerShot;
+            case GunQuality.Terrible:        return terrible.AmmoConsumptionPerShot;
+            case GunQuality.Mediocre:        return mediocre.AmmoConsumptionPerShot;
+            case GunQuality.Incredible:      return incredible.AmmoConsumptionPerShot;
+            case GunQuality.Legendary:       return legendary.AmmoConsumptionPerShot;
+            default: case GunQuality.Common: return common.AmmoConsumptionPerShot;
         }
     }
     public Vector2 GetRecoilMultiplierRange( GunQuality quality ) {
         switch( quality ) {
-            case GunQuality.Good:            return goodRecoilMultiplier;
-            case GunQuality.Great:           return greatRecoilMultiplier;
-            case GunQuality.Terrible:        return terribleRecoilMultiplier;
-            case GunQuality.Mediocre:        return mediocreRecoilMultiplier;
-            case GunQuality.Incredible:      return incredibleRecoilMultiplier;
-            case GunQuality.Legendary:       return legendaryRecoilMultiplier;
-            default: case GunQuality.Common: return commonRecoilMultiplier;
+            case GunQuality.Good:            return good.RecoilMultiplier;
+            case GunQuality.Great:           return great.RecoilMultiplier;
+            case GunQuality.Terrible:        return terrible.RecoilMultiplier;
+            case GunQuality.Mediocre:        return mediocre.RecoilMultiplier;
+            case GunQuality.Incredible:      return incredible.RecoilMultiplier;
+            case GunQuality.Legendary:       return legendary.RecoilMultiplier;
+            default: case GunQuality.Common: return common.RecoilMultiplier;
+        }
+    }
+    public Vector2 GetDelayBetweenShotsMultiplierRange( GunQuality quality ) {
+        switch( quality ) {
+            case GunQuality.Good:            return good.DelayBetweenShots;
+            case GunQuality.Great:           return great.DelayBetweenShots;
+            case GunQuality.Terrible:        return terrible.DelayBetweenShots;
+            case GunQuality.Mediocre:        return mediocre.DelayBetweenShots;
+            case GunQuality.Incredible:      return incredible.DelayBetweenShots;
+            case GunQuality.Legendary:       return legendary.DelayBetweenShots;
+            default: case GunQuality.Common: return common.DelayBetweenShots;
         }
     }
 
     [Header("Shotgun Damage Per Shot Multiplier")]
     public float shotgunDamagePerShotMultiplier = 0.2f;
+    [Header("Rifle Fire Rate Multiplier")]
+    public float rifleFireRateMultipler = 0.3f;
+    [Header("Pistol Fire Rate Multiplier")]
+    public float pistolFireRateMultiplier = 0.8f;
+
+    [System.Serializable]
+    public struct Ranges {
+        public Vector2    DamagePerShot;
+        public Vector2    DelayBetweenShots;
+        public Vector2Int MagazineCapacity;
+        public Vector2Int PelletsPerShot;
+        public Vector2Int AmmoConsumptionPerShot;
+        public Vector2    RecoilMultiplier;    
+    }
 
     [Header("Common =================")]
-    public Vector2    commonDamagePerShotRange;
-    public Vector2Int commonMagazineCapacityRange;
-    public Vector2Int commonPelletsPerShotRange;
-    public Vector2Int commonAmmoConsumptionPerShot;
-    public Vector2    commonRecoilMultiplier;
+    public Ranges common;
     [Space]
 
     [Header("Good =================")]
-    public Vector2    goodDamagePerShotRange;
-    public Vector2Int goodMagazineCapacityRange;
-    public Vector2Int goodPelletsPerShotRange;
-    public Vector2Int goodAmmoConsumptionPerShot;
-    public Vector2    goodRecoilMultiplier;
+    public Ranges good;
     [Space]
 
     [Header("Great =================")]
-    public Vector2    greatDamagePerShotRange;
-    public Vector2Int greatMagazineCapacityRange;
-    public Vector2Int greatPelletsPerShotRange;
-    public Vector2Int greatAmmoConsumptionPerShot;
-    public Vector2    greatRecoilMultiplier;
+    public Ranges great;
     [Space]
 
     [Header("Mediocre =================")]
-    public Vector2    mediocreDamagePerShotRange;
-    public Vector2Int mediocreMagazineCapacityRange;
-    public Vector2Int mediocrePelletsPerShotRange;
-    public Vector2Int mediocreAmmoConsumptionPerShot;
-    public Vector2    mediocreRecoilMultiplier;
+    public Ranges mediocre;
     [Space]
 
     [Header("Terrible =================")]
-    public Vector2    terribleDamagePerShotRange;
-    public Vector2Int terribleMagazineCapacityRange;
-    public Vector2Int terriblePelletsPerShotRange;
-    public Vector2Int terribleAmmoConsumptionPerShot;
-    public Vector2    terribleRecoilMultiplier;
+    public Ranges terrible;
     [Space]
 
     [Header("Incredible =================")]
-    public Vector2    incredibleDamagePerShotRange;
-    public Vector2Int incredibleMagazineCapacityRange;
-    public Vector2Int incrediblePelletsPerShotRange;
-    public Vector2Int incredibleAmmoConsumptionPerShot;
-    public Vector2    incredibleRecoilMultiplier;
+    public Ranges incredible;
     [Space]
 
     [Header("Legendary =================")]
-    public Vector2    legendaryDamagePerShotRange;
-    public Vector2Int legendaryMagazineCapacityRange;
-    public Vector2Int legendaryPelletsPerShotRange;
-    public Vector2Int legendaryAmmoConsumptionPerShot;
-    public Vector2    legendaryRecoilMultiplier;
+    public Ranges legendary;
 
 }

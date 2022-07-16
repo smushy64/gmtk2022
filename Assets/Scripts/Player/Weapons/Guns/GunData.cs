@@ -10,6 +10,9 @@ public class GunData
     public DamageEffect damageEffect { get; private set; }
 
     public float damagePerShot { get; private set; }
+    public float delayBetweenShots { get; private set; }
+
+    public int ammoCount = 0;
 
     public int magazineCapacity { get; private set; }
     public int pelletsPerShot { get; private set; }
@@ -17,32 +20,60 @@ public class GunData
 
     public float recoilMultiplier { get; private set; }
     
-    public GunData() {
-        this.quality = GenerateGunQuality();
-        this.type = (GunType)Random.Range(0, 5);
-
-        this.name = this.quality.ToString() + " " + GunTypeText(this.type);
-
-        Vector2 range = dataRanges.GetDamagePerShotRange( this.quality );
-        this.damagePerShot = Random.Range(range.x, range.y) *
-            (this.type == GunType.Shotgun ? dataRanges.shotgunDamagePerShotMultiplier : 1f);
-
-        Vector2Int rangeInt = dataRanges.GetMagazineCapacityRange( this.quality );
-        this.magazineCapacity = Random.Range(rangeInt.x, rangeInt.y);
-
-        rangeInt = dataRanges.GetPelletsPerShotRange( this.quality );
-        this.pelletsPerShot = (this.type == GunType.Shotgun) ? Random.Range(rangeInt.x, rangeInt.y) : 1;
-
-        rangeInt = dataRanges.GetAmmoConsumptionPerShotRange( this.quality );
-        this.ammoConsumptionPerShot = Random.Range(rangeInt.x, rangeInt.y);
-
-        range = dataRanges.GetRecoilMultiplierRange(this.quality);
-        this.recoilMultiplier = Random.Range(range.x, range.y);
+    /// <summary>
+    /// returns how much ammo is taken from reserve
+    /// </summary>
+    /// <param name="reserve"></param>
+    /// <returns></returns>
+    public int Reload( int reserve ) {
+        int result = Mathf.Clamp(this.magazineCapacity - this.ammoCount, 0, reserve);
+        this.ammoCount = this.ammoCount + result;
+        return result;
     }
 
-    public GunData( GunQuality quality ) {
-        this.quality = quality;
-        this.type = (GunType)Random.Range(0, 5);
+    /// <summary>
+    /// returns if shoot is possible, if it is then the ammo count is reduced by ammo consumption per shot
+    /// </summary>
+    /// <returns></returns>
+    public bool Shoot() {
+        if( ammoCount >= ammoConsumptionPerShot ) {
+            ammoCount -= ammoConsumptionPerShot;
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public bool IsHitScan() {
+        return this.type != GunType.Rocket && this.type != GunType.Energy;
+    }
+
+    public bool IsRifle() {
+        return this.type == GunType.Rifle;
+    }
+
+    public bool IsShotgun() {
+        return this.type == GunType.Shotgun;
+    }
+
+    public bool IsProjectile() {
+        return this.type == GunType.Rocket;
+    }
+
+    public float ReloadDelayMultiplier() {
+        switch( this.type ) {
+            case GunType.Shotgun: return 1.15f;
+            case GunType.Rocket: return 1.5f;
+            case GunType.Energy: return 1.1f;
+            default: return 1f;
+        }
+    }
+
+    public GunData() {
+        this.quality = GenerateGunQuality();
+        // TODO: set max to 5
+        this.type = (GunType)Random.Range(0, 2);
 
         this.name = this.quality.ToString() + " " + GunTypeText(this.type);
 
@@ -50,17 +81,31 @@ public class GunData
         this.damagePerShot = Random.Range(range.x, range.y) *
             (this.type == GunType.Shotgun ? dataRanges.shotgunDamagePerShotMultiplier : 1f);
 
-        Vector2Int rangeInt = dataRanges.GetMagazineCapacityRange( this.quality );
+        range = dataRanges.GetDelayBetweenShotsMultiplierRange( this.quality );
+        this.delayBetweenShots = Random.Range(range.x, range.y) *
+            (
+                this.type == GunType.Rifle ? dataRanges.rifleFireRateMultipler :
+                ( this.type == GunType.Pistol ? dataRanges.pistolFireRateMultiplier : 1f )
+            );
+
+        Vector2Int rangeInt = dataRanges.GetAmmoConsumptionPerShotRange( this.quality );
+        this.ammoConsumptionPerShot = Random.Range(rangeInt.x, rangeInt.y);
+
+        rangeInt = dataRanges.GetMagazineCapacityRange( this.quality );
         this.magazineCapacity = Random.Range(rangeInt.x, rangeInt.y);
+        int mod = this.magazineCapacity % this.ammoConsumptionPerShot;
+        if( mod != 0 ) {
+            this.magazineCapacity += mod;
+        }
 
         rangeInt = dataRanges.GetPelletsPerShotRange( this.quality );
         this.pelletsPerShot = (this.type == GunType.Shotgun) ? Random.Range(rangeInt.x, rangeInt.y) : 1;
 
-        rangeInt = dataRanges.GetAmmoConsumptionPerShotRange( this.quality );
-        this.ammoConsumptionPerShot = Random.Range(rangeInt.x, rangeInt.y);
 
         range = dataRanges.GetRecoilMultiplierRange(this.quality);
         this.recoilMultiplier = Random.Range(range.x, range.y);
+
+        this.ammoCount = this.magazineCapacity;
     }
 
     public override string ToString()
@@ -116,7 +161,7 @@ public class GunData
             case GunType.Pistol: return "Pistol";
             case GunType.Shotgun: return "Shotgun";
             case GunType.Rifle: return "Rifle";
-            case GunType.Launcher: return "Rocket Launcher";
+            case GunType.Rocket: return "Rocket Launcher";
             default: case GunType.Energy: return "Energy Gun";
         }
     }
@@ -131,7 +176,7 @@ public enum GunType
     // Auto
     Rifle,
     // Semi, delayed
-    Launcher,
+    Rocket,
     // Continuous
     Energy
 }
