@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Hitscan : MonoBehaviour
 {
+    public ReticleHit reticle;
     
     [SerializeField]
     float spread = 5f;
@@ -18,6 +19,13 @@ public class Hitscan : MonoBehaviour
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
+                reticle.SetHit();
+            }
+            var enemyparent = hit.transform.GetComponentInParent<Enemy>(); //it checks if its a child object, for example the wings in flying enemy
+            if (enemyparent != null)
+            {
+                enemyparent.TakeDamage(damage);
+                reticle.SetHit();
             }
         }
         else {

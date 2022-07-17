@@ -22,7 +22,7 @@ MonoBehaviour:
   - TimeToLoot: 5
     BasicEnemy: 3
     RangedEnemies: 1
-    ExplosiveEnemies: 5
+    ExplosiveEnemies: 0
     FlyingEnemies: 0
     GiantEnemies: 0
     TimeToSpawnBasicEnemy: 0

@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class GunData
 {
+    public ScoreManager scoreManager;
     public string name { get; private set; }
     public GunType type { get; private set; }
 
@@ -19,6 +20,8 @@ public class GunData
     public int ammoConsumptionPerShot { get; private set; }
 
     public float recoilMultiplier { get; private set; }
+
+   
     
     /// <summary>
     /// returns how much ammo is taken from reserve
@@ -70,7 +73,11 @@ public class GunData
         }
     }
 
-    public GunData() {
+    public GunData(ScoreManager SM) {
+
+        if (scoreManager == null)
+            scoreManager = SM;
+
         this.quality = GenerateGunQuality();
         this.type = (GunType)Random.Range(0, 4);
 
@@ -118,12 +125,12 @@ public class GunData
     }
 
     GunQuality GenerateGunQuality() {
-        int generatedValue = Random.Range(0, 100);
+        int generatedValue = Random.Range(0, 100 - scoreManager.BetterChance);
         if( generatedValue == 0 )
             return GunQuality.Legendary;
         int step = 1;
         while( true ) {
-            generatedValue = Random.Range(0, 100);
+            generatedValue = Random.Range(0, 100 - scoreManager.BetterChance);
             switch( step ) {
                 case 1:
                     if( generatedValue < (int)GunQuality.Incredible )

@@ -41,8 +41,11 @@ public class WeaponManager : MonoBehaviour
 
     public GunData CurrentWeapon => weapons[currentWeaponIndex];
 
+    private ScoreManager SM;
+
     private void Awake()
     {
+        SM = FindObjectOfType<ScoreManager>();
         input = GetComponentInParent<PlayerInput>();
         look = GetComponentInParent<PlayerLook>();
         fire = input.actions["Fire"];
@@ -50,7 +53,7 @@ public class WeaponManager : MonoBehaviour
         reloadWeapon = input.actions["Reload"];
 
         for (int i = 0; i < MAX_WEAPON_COUNT; ++i) {
-            weapons[i] = new GunData();
+            weapons[i] = new GunData(SM);
         }
 
         CheckForEmptyWeaponSlot();

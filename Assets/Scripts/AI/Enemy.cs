@@ -4,9 +4,24 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] private SoundEffectPlayer DeathSound, EnemyHitSound;
+
     [SerializeField] private float Health;
     [SerializeField] private GameObject DieparticleOrExplosion;
     private bool isDead = false;
+
+    public float publicHealth
+    {
+        get
+        {
+            return Health;
+        }
+        set
+        {
+            //we can change maybe color of the enemy or make it a bit bigger if it got increased health
+            Health = value;
+        }
+    }
 
     private EnemyNavMesh navMeshAgent;
 
@@ -28,7 +43,11 @@ public class Enemy : MonoBehaviour
             if (navMeshAgent.IsInAttackRange)
                 EnemyActions.RemoveEnemyAttacking?.Invoke(navMeshAgent);
 
-            Destroy(this.gameObject);
+            DeathSound.Play();
+
+            Destroy(this.gameObject, .1f);
         }
+        else
+            EnemyHitSound.Play();
     }
 }
