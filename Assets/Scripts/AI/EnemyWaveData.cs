@@ -17,6 +17,8 @@ public class EnemyWaveData : ScriptableObject
 [System.Serializable]
 public class EnemyWave
 {
+    public float TimeToLoot = 30;
+
     [Header("Amout of Enemies to Spawn")]
     public int BasicEnemy;
     public int RangedEnemies, ExplosiveEnemies, FlyingEnemies, GiantEnemies;
