@@ -6,6 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private float Health;
     [SerializeField] private GameObject DieparticleOrExplosion;
+    private bool isDead = false;
 
     private EnemyNavMesh navMeshAgent;
 
@@ -18,8 +19,9 @@ public class Enemy : MonoBehaviour
     {
         Health -= damage;
 
-        if (Health <= 0)
+        if (!isDead && Health <= 0)
         {
+            isDead = true;
             Instantiate(DieparticleOrExplosion, this.transform.position, Quaternion.identity);
             EnemyActions.OnEnemyKilled?.Invoke(navMeshAgent);
 
