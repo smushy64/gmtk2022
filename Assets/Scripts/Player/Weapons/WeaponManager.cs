@@ -200,7 +200,7 @@ public class WeaponManager : MonoBehaviour
                 if (fireRateCanShoot) {
                     if( CurrentWeapon.Shoot() ) {
                         OnWeaponFire?.Invoke();
-                        hitscanWeapon.Fire( CurrentWeapon.pelletsPerShot );
+                        hitscanWeapon.Fire( CurrentWeapon.pelletsPerShot, Mathf.RoundToInt(CurrentWeapon.damagePerShot));
                         ShootDelay(CurrentWeapon.delayBetweenShots);
                         hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
                         look.Recoil();
@@ -211,7 +211,7 @@ public class WeaponManager : MonoBehaviour
                 if(fireRateCanShoot) {
                     if (CurrentWeapon.Shoot()) {
                         OnWeaponFire?.Invoke();
-                        hitscanWeapon.Fire();
+                        hitscanWeapon.Fire( Mathf.RoundToInt(CurrentWeapon.damagePerShot) );
                         ShootDelay(CurrentWeapon.delayBetweenShots);
                         hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
                         look.Recoil();
@@ -269,7 +269,7 @@ public class WeaponManager : MonoBehaviour
             } else {
                 if (CurrentWeapon.Shoot()) {
                     OnWeaponFire?.Invoke();
-                    hitscanWeapon.Fire();
+                    hitscanWeapon.Fire(Mathf.RoundToInt(CurrentWeapon.damagePerShot));
                     hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
                     look.Recoil();
                     timer = 0f;

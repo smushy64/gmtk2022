@@ -63,7 +63,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   frequency: 1
-  amplitude: 1
+  amplitude: 0.15
 --- !u!65 &526137616085611639
 BoxCollider:
   m_ObjectHideFlags: 0

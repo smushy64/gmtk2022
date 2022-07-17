@@ -8,10 +8,11 @@ public class Bullet : MonoBehaviour
     public float Damage;
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.GetComponent<SimpleHealth>() != null)
-            collision.gameObject.GetComponent<SimpleHealth>().TakeDamage(Damage);
-        else if(collision.gameObject.GetComponentInParent<SimpleHealth>() != null)
-            collision.gameObject.GetComponentInParent<SimpleHealth>().TakeDamage(Damage);
+        var health = collision.gameObject.GetComponent<PlayerHealth>();
+        if (health != null)
+        {
+            health.TakeDamage(Mathf.RoundToInt(Damage));
+        }
 
         Destroy(this.gameObject);
     }
