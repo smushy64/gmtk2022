@@ -1354,6 +1354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitscanWeapon: {fileID: 1544981217}
+  projectileWeapon: {fileID: 1544981220}
   hud: {fileID: 812517804}
 --- !u!1001 &1074396998
 PrefabInstance:
@@ -1716,7 +1717,7 @@ GameObject:
   - component: {fileID: 1287642751}
   - component: {fileID: 1287642750}
   - component: {fileID: 1287642749}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1930,7 +1931,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh130446
+  m_Name: pb_Mesh148936
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2512,6 +2513,7 @@ GameObject:
   - component: {fileID: 1544981218}
   - component: {fileID: 1544981219}
   - component: {fileID: 1544981217}
+  - component: {fileID: 1544981220}
   m_Layer: 0
   m_Name: Orientation
   m_TagString: Untagged
@@ -2548,6 +2550,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spread: 20
+  hitscanMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!114 &1544981218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2619,6 +2624,19 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   m_CrouchForceMultiplier: 0.5
+--- !u!114 &1544981220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1544981215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17430c3ab1560594a93a90044c537944, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rocketPrefab: {fileID: 1012363401511852918, guid: 76c7a70a43f353b409d72dabd8b0e6f8, type: 3}
 --- !u!1 &1695115526
 GameObject:
   m_ObjectHideFlags: 0
@@ -2843,7 +2861,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 55
+    m_Bits: 951
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0

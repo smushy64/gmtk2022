@@ -8,6 +8,8 @@ public class WeaponManager : MonoBehaviour
 {
     [SerializeField]
     Hitscan hitscanWeapon;
+    [SerializeField]
+    Projectile projectileWeapon;
 
     [SerializeField]
     UIHud hud;
@@ -195,6 +197,15 @@ public class WeaponManager : MonoBehaviour
                 break;
             case GunType.Energy:
             case GunType.Rocket:
+                if (fireRateCanShoot) {
+                    if( CurrentWeapon.Shoot() ) {
+                        OnWeaponFire?.Invoke();
+                        projectileWeapon.Fire();
+                        ShootDelay(CurrentWeapon.delayBetweenShots);
+                        hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
+                        look.Recoil();
+                    }
+                }
                 break;
             case GunType.Shotgun:
                 if (fireRateCanShoot) {
