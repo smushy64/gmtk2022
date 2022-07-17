@@ -21,6 +21,9 @@ public class UIButton :
     [SerializeField, Range(0f, 2f)]
     float animationLength = 0.15f;
 
+    [SerializeField]
+    SoundEffectPlayer sfxPlayer;
+
     void Selected() {
         selected = true;
         StopScale();
@@ -40,12 +43,14 @@ public class UIButton :
         StopScale();
         scaleButtonBack = ScaleButtonBack(Vector3.one * submitSize);
         StartCoroutine(scaleButtonBack);
+        sfxPlayer?.Play();
     }
 
     void PointerDown() {
         StopScale();
         scaleButton = ScaleButton(Vector3.one * submitSize);
         StartCoroutine(scaleButton);
+        sfxPlayer?.Play();
     }
 
     void PointerUp() {

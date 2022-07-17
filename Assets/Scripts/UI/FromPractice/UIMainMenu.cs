@@ -14,14 +14,23 @@ public class UIMainMenu : MonoBehaviour
     [SerializeField]
     string startScene;
 
+    [SerializeField]
+    AudioClip mainMenuMusic;
+
     Selectable[] buttons;
     
     void Awake() {
         buttons = transform.Find("Sidebar").GetComponentsInChildren<Selectable>();
     }
 
-    public void Start() {
-        if( startScene != "" ) {
+    private void Start()
+    {
+        MusicPlayer.Instance.PlayClip(mainMenuMusic);
+    }
+
+    public void StartGame() {
+        if (startScene != "")
+        {
             SceneManager.LoadScene(startScene);
         }
     }

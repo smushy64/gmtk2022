@@ -12,9 +12,9 @@ public static class GameOptions {
     static bool optionsLoaded = false;
 
     public static void ApplyVolume() {
-        mixer.SetFloat("Master", 20f * Mathf.Log10(PlayerOptions.masterVolume));
-        mixer.SetFloat("Music", 20f * Mathf.Log10(PlayerOptions.musicVolume));
-        mixer.SetFloat("SFX", 20f * Mathf.Log10(PlayerOptions.sfxVolume));
+        mixer.SetFloat("Master", 20f * Mathf.Log10(Mathf.Max(PlayerOptions.masterVolume, 0.0001f)));
+        mixer.SetFloat("Music", 20f * Mathf.Log10( Mathf.Max(PlayerOptions.musicVolume, 0.0001f)));
+        mixer.SetFloat("SFX", 20f * Mathf.Log10(   Mathf.Max(PlayerOptions.sfxVolume, 0.0001f)));
     }
     public static void SetMasterVolume(float v) {
         options.masterVolume = v;
