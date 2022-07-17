@@ -226,8 +226,8 @@ MonoBehaviour:
     BasicEnemy: 5
     RangedEnemies: 5
     ExplosiveEnemies: 5
-    FlyingEnemies: 5
-    GiantEnemies: 3
+    FlyingEnemies: 3
+    GiantEnemies: 1
     TimeToSpawnBasicEnemy: 1
     TimeToSpawnRangedEnemy: 1
     TimeToSpawnExplosiveEnemy: 1
@@ -248,6 +248,151 @@ MonoBehaviour:
     TimeBetweenExplosiveEnemy: 1
     TimeBetweenFlyingEnemy: 0.75
     TimeBetweenGiantEnemy: 5
+    ChangeMusic: 0
+    MusicStartTime: 0
+    MusicClip: {fileID: 0}
+  - TimeToLoot: 30
+    BasicEnemy: 10
+    RangedEnemies: 5
+    ExplosiveEnemies: 7
+    FlyingEnemies: 0
+    GiantEnemies: 1
+    TimeToSpawnBasicEnemy: 1
+    TimeToSpawnRangedEnemy: 1
+    TimeToSpawnExplosiveEnemy: 10
+    TimeToSpawnFlyingEnemy: 1
+    TimeToSpawnGiantEnemy: 10
+    BasicHealth: 10
+    RangedHealth: 10
+    ExplosiveHealth: 10
+    FlyingHealth: 10
+    GiantHealth: 50
+    BasicDamage: 2
+    RangedDamage: 2
+    ExplosiveDamage: 0
+    FlyingDamage: 5
+    GiantDamage: 10
+    TimeBetweenBasicEnemy: 1
+    TimeBetweenRangedEnemy: 0.75
+    TimeBetweenExplosiveEnemy: 5
+    TimeBetweenFlyingEnemy: 0.75
+    TimeBetweenGiantEnemy: 5
+    ChangeMusic: 0
+    MusicStartTime: 0
+    MusicClip: {fileID: 0}
+  - TimeToLoot: 30
+    BasicEnemy: 3
+    RangedEnemies: 3
+    ExplosiveEnemies: 3
+    FlyingEnemies: 0
+    GiantEnemies: 1
+    TimeToSpawnBasicEnemy: 5
+    TimeToSpawnRangedEnemy: 7
+    TimeToSpawnExplosiveEnemy: 5
+    TimeToSpawnFlyingEnemy: 5
+    TimeToSpawnGiantEnemy: 0
+    BasicHealth: 10
+    RangedHealth: 10
+    ExplosiveHealth: 10
+    FlyingHealth: 10
+    GiantHealth: 750
+    BasicDamage: 2
+    RangedDamage: 2
+    ExplosiveDamage: 0
+    FlyingDamage: 5
+    GiantDamage: 20
+    TimeBetweenBasicEnemy: 5
+    TimeBetweenRangedEnemy: 5
+    TimeBetweenExplosiveEnemy: 5
+    TimeBetweenFlyingEnemy: 5
+    TimeBetweenGiantEnemy: 0
+    ChangeMusic: 0
+    MusicStartTime: 0
+    MusicClip: {fileID: 0}
+  - TimeToLoot: 30
+    BasicEnemy: 10
+    RangedEnemies: 10
+    ExplosiveEnemies: 5
+    FlyingEnemies: 3
+    GiantEnemies: 1
+    TimeToSpawnBasicEnemy: 1
+    TimeToSpawnRangedEnemy: 5
+    TimeToSpawnExplosiveEnemy: 3
+    TimeToSpawnFlyingEnemy: 20
+    TimeToSpawnGiantEnemy: 15
+    BasicHealth: 10
+    RangedHealth: 10
+    ExplosiveHealth: 10
+    FlyingHealth: 10
+    GiantHealth: 100
+    BasicDamage: 5
+    RangedDamage: 2
+    ExplosiveDamage: 0
+    FlyingDamage: 5
+    GiantDamage: 20
+    TimeBetweenBasicEnemy: 3
+    TimeBetweenRangedEnemy: 3
+    TimeBetweenExplosiveEnemy: 3
+    TimeBetweenFlyingEnemy: 3
+    TimeBetweenGiantEnemy: 0
+    ChangeMusic: 0
+    MusicStartTime: 0
+    MusicClip: {fileID: 0}
+  - TimeToLoot: 30
+    BasicEnemy: 10
+    RangedEnemies: 5
+    ExplosiveEnemies: 20
+    FlyingEnemies: 0
+    GiantEnemies: 0
+    TimeToSpawnBasicEnemy: 1
+    TimeToSpawnRangedEnemy: 5
+    TimeToSpawnExplosiveEnemy: 0
+    TimeToSpawnFlyingEnemy: 20
+    TimeToSpawnGiantEnemy: 15
+    BasicHealth: 10
+    RangedHealth: 10
+    ExplosiveHealth: 25
+    FlyingHealth: 10
+    GiantHealth: 100
+    BasicDamage: 5
+    RangedDamage: 2
+    ExplosiveDamage: 0
+    FlyingDamage: 5
+    GiantDamage: 20
+    TimeBetweenBasicEnemy: 2
+    TimeBetweenRangedEnemy: 2
+    TimeBetweenExplosiveEnemy: 1
+    TimeBetweenFlyingEnemy: 2
+    TimeBetweenGiantEnemy: 0
+    ChangeMusic: 0
+    MusicStartTime: 0
+    MusicClip: {fileID: 0}
+  - TimeToLoot: 30
+    BasicEnemy: 25
+    RangedEnemies: 15
+    ExplosiveEnemies: 15
+    FlyingEnemies: 10
+    GiantEnemies: 3
+    TimeToSpawnBasicEnemy: 1
+    TimeToSpawnRangedEnemy: 5
+    TimeToSpawnExplosiveEnemy: 3
+    TimeToSpawnFlyingEnemy: 20
+    TimeToSpawnGiantEnemy: 15
+    BasicHealth: 50
+    RangedHealth: 50
+    ExplosiveHealth: 50
+    FlyingHealth: 50
+    GiantHealth: 250
+    BasicDamage: 8
+    RangedDamage: 5
+    ExplosiveDamage: 0
+    FlyingDamage: 7
+    GiantDamage: 30
+    TimeBetweenBasicEnemy: 5
+    TimeBetweenRangedEnemy: 12
+    TimeBetweenExplosiveEnemy: 10
+    TimeBetweenFlyingEnemy: 10
+    TimeBetweenGiantEnemy: 20
     ChangeMusic: 0
     MusicStartTime: 0
     MusicClip: {fileID: 0}
