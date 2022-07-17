@@ -12,19 +12,24 @@ public class WaveManager : MonoBehaviour
     [SerializeField] private List<Transform> spawnPoints;
     [SerializeField] private EnemyWaveData WaveData;
     [SerializeField] private float phaseOneDuration = 30f;
+    [SerializeField] private int startingWave = 0;
 
     [Header("UI")]
     [SerializeField] private GameObject waveUI;
     [SerializeField] private TextMeshProUGUI nextWaveTimerText, enemiesLeftText;
+    [SerializeField] private MusicManager music;
 
     private int currentWave = 0;
     private int currentPhase = 0;
-    private int totalEnemiesAlive = 0;
+    private int totalEnemiesKilled = 0;
     private float phaseOneTimer = 0f;
+
+    public int EnemiesLeft => WaveData.Waves[currentWave].TotalEnemies - totalEnemiesKilled;
 
     private void Awake()
     {
         EnemyActions.OnEnemyKilled += OnEnemyKill;
+        currentWave = startingWave;
 
         if (spawnPoints.Count <= 0)
         {
@@ -49,6 +54,7 @@ public class WaveManager : MonoBehaviour
 
     private void StartNextWave()
     {
+        music.CrossfadeToCombat();
         onWaveStarted?.Invoke(currentWave);
         currentPhase = 1;
         waveUI.SetActive(false);
@@ -98,9 +104,8 @@ public class WaveManager : MonoBehaviour
         {
             var point = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Count)];
             Instantiate(enemyPrefab, point.position, Quaternion.identity);
-            totalEnemiesAlive++;
+            enemiesLeftText.text = "Enemies Left: " + EnemiesLeft.ToString("0");
             i++;
-            //EnemiesLeftText.text = "Enemies Left: " + TotalEnemies.ToString("0");
             yield return new WaitForSeconds(spawnRate);
         }
     }
@@ -113,9 +118,9 @@ public class WaveManager : MonoBehaviour
         //    AddCombo(enemy.ScoreToAdd);
         //}
 
-        totalEnemiesAlive--;
-        enemiesLeftText.text = "Enemies Left: " + totalEnemiesAlive.ToString("0");
-        if (totalEnemiesAlive <= 0)
+        totalEnemiesKilled++;
+        enemiesLeftText.text = "Enemies Left: " + EnemiesLeft.ToString("0");
+        if (EnemiesLeft <= 0)
         {
             EndWave();
         }
@@ -126,12 +131,15 @@ public class WaveManager : MonoBehaviour
         if (WaveData.Waves.Length > currentWave)
             currentWave++;
 
+        BeginPhaseOne();
         onWaveEnded?.Invoke(currentWave);
     }
 
     private void BeginPhaseOne()
     {
+        music.CrossfadeToAmbient();
         waveUI.SetActive(true);
+        totalEnemiesKilled = 0;
         currentPhase = 0;
         phaseOneTimer = 0f;
     }

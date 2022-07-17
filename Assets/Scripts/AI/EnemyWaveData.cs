@@ -21,6 +21,8 @@ public class EnemyWave
     public int BasicEnemy;
     public int RangedEnemies, ExplosiveEnemies, FlyingEnemies, GiantEnemies;
 
+    public int TotalEnemies => BasicEnemy + RangedEnemies + ExplosiveEnemies + FlyingEnemies + GiantEnemies;
+
     //for example you want to spawn flying enemies 10 seconds after spawning ranged ones.
     [Header("Delay to Spawn Enemy Type")]
     public float TimeToSpawnBasicEnemy;

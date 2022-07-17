@@ -160,9 +160,10 @@ public class EnemyNavMesh : MonoBehaviour
             }
             if (CanExplode)
             {
-                FindObjectOfType<EnemyManager>().ResetCombo();
+                // FindObjectOfType<EnemyManager>().ResetCombo();
                 Exploded = true;
                 Instantiate(ExplodeParticle, this.transform.position, Quaternion.identity);
+                EnemyActions.OnEnemyKilled?.Invoke(this);
                 Destroy(this.gameObject);
             }
             if(!IsRangedEnemy && !CanExplode && !IsFlyingEnemy)
