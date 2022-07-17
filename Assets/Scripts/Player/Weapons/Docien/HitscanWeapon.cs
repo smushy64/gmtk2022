@@ -6,6 +6,8 @@ using System;
 
 public class HitscanWeapon : MonoBehaviour
 {
+    [SerializeField] private GameObject HitParticle;
+
     [SerializeField] private Ammo.Type type;
     [SerializeField] private int maxAmmoPerMagazine = 10;
     [SerializeField] private float fireRate = 1f;
@@ -55,6 +57,9 @@ public class HitscanWeapon : MonoBehaviour
                 Debug.DrawLine(origin, hit.point, Color.blue, 3f);
 
                 //added this for rn just to kill enemies
+                Instantiate(HitParticle, hit.point,  Quaternion.LookRotation(hit.normal));
+
+
                 if (hit.transform.gameObject.GetComponent<Enemy>())
                     hit.transform.gameObject.GetComponent<Enemy>().TakeDamage(Damage);
                 else if (hit.transform.gameObject.GetComponent<Enemy>() == null && hit.transform.gameObject.GetComponentInParent<Enemy>() != null)
