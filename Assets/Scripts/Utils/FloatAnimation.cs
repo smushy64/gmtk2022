@@ -8,16 +8,18 @@ public class FloatAnimation : MonoBehaviour
     [SerializeField] private float amplitude;
     [SerializeField] private float rotationSpeed;
 
-    private float y;
+    float y = 0f;
 
     private void Awake()
     {
-        y = transform.position.y;
+        y = amplitude + 0.1f;
     }
 
     private void Update()
     {
         transform.Rotate(0f, rotationSpeed * Time.deltaTime, 0f, Space.World);
-        transform.position = new Vector3(transform.position.x, y + Mathf.Sin(Time.time * frequency) * amplitude, transform.position.z);
+        transform.localPosition = new Vector3(transform.localPosition.x,
+            y + Mathf.Sin(Time.time * frequency) * amplitude,
+            transform.localPosition.z);
     }
 }
