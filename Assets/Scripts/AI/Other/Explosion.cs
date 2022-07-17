@@ -32,7 +32,7 @@ public class Explosion : MonoBehaviour
         if (collision.TryGetComponent(out PlayerHealth health))
         {
             if(collision.gameObject.tag == "PlayerExplosion")
-                health.TakeDamage(Damage / 4);
+                health.TakeDamage(Damage / 5);
             else
                 health.TakeDamage(Damage);
         }

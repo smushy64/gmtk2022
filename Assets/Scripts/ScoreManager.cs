@@ -62,17 +62,17 @@ public class ScoreManager : MonoBehaviour
     public void AddScore(int score)
     {
         extraScore = 0;
-        if (curTime > 60)
+        if (curTime > 50)
         {
             extraScore = score * 4;
             chanceincrease += 50;
         }
-        else if (curTime > 45)
+        else if (curTime > 40)
         {
             extraScore = score * 3;
             chanceincrease += 40;
         }
-        else if (curTime > 30)
+        else if (curTime > 25)
         {
             extraScore = score * 2;
             chanceincrease += 30;
