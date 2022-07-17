@@ -23,6 +23,8 @@ public class GunAnimator : MonoBehaviour
     Animator pistol, shotgun;
     [SerializeField]
     GameObject rifle, rocketLauncher;
+    [SerializeField]
+    SoundEffectPlayer pistolSFX, shotgunSFX, shotgunPumpSFX, rifleSFX, reloadSFX;
 
     [SerializeField]
     WeaponManager weapons;
@@ -33,6 +35,7 @@ public class GunAnimator : MonoBehaviour
         }
         reloadAnimation = SwitchAnimation( weapons.ReloadDelay );
         this.StartCoroutine(reloadAnimation);
+        reloadSFX.Play();
     }
 
     void OnWeaponSwitchStart() {
@@ -109,9 +112,29 @@ public class GunAnimator : MonoBehaviour
 
         if( currentWeapon == 0 ) {
             pistol.SetBool("isShooting", true);
+            pistolSFX.Play();
         } else if ( currentWeapon == 1 ) {
             shotgun.SetBool("isShooting", true);
+            shotgunSFX.Play();
+            PlayPumpSFX();
+        } else if ( currentWeapon == 2 ) {
+            rifleSFX.Play();
+        } else if ( currentWeapon == 3 ) {
+            
         }
+
+    }
+    void PlayPumpSFX() {
+        if( playPumpSFXRoutine != null ) {
+            this.StopCoroutine(playPumpSFXRoutine);
+        }
+        playPumpSFXRoutine = PlayPumpSFXRoutine();
+        this.StartCoroutine(playPumpSFXRoutine);
+    }
+    IEnumerator playPumpSFXRoutine;
+    IEnumerator PlayPumpSFXRoutine() {
+        yield return new WaitForSeconds(0.12f);
+        shotgunPumpSFX.Play();
     }
 
     IEnumerator shootAnimation;
