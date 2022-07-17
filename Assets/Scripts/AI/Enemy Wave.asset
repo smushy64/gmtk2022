@@ -28,13 +28,23 @@ MonoBehaviour:
     TimeToSpawnBasicEnemy: 0
     TimeToSpawnRangedEnemy: 3
     TimeToSpawnExplosiveEnemy: 1
-    TimeToSpawnFlyingEnemy: 0
-    TimeToSpawnGiantEnemy: 0
+    TimeToSpawnFlyingEnemy: 1
+    TimeToSpawnGiantEnemy: 1
+    BasicHealth: 0
+    RangedHealth: 0
+    ExplosiveHealth: 0
+    FlyingHealth: 0
+    GiantHealth: 0
+    BasicDamage: 0
+    RangedDamage: 0
+    ExplosiveDamage: 0
+    FlyingDamage: 0
+    GiantDamage: 0
     TimeBetweenBasicEnemy: 0.75
     TimeBetweenRangedEnemy: 0
     TimeBetweenExplosiveEnemy: 2
     TimeBetweenFlyingEnemy: 0.75
-    TimeBetweenGiantEnemy: 0
+    TimeBetweenGiantEnemy: 1
     ChangeMusic: 1
     MusicStartTime: 0
     MusicClip: {fileID: 8300000, guid: 106591edf5314ef4ebc591b4304c4d35, type: 3}
@@ -49,6 +59,16 @@ MonoBehaviour:
     TimeToSpawnExplosiveEnemy: 10
     TimeToSpawnFlyingEnemy: 0
     TimeToSpawnGiantEnemy: 0
+    BasicHealth: 0
+    RangedHealth: 0
+    ExplosiveHealth: 0
+    FlyingHealth: 0
+    GiantHealth: 0
+    BasicDamage: 0
+    RangedDamage: 0
+    ExplosiveDamage: 0
+    FlyingDamage: 0
+    GiantDamage: 0
     TimeBetweenBasicEnemy: 0.75
     TimeBetweenRangedEnemy: 1.5
     TimeBetweenExplosiveEnemy: 0
@@ -68,6 +88,16 @@ MonoBehaviour:
     TimeToSpawnExplosiveEnemy: 10
     TimeToSpawnFlyingEnemy: 0
     TimeToSpawnGiantEnemy: 0
+    BasicHealth: 0
+    RangedHealth: 0
+    ExplosiveHealth: 0
+    FlyingHealth: 0
+    GiantHealth: 0
+    BasicDamage: 0
+    RangedDamage: 0
+    ExplosiveDamage: 0
+    FlyingDamage: 0
+    GiantDamage: 0
     TimeBetweenBasicEnemy: 1
     TimeBetweenRangedEnemy: 1
     TimeBetweenExplosiveEnemy: 1
@@ -87,6 +117,16 @@ MonoBehaviour:
     TimeToSpawnExplosiveEnemy: 0
     TimeToSpawnFlyingEnemy: 0
     TimeToSpawnGiantEnemy: 0
+    BasicHealth: 0
+    RangedHealth: 0
+    ExplosiveHealth: 0
+    FlyingHealth: 0
+    GiantHealth: 0
+    BasicDamage: 0
+    RangedDamage: 0
+    ExplosiveDamage: 0
+    FlyingDamage: 0
+    GiantDamage: 0
     TimeBetweenBasicEnemy: 0
     TimeBetweenRangedEnemy: 0.75
     TimeBetweenExplosiveEnemy: 0
@@ -106,6 +146,16 @@ MonoBehaviour:
     TimeToSpawnExplosiveEnemy: 5
     TimeToSpawnFlyingEnemy: 5
     TimeToSpawnGiantEnemy: 0
+    BasicHealth: 0
+    RangedHealth: 0
+    ExplosiveHealth: 0
+    FlyingHealth: 0
+    GiantHealth: 0
+    BasicDamage: 0
+    RangedDamage: 0
+    ExplosiveDamage: 0
+    FlyingDamage: 0
+    GiantDamage: 0
     TimeBetweenBasicEnemy: 2
     TimeBetweenRangedEnemy: 0.75
     TimeBetweenExplosiveEnemy: 4
@@ -125,6 +175,16 @@ MonoBehaviour:
     TimeToSpawnExplosiveEnemy: 5
     TimeToSpawnFlyingEnemy: 0
     TimeToSpawnGiantEnemy: 0
+    BasicHealth: 0
+    RangedHealth: 0
+    ExplosiveHealth: 0
+    FlyingHealth: 0
+    GiantHealth: 0
+    BasicDamage: 0
+    RangedDamage: 0
+    ExplosiveDamage: 0
+    FlyingDamage: 0
+    GiantDamage: 0
     TimeBetweenBasicEnemy: 2
     TimeBetweenRangedEnemy: 0.75
     TimeBetweenExplosiveEnemy: 2
@@ -144,6 +204,16 @@ MonoBehaviour:
     TimeToSpawnExplosiveEnemy: 6
     TimeToSpawnFlyingEnemy: 6
     TimeToSpawnGiantEnemy: 5
+    BasicHealth: 0
+    RangedHealth: 0
+    ExplosiveHealth: 0
+    FlyingHealth: 0
+    GiantHealth: 0
+    BasicDamage: 0
+    RangedDamage: 0
+    ExplosiveDamage: 0
+    FlyingDamage: 0
+    GiantDamage: 0
     TimeBetweenBasicEnemy: 3
     TimeBetweenRangedEnemy: 0.75
     TimeBetweenExplosiveEnemy: 0.75
@@ -163,6 +233,16 @@ MonoBehaviour:
     TimeToSpawnExplosiveEnemy: 1
     TimeToSpawnFlyingEnemy: 1
     TimeToSpawnGiantEnemy: 1
+    BasicHealth: 0
+    RangedHealth: 0
+    ExplosiveHealth: 0
+    FlyingHealth: 0
+    GiantHealth: 0
+    BasicDamage: 0
+    RangedDamage: 0
+    ExplosiveDamage: 0
+    FlyingDamage: 0
+    GiantDamage: 0
     TimeBetweenBasicEnemy: 1
     TimeBetweenRangedEnemy: 0.75
     TimeBetweenExplosiveEnemy: 1

@@ -5,6 +5,11 @@ using UnityEngine.SceneManagement;
 
 public class EnemyNavMesh : MonoBehaviour
 {
+    [Header("Animations")]
+    public Animator anim;
+    public bool IsChasingAnim, IsAttackingAnim, IsPatrollingAnim;
+
+
     public int ScoreToAdd = 1;
 
     [SerializeField]
@@ -59,10 +64,22 @@ public class EnemyNavMesh : MonoBehaviour
 
     public bool IsInAttackRange => playerInAttackRange;
 
+    public SkinnedMeshRenderer Skull;
+    public MeshRenderer Eye;
+    public Material[] SkullMats;
+
     private void Start()
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        if (CanExplode)
+        {
+            Skull.material = SkullMats[Random.Range(0, SkullMats.Length)];
+        }
+        if (IsFlyingEnemy)
+        {
+            Eye.material = SkullMats[Random.Range(0, SkullMats.Length)];
+        }
     }
 
     private void FixedUpdate()
@@ -93,6 +110,12 @@ public class EnemyNavMesh : MonoBehaviour
     }
     private void Patrolling()
     {
+        if (anim != null && !IsFlyingEnemy && !CanExplode)
+        {
+            anim.SetBool("IsPatrolling", true);
+            anim.SetBool("IsChasing", false);
+            anim.SetBool("IsAttacking", false);
+        }
         IsChasing = false;
         OnAttack = false;
         agent.speed = Speed * PatrolSpeedMultiplier;
@@ -122,6 +145,13 @@ public class EnemyNavMesh : MonoBehaviour
     }
     private void ChasePlayer()
     {
+        if (anim != null && !IsFlyingEnemy && !CanExplode)
+            {
+            anim.SetBool("IsPatrolling", false);
+            anim.SetBool("IsChasing", true);
+            anim.SetBool("IsAttacking", false);
+        }
+
         if (!IsChasing)
         {
             MonsterSounds.Play();
@@ -139,11 +169,21 @@ public class EnemyNavMesh : MonoBehaviour
     private bool OnAttack = false, IsChasing = false;
     private void AttackPlayer()
     {
+        
         if (!OnAttack)
         {
             OnAttack = true;
             IsChasing = false;
-            EnemyActions.AddEnemyAttacking?.Invoke(this);
+            EnemyActions.AddEnemyAttacking?.Invoke(this); 
+            if (anim != null && !IsFlyingEnemy && !CanExplode)
+            {
+                anim.SetBool("IsPatrolling", false);
+                anim.SetBool("IsChasing", false);
+                if (!IsRangedEnemy)
+                    anim.SetBool("IsAttacking", true);
+                else
+                    anim.SetBool("IsAttacking", false);
+            }
         }
 
         agent.stoppingDistance = StopDistance;
@@ -158,10 +198,14 @@ public class EnemyNavMesh : MonoBehaviour
 
         if (!AttackedBool)
         {
+
+            MonsterSounds.Play();
             //attack is here
 
-            if(IsRangedEnemy)
-            {
+            if (IsRangedEnemy)
+            { 
+                if(!IsFlyingEnemy)
+                anim.SetTrigger("AttackRange");
                 GameObject bullet = Instantiate(ProjectilePrefab, shootpoint.transform.position, shootpoint.rotation) as GameObject;
                 bullet.GetComponent<Bullet>().Damage = Damage;
                 bullet.GetComponent<Rigidbody>().AddForce(shootpoint.forward * ProjectileSpeed);
@@ -176,7 +220,12 @@ public class EnemyNavMesh : MonoBehaviour
             }
             if(!IsRangedEnemy && !CanExplode && !IsFlyingEnemy)
             {
-                Collider[] touching = Physics.OverlapSphere(this.transform.position, 1, playerLayer, QueryTriggerInteraction.Ignore); // chekcs if enemy is spawned inside an object
+                anim.SetTrigger("Attack");
+
+                anim.SetBool("IsPatrolling", false);
+                anim.SetBool("IsChasing", false);
+                anim.SetBool("IsAttacking", false);
+                Collider[] touching = Physics.OverlapSphere(this.transform.position, 3.5f, playerLayer, QueryTriggerInteraction.Ignore); // chekcs if enemy is spawned inside an object
                 if (touching.Length != 0)
                 {
                     player.transform.gameObject.GetComponent<PlayerHealth>().TakeDamage(Mathf.RoundToInt(Damage));
