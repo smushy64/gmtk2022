@@ -24,7 +24,7 @@ public class GunAnimator : MonoBehaviour
     [SerializeField]
     GameObject rifle, rocketLauncher;
     [SerializeField]
-    SoundEffectPlayer pistolSFX, shotgunSFX, shotgunPumpSFX, rifleSFX, reloadSFX;
+    SoundEffectPlayer pistolSFX, shotgunSFX, shotgunPumpSFX, rifleSFX, rocketSFX, reloadSFX, switchSFX;
     [SerializeField]
     ParticleSystem pistolFlash, shotgunFlash, rifleFlash, rocketLauncherFlash;
     [SerializeField]
@@ -54,6 +54,7 @@ public class GunAnimator : MonoBehaviour
         }
         switchAnimation = SwitchAnimation( WeaponManager.WEAPON_SWITCH_DELAY );
         this.StartCoroutine(switchAnimation);
+        switchSFX.Play();
     }
 
     IEnumerator reloadAnimation;
@@ -129,6 +130,7 @@ public class GunAnimator : MonoBehaviour
             rifleFlash.Play();
             rifleCasing.Play();
         } else if ( currentWeapon == 3 ) {
+            rocketSFX.Play();
             rocketLauncherFlash.Play();
         }
 
