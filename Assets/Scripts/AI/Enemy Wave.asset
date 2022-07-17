@@ -19,9 +19,10 @@ MonoBehaviour:
   GiantEnemyPrefab: {fileID: 2821285509538308034, guid: 257bb2fc87b299e40bc921d372271f06, type: 3}
   CurrentWave: 0
   Waves:
-  - BasicEnemy: 3
+  - TimeToLoot: 5
+    BasicEnemy: 3
     RangedEnemies: 1
-    ExplosiveEnemies: 0
+    ExplosiveEnemies: 5
     FlyingEnemies: 0
     GiantEnemies: 0
     TimeToSpawnBasicEnemy: 0
@@ -37,7 +38,8 @@ MonoBehaviour:
     ChangeMusic: 1
     MusicStartTime: 0
     MusicClip: {fileID: 8300000, guid: 106591edf5314ef4ebc591b4304c4d35, type: 3}
-  - BasicEnemy: 3
+  - TimeToLoot: 20
+    BasicEnemy: 3
     RangedEnemies: 3
     ExplosiveEnemies: 1
     FlyingEnemies: 0
@@ -55,7 +57,8 @@ MonoBehaviour:
     ChangeMusic: 0
     MusicStartTime: 17
     MusicClip: {fileID: 8300000, guid: 106591edf5314ef4ebc591b4304c4d35, type: 3}
-  - BasicEnemy: 5
+  - TimeToLoot: 25
+    BasicEnemy: 5
     RangedEnemies: 3
     ExplosiveEnemies: 3
     FlyingEnemies: 0
@@ -73,7 +76,8 @@ MonoBehaviour:
     ChangeMusic: 0
     MusicStartTime: 0
     MusicClip: {fileID: 0}
-  - BasicEnemy: 0
+  - TimeToLoot: 15
+    BasicEnemy: 0
     RangedEnemies: 10
     ExplosiveEnemies: 0
     FlyingEnemies: 0
@@ -91,7 +95,8 @@ MonoBehaviour:
     ChangeMusic: 0
     MusicStartTime: 0
     MusicClip: {fileID: 0}
-  - BasicEnemy: 3
+  - TimeToLoot: 30
+    BasicEnemy: 3
     RangedEnemies: 3
     ExplosiveEnemies: 3
     FlyingEnemies: 3
@@ -109,7 +114,8 @@ MonoBehaviour:
     ChangeMusic: 0
     MusicStartTime: 0
     MusicClip: {fileID: 0}
-  - BasicEnemy: 5
+  - TimeToLoot: 30
+    BasicEnemy: 5
     RangedEnemies: 3
     ExplosiveEnemies: 5
     FlyingEnemies: 5
@@ -127,7 +133,8 @@ MonoBehaviour:
     ChangeMusic: 0
     MusicStartTime: 0
     MusicClip: {fileID: 0}
-  - BasicEnemy: 3
+  - TimeToLoot: 30
+    BasicEnemy: 3
     RangedEnemies: 3
     ExplosiveEnemies: 5
     FlyingEnemies: 2
@@ -145,7 +152,8 @@ MonoBehaviour:
     ChangeMusic: 1
     MusicStartTime: 0
     MusicClip: {fileID: 8300000, guid: 20db8dd4b75024742b7798d25524327c, type: 3}
-  - BasicEnemy: 5
+  - TimeToLoot: 30
+    BasicEnemy: 5
     RangedEnemies: 5
     ExplosiveEnemies: 5
     FlyingEnemies: 5
