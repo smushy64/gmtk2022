@@ -30,6 +30,14 @@ public class EnemyWave
     public float TimeToSpawnBasicEnemy;
     public float TimeToSpawnRangedEnemy, TimeToSpawnExplosiveEnemy, TimeToSpawnFlyingEnemy, TimeToSpawnGiantEnemy;
 
+    [Header("Health Increase, adds this amount of health to default health")]
+    public float BasicHealth;
+    public float RangedHealth, ExplosiveHealth, FlyingHealth, GiantHealth;
+
+    [Header("Damage Increase")]
+    public float BasicDamage;
+    public float RangedDamage, ExplosiveDamage, FlyingDamage, GiantDamage;
+
     //Time between spawning enemies, can be 0 if we want to spawn all enemies of enemy type immediatly or can be smth like 1 seconds delayed
     [Header("Delay between Spawning Indivudual Enemy Type")]
     public float TimeBetweenBasicEnemy;

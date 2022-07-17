@@ -11,9 +11,12 @@ public class WeaponPickup : MonoBehaviour
     [SerializeField] private GameObject riflePrefab;
     [SerializeField] private GameObject rocketLauncherPrefab;
 
+    private ScoreManager SM;
+
     private void Awake()
     {
-        UpdateGunData(new GunData());
+        SM = FindObjectOfType<ScoreManager>();
+        UpdateGunData(new GunData(SM));
     }
 
     public void UpdateGunData(GunData data)

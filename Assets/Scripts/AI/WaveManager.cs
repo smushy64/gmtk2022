@@ -6,7 +6,7 @@ using TMPro;
 
 public class WaveManager : MonoBehaviour
 {
-    public Action<int> onWaveStarted;
+    public static Action<int> onWaveStarted;
     public Action<int> onWaveEnded;
 
     [SerializeField] private List<Transform> spawnPoints;
@@ -26,8 +26,11 @@ public class WaveManager : MonoBehaviour
 
     public int EnemiesLeft => WaveData.Waves[currentWave].TotalEnemies - totalEnemiesKilled;
 
+    private WeaponSpawnManager weaponSpawner;
+
     private void Awake()
     {
+        weaponSpawner = FindObjectOfType<WeaponSpawnManager>();
         EnemyActions.OnEnemyKilled += OnEnemyKill;
         currentWave = startingWave;
 
@@ -54,6 +57,7 @@ public class WaveManager : MonoBehaviour
 
     private void StartNextWave()
     {
+        weaponSpawner.RemoveRandomLoot();
         music.CrossfadeToCombat();
         onWaveStarted?.Invoke(currentWave);
         currentPhase = 1;
@@ -69,41 +73,58 @@ public class WaveManager : MonoBehaviour
             WaveData.BasicEnemyPrefab,
             wave.BasicEnemy,
             wave.TimeToSpawnBasicEnemy,
-            wave.TimeBetweenBasicEnemy));
+            wave.TimeBetweenBasicEnemy,
+            wave.BasicHealth,
+            wave.BasicDamage));
 
         StartCoroutine(SpawnEnemies(
             WaveData.ExposiveEnemyPrefab,
             wave.ExplosiveEnemies,
             wave.TimeToSpawnExplosiveEnemy,
-            wave.TimeBetweenExplosiveEnemy));
+            wave.TimeBetweenExplosiveEnemy,
+            wave.ExplosiveHealth,
+            wave.ExplosiveDamage));
 
         StartCoroutine(SpawnEnemies(
             WaveData.FlyingEnemyPrefab,
             wave.FlyingEnemies,
             wave.TimeToSpawnFlyingEnemy,
-            wave.TimeBetweenFlyingEnemy));
+            wave.TimeBetweenFlyingEnemy,
+            wave.FlyingHealth,
+            wave.FlyingDamage));
 
         StartCoroutine(SpawnEnemies(
             WaveData.GiantEnemyPrefab,
             wave.GiantEnemies,
             wave.TimeToSpawnGiantEnemy,
-            wave.TimeBetweenGiantEnemy));
+            wave.TimeBetweenGiantEnemy,
+            wave.GiantHealth,
+            wave.GiantDamage));
 
         StartCoroutine(SpawnEnemies(
             WaveData.RangedEnemyPrefab,
             wave.RangedEnemies,
             wave.TimeToSpawnRangedEnemy,
-            wave.TimeBetweenRangedEnemy));
+            wave.TimeBetweenRangedEnemy,
+            wave.RangedHealth,
+            wave.RangedDamage));
     }
 
-    private IEnumerator SpawnEnemies(GameObject enemyPrefab, int enemiesToSpawn, float spawnDelay, float spawnRate)
+    private IEnumerator SpawnEnemies(GameObject enemyPrefab, int enemiesToSpawn, float spawnDelay, float spawnRate, float extraHealth, float extraDamage)
     {
         yield return new WaitForSeconds(spawnDelay);
 
         for (int i = 0; i < enemiesToSpawn;)
         {
             var point = spawnPoints[UnityEngine.Random.Range(0, spawnPoints.Count)];
-            Instantiate(enemyPrefab, point.position, Quaternion.identity);
+            Enemy enemy = Instantiate(enemyPrefab, point.position, Quaternion.identity).GetComponent<Enemy>();
+
+            if(extraHealth > 0)
+                enemy.publicHealth += extraHealth;
+
+            if (extraDamage > 0)
+                enemy.GetComponent<EnemyNavMesh>().Damage += extraDamage;
+
             enemiesLeftText.text = "Enemies Left: " + EnemiesLeft.ToString("0");
             i++;
             yield return new WaitForSeconds(spawnRate);

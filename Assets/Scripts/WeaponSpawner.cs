@@ -5,6 +5,7 @@ using UnityEngine;
 public class WeaponSpawner : MonoBehaviour
 {
     [SerializeField] private float MaxSizeX, MaxSizeY, MaxSizeZ;
+    [SerializeField] private float y_offSet;
 
     [SerializeField] private GameObject Prefab;
     [SerializeField] private LayerMask whatCantBeTouched;
@@ -27,11 +28,14 @@ public class WeaponSpawner : MonoBehaviour
             }
             Destroy(temp);
             GameObject obj = Instantiate(Prefab, this.transform);
-            obj.transform.position = new Vector3(hit.point.x, hit.point.y + 0.35f, hit.point.z);
+            obj.transform.position = new Vector3(hit.point.x, hit.point.y + y_offSet, hit.point.z);
             FindObjectOfType<WeaponSpawnManager>().loot.Add(obj);
         }
         else
+        {
+            Destroy(temp);
             SpawnWeapon();
+        }
 
 
     }
@@ -39,6 +43,11 @@ public class WeaponSpawner : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(transform.position, new Vector3(MaxSizeX, MaxSizeY, MaxSizeZ));
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
         Gizmos.DrawWireCube(transform.position, new Vector3(MaxSizeX, MaxSizeY, MaxSizeZ));
     }
 }

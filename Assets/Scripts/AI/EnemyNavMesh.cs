@@ -7,6 +7,10 @@ public class EnemyNavMesh : MonoBehaviour
 {
     public int ScoreToAdd = 1;
 
+    [SerializeField]
+    private SoundEffectPlayer MonsterSounds;
+
+
     [Header("NavMesh Logics")]
     [SerializeField] private Transform player;
     [SerializeField] private NavMeshAgent agent;
@@ -47,7 +51,7 @@ public class EnemyNavMesh : MonoBehaviour
     [SerializeField] private bool CanExplode = false;
 
     [Header("Attack")]
-    [SerializeField] private float Damage;
+    public float Damage;
     [SerializeField] private GameObject ProjectilePrefab, ExplodeParticle;
     [SerializeField] private Transform shootpoint;
     [SerializeField] private float ProjectileSpeed;
@@ -111,12 +115,16 @@ public class EnemyNavMesh : MonoBehaviour
         patrolPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
 
         if (Physics.Raycast(patrolPoint, -transform.up, 3f, groundLayer))
+        {
             walkPointSet = true;
+            MonsterSounds.Play();
+        }
     }
     private void ChasePlayer()
     {
         if (!IsChasing)
         {
+            MonsterSounds.Play();
             IsChasing = true;
             OnAttack = false;
             EnemyActions.RemoveEnemyAttacking?.Invoke(this);
@@ -164,7 +172,7 @@ public class EnemyNavMesh : MonoBehaviour
                 Exploded = true;
                 Instantiate(ExplodeParticle, this.transform.position, Quaternion.identity);
                 EnemyActions.OnEnemyKilled?.Invoke(this);
-                Destroy(this.gameObject);
+                Destroy(this.gameObject, .1f);
             }
             if(!IsRangedEnemy && !CanExplode && !IsFlyingEnemy)
             {
