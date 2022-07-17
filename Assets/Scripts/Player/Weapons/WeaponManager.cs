@@ -52,10 +52,6 @@ public class WeaponManager : MonoBehaviour
         switchWeapon = input.actions["Change Weapon"];
         reloadWeapon = input.actions["Reload"];
 
-        for (int i = 0; i < MAX_WEAPON_COUNT; ++i) {
-            weapons[i] = new GunData(SM);
-        }
-
         CheckForEmptyWeaponSlot();
 
         hud.DisableAmmo();
@@ -78,6 +74,7 @@ public class WeaponManager : MonoBehaviour
                     if( i == weapons.Length - 1 ) {
                         weaponsContainsNull = false;
                     }
+                    break;
                 }
             }
         } else {
@@ -91,6 +88,7 @@ public class WeaponManager : MonoBehaviour
 
     private void CheckForEmptyWeaponSlot()
     {
+        weaponsContainsNull = false;
         for (int i = 0; i < weapons.Length; ++i)
         {
             if (weapons[i] == null)
@@ -98,8 +96,6 @@ public class WeaponManager : MonoBehaviour
                 weaponsContainsNull = true;
             }
         }
-
-        weaponsContainsNull = false;
     }
 
     void OnSwitchWeapon(InputAction.CallbackContext ctx)

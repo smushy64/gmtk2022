@@ -63,6 +63,7 @@ public class WeaponPickup : MonoBehaviour
             if (weaponManager != null)
             {
                 weaponManager.SwapWeapon(data);
+                weaponManager.ChangeAmmoCount(data.type, -data.magazineCapacity);
                 Destroy(gameObject);
             }
             else

@@ -14,7 +14,7 @@ public class MusicManager : MonoBehaviour
     private void Awake()
     {
         ambientMusic.volume = ambientVolume;
-        combatMusic.volume = combatVolume;
+        combatMusic.volume = 0f;
     }
 
     public void CrossfadeToCombat()

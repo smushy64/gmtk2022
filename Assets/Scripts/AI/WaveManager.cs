@@ -153,12 +153,12 @@ public class WaveManager : MonoBehaviour
             currentWave++;
 
         BeginPhaseOne();
+        music.CrossfadeToAmbient();
         onWaveEnded?.Invoke(currentWave);
     }
 
     private void BeginPhaseOne()
     {
-        music.CrossfadeToAmbient();
         waveUI.SetActive(true);
         totalEnemiesKilled = 0;
         currentPhase = 0;

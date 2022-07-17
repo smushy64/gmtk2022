@@ -3,6 +3,8 @@ using UnityEngine;
 public class Hitscan : MonoBehaviour
 {
     public ReticleHit reticle;
+    [SerializeField] private Transform hitParticles;
+    [SerializeField] private Transform wallHitParticles;
     
     [SerializeField]
     float spread = 5f;
@@ -15,17 +17,18 @@ public class Hitscan : MonoBehaviour
         Ray ray = new Ray(transform.position, direction);
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, hitscanMask, QueryTriggerInteraction.Ignore)) {
             Debug.DrawLine(transform.position, hit.point, Color.blue, 3f);
-            var enemy = hit.transform.GetComponent<Enemy>();
+            var enemy = hit.transform.GetComponentInParent<Enemy>();
             if (enemy != null)
             {
                 enemy.TakeDamage(damage);
                 reticle.SetHit();
+                var particles = Instantiate(hitParticles, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(particles.gameObject, 1f);
             }
-            var enemyparent = hit.transform.GetComponentInParent<Enemy>(); //it checks if its a child object, for example the wings in flying enemy
-            if (enemyparent != null)
+            else
             {
-                enemyparent.TakeDamage(damage);
-                reticle.SetHit();
+                var particles = Instantiate(wallHitParticles, hit.point, Quaternion.LookRotation(hit.normal));
+                Destroy(particles.gameObject, 1f);
             }
         }
         else {
