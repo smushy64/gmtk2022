@@ -8,6 +8,8 @@ public class WeaponManager : MonoBehaviour
 {
     [SerializeField]
     Hitscan hitscanWeapon;
+    [SerializeField]
+    Projectile projectileWeapon;
 
     [SerializeField]
     UIHud hud;
@@ -51,6 +53,8 @@ public class WeaponManager : MonoBehaviour
             weapons[i] = new GunData();
         }
 
+        CheckForEmptyWeaponSlot();
+
         hud.DisableAmmo();
     }
 
@@ -63,8 +67,9 @@ public class WeaponManager : MonoBehaviour
 
     public void SwapWeapon( GunData newWeapon ) {
         if( weaponsContainsNull ) {
-            for (int i = 0; i < weapons.Length; ++i) {
-                if( weapons[i] == null ) {
+            for (int i = 0; i < weapons.Length; ++i){
+                if ( weapons[i] == null ) {
+                    Debug.Log("Weapon slots are not filled, adding new weapon!");
                     weapons[i] = newWeapon;
                     currentWeaponIndex = i;
                     if( i == weapons.Length - 1 ) {
@@ -73,19 +78,43 @@ public class WeaponManager : MonoBehaviour
                 }
             }
         } else {
+            Debug.Log("Weapon slots are filled, swapping weapon!");
             weapons[currentWeaponIndex] = newWeapon;
             // TODO: spawn swapped weapon as pick up?
         }
+
+        UpdateSelectedWeapon();
     }
 
-    void OnSwitchWeapon(InputAction.CallbackContext ctx) {
-        if( ctx.ReadValue<float>() > 0f ) {
+    private void CheckForEmptyWeaponSlot()
+    {
+        for (int i = 0; i < weapons.Length; ++i)
+        {
+            if (weapons[i] == null)
+            {
+                weaponsContainsNull = true;
+            }
+        }
+
+        weaponsContainsNull = false;
+    }
+
+    void OnSwitchWeapon(InputAction.CallbackContext ctx)
+    {
+        if (ctx.ReadValue<float>() > 0f)
+        {
             SwitchWeapon(1);
         }
-        else {
+        else
+        {
             SwitchWeapon(-1);
         }
 
+        UpdateSelectedWeapon();
+    }
+
+    private void UpdateSelectedWeapon()
+    {
         fireRateCanShoot = true;
         rifleIsFiring = false;
         isReloading = false;
@@ -94,9 +123,10 @@ public class WeaponManager : MonoBehaviour
 
         StartWeaponSwitchDelay();
 
-        if( CurrentWeapon != null ) {
+        if (CurrentWeapon != null)
+        {
             // TODO: remove this
-            Debug.Log( "Index: " + currentWeaponIndex + " | " + CurrentWeapon.name);
+            Debug.Log("Index: " + currentWeaponIndex + " | " + CurrentWeapon.name);
             hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
             hud.UpdateAmmoType(CurrentWeapon.type);
             hitscanWeapon.SetSpreadMultiplier(CurrentWeapon.recoilMultiplier);
@@ -167,12 +197,21 @@ public class WeaponManager : MonoBehaviour
                 break;
             case GunType.Energy:
             case GunType.Rocket:
+                if (fireRateCanShoot) {
+                    if( CurrentWeapon.Shoot() ) {
+                        OnWeaponFire?.Invoke();
+                        projectileWeapon.Fire();
+                        ShootDelay(CurrentWeapon.delayBetweenShots);
+                        hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
+                        look.Recoil();
+                    }
+                }
                 break;
             case GunType.Shotgun:
                 if (fireRateCanShoot) {
                     if( CurrentWeapon.Shoot() ) {
                         OnWeaponFire?.Invoke();
-                        hitscanWeapon.Fire( CurrentWeapon.pelletsPerShot );
+                        hitscanWeapon.Fire( CurrentWeapon.pelletsPerShot, Mathf.RoundToInt(CurrentWeapon.damagePerShot));
                         ShootDelay(CurrentWeapon.delayBetweenShots);
                         hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
                         look.Recoil();
@@ -183,7 +222,7 @@ public class WeaponManager : MonoBehaviour
                 if(fireRateCanShoot) {
                     if (CurrentWeapon.Shoot()) {
                         OnWeaponFire?.Invoke();
-                        hitscanWeapon.Fire();
+                        hitscanWeapon.Fire( Mathf.RoundToInt(CurrentWeapon.damagePerShot) );
                         ShootDelay(CurrentWeapon.delayBetweenShots);
                         hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
                         look.Recoil();
@@ -241,7 +280,7 @@ public class WeaponManager : MonoBehaviour
             } else {
                 if (CurrentWeapon.Shoot()) {
                     OnWeaponFire?.Invoke();
-                    hitscanWeapon.Fire();
+                    hitscanWeapon.Fire(Mathf.RoundToInt(CurrentWeapon.damagePerShot));
                     hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
                     look.Recoil();
                     timer = 0f;

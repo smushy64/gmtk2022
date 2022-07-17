@@ -20,7 +20,6 @@ public class EnemyManager : MonoBehaviour
     private bool CanGetCombo;
 
     [Header("Wave UI")]
-    [SerializeField] private float NextWaveTime;
     private float currentWaveTime;
     [SerializeField] private TextMeshProUGUI NextWaveTimerText, ComboText, MaxComboText, EnemiesLeftText;
     [SerializeField] private GameObject WaveUI_Object;
@@ -31,7 +30,7 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        currentWaveTime = NextWaveTime;
+        currentWaveTime = WaveData.Waves[currentWave].TimeToLoot;
         EnemyActions.AddEnemyAttacking += AddenemyAttacking;
         EnemyActions.RemoveEnemyAttacking += RemoveenemyAttacking;
         EnemyActions.OnEnemyKilled += OnEnemyKill;
@@ -44,7 +43,7 @@ public class EnemyManager : MonoBehaviour
         if (currentWaveTime <= 0 && StartNewWave == true)
         {
             StartNewWave = false;
-            currentWaveTime = NextWaveTime;
+            currentWaveTime = WaveData.Waves[currentWave].TimeToLoot;
             NewWave();
         }
         else if (currentWaveTime > 0 && StartNewWave == true)
@@ -129,6 +128,8 @@ public class EnemyManager : MonoBehaviour
         StartCoroutine(SpawnRangedEnemy());
 
         Invoke("RemoveWaveDelay", 15f);
+
+        FindObjectOfType<WeaponSpawnManager>().RemoveRandomLoot();
     }
 
     IEnumerator MusicFadeOut()
@@ -248,6 +249,7 @@ public class EnemyManager : MonoBehaviour
         {
             StartNewWave = true;
             WaveUI_Object.SetActive(true);
+            FindObjectOfType<WeaponSpawnManager>().SpawnRandomLoot();
             StartCoroutine(MusicFadeOut());
         }
     }

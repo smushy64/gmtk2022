@@ -24,7 +24,11 @@ public class GunAnimator : MonoBehaviour
     [SerializeField]
     GameObject rifle, rocketLauncher;
     [SerializeField]
-    SoundEffectPlayer pistolSFX, shotgunSFX, shotgunPumpSFX, rifleSFX, reloadSFX;
+    SoundEffectPlayer pistolSFX, shotgunSFX, shotgunPumpSFX, rifleSFX, rocketSFX, reloadSFX, switchSFX;
+    [SerializeField]
+    ParticleSystem pistolFlash, shotgunFlash, rifleFlash, rocketLauncherFlash;
+    [SerializeField]
+    ParticleSystem pistolCasing, shotgunCasing, rifleCasing;
 
     [SerializeField]
     WeaponManager weapons;
@@ -50,6 +54,7 @@ public class GunAnimator : MonoBehaviour
         }
         switchAnimation = SwitchAnimation( WeaponManager.WEAPON_SWITCH_DELAY );
         this.StartCoroutine(switchAnimation);
+        switchSFX.Play();
     }
 
     IEnumerator reloadAnimation;
@@ -113,14 +118,20 @@ public class GunAnimator : MonoBehaviour
         if( currentWeapon == 0 ) {
             pistol.SetBool("isShooting", true);
             pistolSFX.Play();
+            pistolFlash.Play();
+            pistolCasing.Play();
         } else if ( currentWeapon == 1 ) {
             shotgun.SetBool("isShooting", true);
             shotgunSFX.Play();
+            shotgunFlash.Play();
             PlayPumpSFX();
         } else if ( currentWeapon == 2 ) {
             rifleSFX.Play();
+            rifleFlash.Play();
+            rifleCasing.Play();
         } else if ( currentWeapon == 3 ) {
-            
+            rocketSFX.Play();
+            rocketLauncherFlash.Play();
         }
 
     }
@@ -135,12 +146,14 @@ public class GunAnimator : MonoBehaviour
     IEnumerator PlayPumpSFXRoutine() {
         yield return new WaitForSeconds(0.12f);
         shotgunPumpSFX.Play();
+        shotgunCasing.Play();
     }
 
     IEnumerator shootAnimation;
     IEnumerator ShootAnimation() {
+        yield return new WaitForSeconds( 0.01f );
         float timer = 0f;
-        float length = weapons.CurrentWeapon.delayBetweenShots;
+        float length = weapons.CurrentWeapon.delayBetweenShots - 0.01f;
 
         Vector3 kickBackPosition = Vector3.back * 0.1f;
         Quaternion kickBackRotation = Quaternion.AngleAxis(-25f, Vector3.right);

@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/Splash.unity
+    guid: d40e675a3a54a614dbf211001385781c
+  - enabled: 1
+    path: Assets/Scenes/MainMenu.unity
+    guid: 2cdc384a7b24b6243be3b6cc319868cf
+  - enabled: 1
     path: Assets/Scenes/VurikAI.unity
     guid: 0dbe14638131e69439e7c420e04a983b
   m_configObjects: {}

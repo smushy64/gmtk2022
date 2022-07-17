@@ -171,7 +171,7 @@ public class EnemyNavMesh : MonoBehaviour
                 Collider[] touching = Physics.OverlapSphere(this.transform.position, 1, playerLayer, QueryTriggerInteraction.Ignore); // chekcs if enemy is spawned inside an object
                 if (touching.Length != 0)
                 {
-                    player.transform.gameObject.GetComponent<SimpleHealth>().TakeDamage(Damage);
+                    player.transform.gameObject.GetComponent<PlayerHealth>().TakeDamage(Mathf.RoundToInt(Damage));
                 }
             }
 

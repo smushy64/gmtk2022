@@ -14,17 +14,27 @@ public class SplashScreen : MonoBehaviour
     [SerializeField, Min(0.01f)]
     float dngAnimationLength = 1f, gmtkAnimationLength = 1f;
 
+    [SerializeField]
+    AudioClip splashScreenMusic;
+
     void Start() {
         Initialize();
+        if( GameOptions.PlayerOptions.skipSplash ) {
+            LoadMainMenu();
+            return;
+        }
         if( animate != null ) {
             this.StopCoroutine(animate);
         }
         animate = Animate();
         this.StartCoroutine(animate);
+
+        MusicPlayer.Instance.PlayClip( splashScreenMusic, false );
     }
 
     void Initialize() {
-
+        GameOptions.ApplyScreenOptions();
+        GameOptions.ApplyVolume();
     }
 
     void LoadMainMenu() {
