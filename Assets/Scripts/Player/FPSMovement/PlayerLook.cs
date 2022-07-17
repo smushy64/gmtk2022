@@ -13,11 +13,10 @@ namespace Docien.FPSMovement
         private PlayerInput m_PlayerInput;
         private InputAction m_LookAction;
         private Vector2 lastDelta = Vector2.zero;
+        Vector2 mouseDelta = Vector2.zero;
+        Vector2 mouseOffset = Vector2.zero;
 
         public Vector2 LastDelta => lastDelta;
-        float mouseOffset = 0f;
-        float mouseOffsetTarget = 0f;
-        bool recoilRightBias = true;
         const float RECOIL_OFFSET = 0.2f;
 
         private void Awake()
@@ -29,9 +28,7 @@ namespace Docien.FPSMovement
 
         private void LateUpdate()
         {
-            Vector2 mouseDelta = m_LookAction.ReadValue<Vector2>() * (m_Sensitivity / 100f);
-            mouseDelta.y -= mouseOffset;
-            mouseDelta.x -= recoilRightBias ? -(mouseOffset / 2f) : (mouseOffset / 2f);
+            mouseDelta = m_LookAction.ReadValue<Vector2>() * (m_Sensitivity / 100f) + mouseOffset;
             lastDelta = mouseDelta;
             Vector3 eulerAngles = ConvertEulerToHalfRotation(m_Orientation.localEulerAngles);
             // Yaw - Horizontal Mouse Movement
@@ -41,19 +38,11 @@ namespace Docien.FPSMovement
 
             m_Orientation.localRotation = Quaternion.Euler(eulerAngles);
 
-            InterpolateMouseOffset();
-        }
-
-        void InterpolateMouseOffset() {
-            mouseOffset = Mathf.LerpUnclamped(mouseOffset, mouseOffsetTarget, Time.deltaTime * 100f);
-            if( Mathf.Abs(mouseOffset) >= Mathf.Abs( mouseOffsetTarget ) ) {
-                mouseOffsetTarget = Mathf.Lerp( mouseOffsetTarget, 0f, Time.deltaTime * 100f );
-            }
+            mouseOffset = Vector2.Lerp(mouseOffset, Vector2.zero, Time.deltaTime * 25f);
         }
 
         public void Recoil() {
-            mouseOffsetTarget += RECOIL_OFFSET;
-            recoilRightBias = (Random.Range( 0, 2 ) > 0) ? !recoilRightBias : recoilRightBias;
+            mouseOffset += new Vector2(Random.Range(-RECOIL_OFFSET, RECOIL_OFFSET), Random.Range(-RECOIL_OFFSET, -RECOIL_OFFSET / 2f));
         }
 
         /// <summary>

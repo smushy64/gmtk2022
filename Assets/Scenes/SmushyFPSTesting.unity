@@ -1662,56 +1662,24 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: clips.Array.size
-      value: 12
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: clips.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: bcb062a94b7802949bd2bc0eb40de9f6, type: 3}
+      objectReference: {fileID: 8300000, guid: aad6d398eb5ef6342b2d8446400d650b, type: 3}
     - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: clips.Array.data[1]
       value: 
-      objectReference: {fileID: 8300000, guid: 4ae55a0b6fed2f046a8b3f50d7316abb, type: 3}
+      objectReference: {fileID: 8300000, guid: 7fac08de8818e7a40b61d1bf14eb65c7, type: 3}
     - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: clips.Array.data[2]
       value: 
-      objectReference: {fileID: 8300000, guid: a398150092e85a748bff0635262e3c8d, type: 3}
+      objectReference: {fileID: 8300000, guid: 4ebed87ebf14d564a8596c9edc741e61, type: 3}
     - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: clips.Array.data[3]
       value: 
-      objectReference: {fileID: 8300000, guid: edd85316fc612b340b3a792dbade2088, type: 3}
-    - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
-      propertyPath: clips.Array.data[4]
-      value: 
-      objectReference: {fileID: 8300000, guid: aad6d398eb5ef6342b2d8446400d650b, type: 3}
-    - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
-      propertyPath: clips.Array.data[5]
-      value: 
-      objectReference: {fileID: 8300000, guid: 7fac08de8818e7a40b61d1bf14eb65c7, type: 3}
-    - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
-      propertyPath: clips.Array.data[6]
-      value: 
-      objectReference: {fileID: 8300000, guid: 4ebed87ebf14d564a8596c9edc741e61, type: 3}
-    - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
-      propertyPath: clips.Array.data[7]
-      value: 
       objectReference: {fileID: 8300000, guid: bdec64195f2f65746ab44afecb14933f, type: 3}
-    - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
-      propertyPath: clips.Array.data[8]
-      value: 
-      objectReference: {fileID: 8300000, guid: a22b98a6780f9a3408403a5b3fd54f83, type: 3}
-    - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
-      propertyPath: clips.Array.data[9]
-      value: 
-      objectReference: {fileID: 8300000, guid: 8186e12175de69640a65010133de9728, type: 3}
-    - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
-      propertyPath: clips.Array.data[10]
-      value: 
-      objectReference: {fileID: 8300000, guid: 236bc1580272a554596a285a1122448f, type: 3}
-    - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
-      propertyPath: clips.Array.data[11]
-      value: 
-      objectReference: {fileID: 8300000, guid: cffadde7f4fb7764ba8215c7245b0980, type: 3}
     - target: {fileID: 7704809372239010415, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: m_Name
       value: RifleShoot
