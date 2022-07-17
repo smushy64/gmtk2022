@@ -45,8 +45,8 @@ namespace Docien.FPSMovement
         }
 
         void InterpolateMouseOffset() {
-            mouseOffset = Mathf.LerpUnclamped(mouseOffset, mouseOffsetTarget, Time.deltaTime * 50f);
-            if( Mathf.Abs( mouseOffset ) >= Mathf.Abs( mouseOffset ) ) {
+            mouseOffset = Mathf.LerpUnclamped(mouseOffset, mouseOffsetTarget, Time.deltaTime * 100f);
+            if( Mathf.Abs(mouseOffset) >= Mathf.Abs( mouseOffsetTarget ) ) {
                 mouseOffsetTarget = Mathf.Lerp( mouseOffsetTarget, 0f, Time.deltaTime * 100f );
             }
         }
