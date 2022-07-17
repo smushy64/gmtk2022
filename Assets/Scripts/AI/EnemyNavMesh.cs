@@ -23,6 +23,7 @@ public class EnemyNavMesh : MonoBehaviour
     [SerializeField] private bool playerInChaseRange, playerInAttackRange;
 
     [Header("Sets a random patrol point inside this area")]
+    [SerializeField] private bool patrolEnabled = false;
     [SerializeField] private float MaxPosX;
     [SerializeField] private float MinPosX, MaxPosZ, MinPosZ;
 
@@ -51,6 +52,9 @@ public class EnemyNavMesh : MonoBehaviour
     [SerializeField] private Transform shootpoint;
     [SerializeField] private float ProjectileSpeed;
     [HideInInspector] public bool Exploded = false;
+
+    public bool IsInAttackRange => playerInAttackRange;
+
     private void Start()
     {
         player = GameObject.Find("Player").transform;
@@ -79,7 +83,7 @@ public class EnemyNavMesh : MonoBehaviour
         playerInChaseRange = Physics.CheckSphere(transform.position, ChasingRange, playerLayer);
         playerInAttackRange = Physics.CheckSphere(transform.position, RangeToAttack, playerLayer);
 
-        if (!playerInChaseRange && !playerInAttackRange) Patrolling();
+        if (patrolEnabled && !playerInChaseRange && !playerInAttackRange) Patrolling();
         if (playerInChaseRange && !playerInAttackRange) ChasePlayer();
         if (playerInChaseRange && playerInAttackRange) AttackPlayer();
     }
@@ -115,7 +119,7 @@ public class EnemyNavMesh : MonoBehaviour
         {
             IsChasing = true;
             OnAttack = false;
-            EnemyActions.RemoveEnemyAttacking(this);
+            EnemyActions.RemoveEnemyAttacking?.Invoke(this);
         }
         agent.speed = Speed * ChaseSpeedMultiplier;
 
@@ -131,7 +135,7 @@ public class EnemyNavMesh : MonoBehaviour
         {
             OnAttack = true;
             IsChasing = false;
-            EnemyActions.AddEnemyAttacking(this);
+            EnemyActions.AddEnemyAttacking?.Invoke(this);
         }
 
         agent.stoppingDistance = StopDistance;
@@ -142,7 +146,7 @@ public class EnemyNavMesh : MonoBehaviour
         if (IsRangedEnemy && !IsFlyingEnemy)
             transform.LookAt(player.transform.position);
 
-        agent.SetDestination(player.position);
+        // agent.SetDestination(player.position);
 
         if (!AttackedBool)
         {
@@ -218,12 +222,5 @@ public class EnemyNavMesh : MonoBehaviour
                 transform.localScale = new Vector3(1, transform.localScale.y + .025f, 1);
             yield return new WaitForSeconds(.025f);
         }
-    }
-    private void OnDestroy()
-    {
-        EnemyActions.OnEnemyKilled?.Invoke(this);
-
-        if (playerInAttackRange)
-            EnemyActions.RemoveEnemyAttacking?.Invoke(this);
     }
 }

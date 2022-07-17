@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3976502244265284735}
   - component: {fileID: 3976502244265284722}
   - component: {fileID: 3976502244265284721}
-  - component: {fileID: 3976502244265284720}
   m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
@@ -82,19 +81,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3976502244265284720
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3976502244265284734}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3976502244664306567
 GameObject:
   m_ObjectHideFlags: 0
@@ -155,7 +141,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3976502244827298099}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.69, y: 1.04, z: 2.93}
+  m_LocalPosition: {x: 23.69, y: 0, z: 2.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3976502244265284735}
@@ -274,18 +260,19 @@ MonoBehaviour:
   timeBetweenAttacks: 1
   playerInChaseRange: 0
   playerInAttackRange: 0
+  patrolEnabled: 0
   MaxPosX: 25
   MinPosX: -25
   MaxPosZ: 25
   MinPosZ: -25
   patrolPoint: {x: 0, y: 0, z: 0}
   walkPointReachRange: 0
-  Speed: 3
+  Speed: 6
   PatrolSpeedMultiplier: 1
   ChaseSpeedMultiplier: 1.5
   AttackSpeedMultiplier: 1
   StopDistance: 15
-  ChasingRange: 50
+  ChasingRange: 150
   RangeToAttack: 25
   CanJump: 1
   IsRangedEnemy: 1
@@ -293,8 +280,9 @@ MonoBehaviour:
   CanExplode: 0
   Damage: 3
   ProjectilePrefab: {fileID: 4935428457748734739, guid: 62804642fa285414b93e48db85a97209, type: 3}
+  ExplodeParticle: {fileID: 0}
   shootpoint: {fileID: 3976502244664306584}
-  ProjectileSpeed: 2250
+  ProjectileSpeed: 1200
   Exploded: 0
 --- !u!114 &725490846591160504
 MonoBehaviour:
@@ -321,7 +309,6 @@ GameObject:
   - component: {fileID: 3976502245527115973}
   - component: {fileID: 3976502245527115992}
   - component: {fileID: 3976502245527115975}
-  - component: {fileID: 3976502245527115974}
   m_Layer: 8
   m_Name: Gun
   m_TagString: Untagged
@@ -393,16 +380,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &3976502245527115974
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3976502245527115972}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
