@@ -24,7 +24,10 @@ public class SplashScreen : MonoBehaviour
     }
 
     void Initialize() {
-
+        GameOptions.ApplyScreenOptions();
+        if( GameOptions.PlayerOptions.skipSplash ) {
+            LoadMainMenu();
+        }
     }
 
     void LoadMainMenu() {
