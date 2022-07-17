@@ -22,8 +22,7 @@ public class MusicManager : MonoBehaviour
         if (crossfade != null)
             StopCoroutine(crossfade);
 
-        crossfade = Crossfade(combatMusic, combatVolume, ambientMusic, ambientVolume, 0.5f);
-        StartCoroutine(crossfade);
+        CutToBattle();
     }
 
     public void CrossfadeToAmbient()
@@ -47,5 +46,13 @@ public class MusicManager : MonoBehaviour
             from.volume = (1 - t) * fromVolume;
             yield return null;
         }
+    }
+
+    private void CutToBattle()
+    {
+        ambientMusic.volume = 0f;
+        combatMusic.Stop();
+        combatMusic.Play();
+        combatMusic.volume = combatVolume;
     }
 }
