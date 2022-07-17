@@ -72,8 +72,7 @@ public class GunData
 
     public GunData() {
         this.quality = GenerateGunQuality();
-        // TODO: set max to 5
-        this.type = (GunType)Random.Range(0, 2);
+        this.type = (GunType)Random.Range(0, 4);
 
         this.name = this.quality.ToString() + " " + GunTypeText(this.type);
 

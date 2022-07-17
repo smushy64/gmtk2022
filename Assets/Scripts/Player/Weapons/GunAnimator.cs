@@ -4,20 +4,25 @@ using UnityEngine;
 public class GunAnimator : MonoBehaviour
 {
 
-    [SerializeField]
-    Animator pistol, shotgun;
-    Animator CurrentWeapon {
+    int currentWeapon {
         get {
             switch( weapons.CurrentWeapon.type ) {
-                case GunType.Pistol:
-                    return pistol;
                 case GunType.Shotgun:
-                    return shotgun;
-                default:
-                    return null;
+                    return 1;
+                case GunType.Rifle:
+                    return 2;
+                case GunType.Rocket:
+                    return 3;
+                default: case GunType.Pistol:
+                    return 0;
             }
         }
     }
+
+    [SerializeField]
+    Animator pistol, shotgun;
+    [SerializeField]
+    GameObject rifle, rocketLauncher;
 
     [SerializeField]
     WeaponManager weapons;
@@ -102,7 +107,11 @@ public class GunAnimator : MonoBehaviour
         shootAnimation = ShootAnimation();
         this.StartCoroutine(shootAnimation);
 
-        CurrentWeapon.SetBool("isShooting", true);
+        if( currentWeapon == 0 ) {
+            pistol.SetBool("isShooting", true);
+        } else if ( currentWeapon == 1 ) {
+            shotgun.SetBool("isShooting", true);
+        }
     }
 
     IEnumerator shootAnimation;
@@ -137,7 +146,11 @@ public class GunAnimator : MonoBehaviour
     IEnumerator shoot;
     IEnumerator Shoot() {
         yield return new WaitForSeconds(0.0001f);
-        CurrentWeapon.SetBool("isShooting", false);
+        if( currentWeapon == 0 ) {
+            pistol.SetBool("isShooting", false);
+        } else if ( currentWeapon == 1 ) {
+            shotgun.SetBool("isShooting", false);
+        }
     }
 
     void SwitchWeaponModel() {
@@ -145,12 +158,20 @@ public class GunAnimator : MonoBehaviour
             return;
         pistol.gameObject.SetActive(false);
         shotgun.gameObject.SetActive(false);
+        rifle.SetActive(false);
+        rocketLauncher.SetActive(false);
         switch( weapons.CurrentWeapon.type ) {
             case GunType.Pistol:
                 pistol.gameObject.SetActive(true);
                 break;
             case GunType.Shotgun:
                 shotgun.gameObject.SetActive(true);
+                break;
+            case GunType.Rifle:
+                rifle.SetActive(true);
+                break;
+            case GunType.Rocket:
+                rocketLauncher.SetActive(true);
                 break;
             default:
                 break;

@@ -47,6 +47,10 @@ public class WeaponManager : MonoBehaviour
         switchWeapon = input.actions["Change Weapon"];
         reloadWeapon = input.actions["Reload"];
 
+        for (int i = 0; i < MAX_WEAPON_COUNT; ++i) {
+            weapons[i] = new GunData();
+        }
+
         hud.DisableAmmo();
     }
 
