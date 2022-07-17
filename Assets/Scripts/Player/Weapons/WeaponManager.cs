@@ -315,7 +315,7 @@ public class WeaponManager : MonoBehaviour
 
     bool isReloading = false;
     void Reload() {
-        if( ReserveAmmo() > 0 ) {
+        if( ReserveAmmo() > 0 && CurrentWeapon.ammoCount < CurrentWeapon.magazineCapacity ) {
             StartReloadDelay();
         } else {
             return;
