@@ -57,6 +57,18 @@ public class WeaponManager : MonoBehaviour
         hud.DisableAmmo();
     }
 
+    private void Update()
+    {
+        if (CurrentWeapon != null)
+        {
+            hud.UpdateWeaponQuality(CurrentWeapon.quality.ToString());
+        }
+        else
+        {
+            hud.UpdateWeaponQuality("");
+        }
+    }
+
     public void ChangeAmmoCount( GunType type, int delta ) {
         UpdateReserve(type, delta);
         if( CurrentWeapon != null ) {
