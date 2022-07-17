@@ -452,7 +452,7 @@ MonoBehaviour:
   - {fileID: 283312247}
   - {fileID: 1034040913}
   WaveData: {fileID: 11400000, guid: 8334025aa0bb64644b60eeb5644785b8, type: 2}
-  phaseOneDuration: 10
+  phaseOneDuration: 40
   startingWave: 0
   waveUI: {fileID: 97140655}
   nextWaveTimerText: {fileID: 2122379317}

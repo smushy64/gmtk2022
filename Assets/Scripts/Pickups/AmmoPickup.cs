@@ -13,9 +13,9 @@ public class AmmoPickup : MonoBehaviour
     [SerializeField] private Sprite rocketAmmoSprite;
     private Image image;
 
-    private int pistolAmmo = 6;
-    private int shotgunAmmo = 2;
-    private int rifleAmmo = 4;
+    private int pistolAmmo = 15;
+    private int shotgunAmmo = 6;
+    private int rifleAmmo = 10;
     private int rocketAmmo = 1;
 
     private void Awake()
