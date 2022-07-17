@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    public Animator anim;
+
     [SerializeField] private SoundEffectPlayer DeathSound, EnemyHitSound;
 
     [SerializeField] private float Health;
@@ -34,6 +36,11 @@ public class Enemy : MonoBehaviour
     {
         Health -= damage;
 
+        if (anim != null)
+        {
+            anim.SetTrigger("TakeDamage");
+        }
+
         if (!isDead && Health <= 0)
         {
             isDead = true;
@@ -45,9 +52,17 @@ public class Enemy : MonoBehaviour
 
             DeathSound.Play();
 
-            Destroy(this.gameObject, .1f);
+            if (anim != null)
+            {
+                this.gameObject.GetComponent<EnemyNavMesh>().Speed = 0;
+                anim.SetBool("IsDead", true);
+                Destroy(this.gameObject, 1f);
+            }
+            else
+                Destroy(this.gameObject, .1f);
         }
         else
             EnemyHitSound.Play();
     }
+
 }

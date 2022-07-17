@@ -4,13 +4,15 @@ public class Rocket : MonoBehaviour
 {
 
     [SerializeField]
-    float speed = 10f;
+    float speed = 10f, LifeTime = 5f;
 
     float gravityScale = 0f;
 
     Vector3 direction;
     Rigidbody r3d;
     SoundEffectPlayer sfx;
+
+    public GameObject RocketExplosionPrefab;
 
     private void Awake()
     {
@@ -20,6 +22,13 @@ public class Rocket : MonoBehaviour
 
     private void Start() {
         direction = transform.forward;
+        Invoke("DestroyMe", LifeTime);
+    }
+
+    void DestroyMe()
+    {
+        Instantiate(RocketExplosionPrefab, this.transform.position, transform.rotation);
+        Destroy(gameObject);
     }
 
     float gravityScaleT = 0f;
@@ -35,6 +44,7 @@ public class Rocket : MonoBehaviour
         sfx.transform.parent = null;
         sfx.destroyOnFinish = true;
         sfx.Play();
+        Instantiate(RocketExplosionPrefab, this.transform.position, transform.rotation);
         Destroy(gameObject);
     }
 }

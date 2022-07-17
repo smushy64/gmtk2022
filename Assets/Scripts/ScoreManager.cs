@@ -36,6 +36,8 @@ public class ScoreManager : MonoBehaviour
     {
         curTime = ScoreTime;
         BetterChance = 0;
+        chanceincrease = 0;
+        TotalEnemiesKilled = 0;
     }
 
     void WaveEnded(int x)
@@ -43,6 +45,7 @@ public class ScoreManager : MonoBehaviour
         BetterChance = chanceincrease / TotalEnemiesKilled;
         weaponSpawner.SpawnRandomLoot();
         TotalEnemiesKilled = 0;
+        print(BetterChance);
     }
     public int PublicScore
     {
