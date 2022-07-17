@@ -69,7 +69,7 @@ public class UISlidingPanel : MonoBehaviour
             end = temp;
         }
         while( timer < animationLength ) {
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime;
             rectTransform.anchoredPosition3D = Vector3.Lerp(start, end, timer / animationLength);
             yield return null;
         }

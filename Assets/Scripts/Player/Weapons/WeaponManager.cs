@@ -112,6 +112,8 @@ public class WeaponManager : MonoBehaviour
 
     void OnSwitchWeapon(InputAction.CallbackContext ctx)
     {
+        if( PauseMenu.Paused )
+            return;
         if (ctx.ReadValue<float>() > 0f)
         {
             SwitchWeapon(1);
@@ -194,7 +196,7 @@ public class WeaponManager : MonoBehaviour
     }
 
     void OnFire( InputAction.CallbackContext ctx ) {
-        if( CurrentWeapon == null || isReloading || isSwitching )
+        if( CurrentWeapon == null || isReloading || isSwitching || PauseMenu.Paused )
             return;
 
         if( CurrentWeapon.ammoCount == 0 ) {
@@ -304,6 +306,8 @@ public class WeaponManager : MonoBehaviour
     }
 
     void OnReload( InputAction.CallbackContext ctx ) {
+        if( PauseMenu.Paused )
+            return;
         if( !isReloading ) {
             Reload();
         }

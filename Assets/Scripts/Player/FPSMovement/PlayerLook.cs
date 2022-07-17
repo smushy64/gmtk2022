@@ -28,6 +28,9 @@ namespace Docien.FPSMovement
 
         private void LateUpdate()
         {
+            if( PauseMenu.Paused ) {
+                return;
+            }
             mouseDelta = m_LookAction.ReadValue<Vector2>() * (m_Sensitivity / 100f) + mouseOffset;
             lastDelta = mouseDelta;
             Vector3 eulerAngles = ConvertEulerToHalfRotation(m_Orientation.localEulerAngles);
