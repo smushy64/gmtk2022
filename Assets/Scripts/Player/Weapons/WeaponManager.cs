@@ -41,21 +41,32 @@ public class WeaponManager : MonoBehaviour
 
     public GunData CurrentWeapon => weapons[currentWeaponIndex];
 
+    private ScoreManager SM;
+
     private void Awake()
     {
+        SM = FindObjectOfType<ScoreManager>();
         input = GetComponentInParent<PlayerInput>();
         look = GetComponentInParent<PlayerLook>();
         fire = input.actions["Fire"];
         switchWeapon = input.actions["Change Weapon"];
         reloadWeapon = input.actions["Reload"];
 
-        for (int i = 0; i < MAX_WEAPON_COUNT; ++i) {
-            weapons[i] = new GunData();
-        }
-
         CheckForEmptyWeaponSlot();
 
         hud.DisableAmmo();
+    }
+
+    private void Update()
+    {
+        if (CurrentWeapon != null)
+        {
+            hud.UpdateWeaponQuality(CurrentWeapon.quality.ToString());
+        }
+        else
+        {
+            hud.UpdateWeaponQuality("");
+        }
     }
 
     public void ChangeAmmoCount( GunType type, int delta ) {
@@ -75,6 +86,7 @@ public class WeaponManager : MonoBehaviour
                     if( i == weapons.Length - 1 ) {
                         weaponsContainsNull = false;
                     }
+                    break;
                 }
             }
         } else {
@@ -88,6 +100,7 @@ public class WeaponManager : MonoBehaviour
 
     private void CheckForEmptyWeaponSlot()
     {
+        weaponsContainsNull = false;
         for (int i = 0; i < weapons.Length; ++i)
         {
             if (weapons[i] == null)
@@ -95,12 +108,12 @@ public class WeaponManager : MonoBehaviour
                 weaponsContainsNull = true;
             }
         }
-
-        weaponsContainsNull = false;
     }
 
     void OnSwitchWeapon(InputAction.CallbackContext ctx)
     {
+        if( PauseMenu.Paused )
+            return;
         if (ctx.ReadValue<float>() > 0f)
         {
             SwitchWeapon(1);
@@ -183,7 +196,7 @@ public class WeaponManager : MonoBehaviour
     }
 
     void OnFire( InputAction.CallbackContext ctx ) {
-        if( CurrentWeapon == null || isReloading || isSwitching )
+        if( CurrentWeapon == null || isReloading || isSwitching || PauseMenu.Paused )
             return;
 
         if( CurrentWeapon.ammoCount == 0 ) {
@@ -293,6 +306,8 @@ public class WeaponManager : MonoBehaviour
     }
 
     void OnReload( InputAction.CallbackContext ctx ) {
+        if( PauseMenu.Paused )
+            return;
         if( !isReloading ) {
             Reload();
         }

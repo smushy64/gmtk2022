@@ -9,8 +9,8 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private List<EnemyNavMesh> EnemiesAttacking = new List<EnemyNavMesh>();
     [SerializeField] private int CountOfEnemiesAttacking = 0;
 
-    [SerializeField] private EnemyWaveData WaveData;
-    [SerializeField] private int currentWave;
+    //[SerializeField] private EnemyWaveData WaveData;
+    //[SerializeField] private int currentWave;
 
     [SerializeField] private int TotalEnemies;
 
@@ -19,18 +19,18 @@ public class EnemyManager : MonoBehaviour
     private int currentCombo, maxCombo;
     private bool CanGetCombo;
 
-    [Header("Wave UI")]
-    private float currentWaveTime;
-    [SerializeField] private TextMeshProUGUI NextWaveTimerText, ComboText, MaxComboText, EnemiesLeftText;
-    [SerializeField] private GameObject WaveUI_Object;
+    //[Header("Wave UI")]
+    //private float currentWaveTime;
+    //[SerializeField] private TextMeshProUGUI NextWaveTimerText, ComboText, MaxComboText, EnemiesLeftText;
+    //[SerializeField] private GameObject WaveUI_Object;
 
-    public AudioSource MusicSource;
+    //public AudioSource MusicSource;
 
 
 
     private void Start()
     {
-        currentWaveTime = WaveData.Waves[currentWave].TimeToLoot;
+        //currentWaveTime = WaveData.Waves[currentWave].TimeToLoot;
         EnemyActions.AddEnemyAttacking += AddenemyAttacking;
         EnemyActions.RemoveEnemyAttacking += RemoveenemyAttacking;
         EnemyActions.OnEnemyKilled += OnEnemyKill;
@@ -40,17 +40,17 @@ public class EnemyManager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (currentWaveTime <= 0 && StartNewWave == true)
-        {
-            StartNewWave = false;
-            currentWaveTime = WaveData.Waves[currentWave].TimeToLoot;
-            NewWave();
-        }
-        else if (currentWaveTime > 0 && StartNewWave == true)
-        {
-            currentWaveTime -= 1 * Time.deltaTime;
-            NextWaveTimerText.text = "Next wave in: " + currentWaveTime.ToString("0");
-        }
+        //if (currentWaveTime <= 0 && StartNewWave == true)
+        //{
+        //    StartNewWave = false;
+        //    currentWaveTime = WaveData.Waves[currentWave].TimeToLoot;
+        //   // NewWave();
+        //}
+        //else if (currentWaveTime > 0 && StartNewWave == true)
+        //{
+        //    currentWaveTime -= 1 * Time.deltaTime;
+        //    NextWaveTimerText.text = "Next wave in: " + currentWaveTime.ToString("0");
+        //}
 
         if (CanGetCombo)
         {
@@ -70,26 +70,25 @@ public class EnemyManager : MonoBehaviour
         if (currentCombo > maxCombo)
             maxCombo = currentCombo;
 
-        ScoreManager.instance.PublicScore += score * currentCombo;
+        ScoreManager.instance.AddScore(score);
 
-        MaxComboText.text = "Max Combo: " + maxCombo.ToString("0");
+        //MaxComboText.text = "Max Combo: " + maxCombo.ToString("0");
 
-        if(currentCombo >= 2)
-            ComboText.transform.gameObject.SetActive(true);
+        //if(currentCombo >= 2)
+        //    ComboText.transform.gameObject.SetActive(true);
 
-        if (currentCombo == 2)
-            ComboText.text = "Double Kill!";
-        else if(currentCombo == 3)
-            ComboText.text = "Triple Kill!";
-        else if (currentCombo == 4)
-            ComboText.text = "Multi Kill!";
-        else if (currentCombo == 5)
-            ComboText.text = "Mega Kill!";
-        else if (currentCombo == 6)
-            ComboText.text = "Moster Killer!";
-        else if (currentCombo >= 7)
-            ComboText.text = "MONSTER KILL!!!";
-
+        //if (currentCombo == 2)
+        //    ComboText.text = "Double Kill!";
+        //else if(currentCombo == 3)
+        //    ComboText.text = "Triple Kill!";
+        //else if (currentCombo == 4)
+        //    ComboText.text = "Multi Kill!";
+        //else if (currentCombo == 5)
+        //    ComboText.text = "Mega Kill!";
+        //else if (currentCombo == 6)
+        //    ComboText.text = "Moster Killer!";
+        //else if (currentCombo >= 7)
+        //    ComboText.text = "MONSTER KILL!!!";
 
     }
     public void ResetCombo()
@@ -101,158 +100,158 @@ public class EnemyManager : MonoBehaviour
     private bool WaveStartedDelay, StartNewWave;
     public void NewWave()
     {
-        WaveStartedDelay = true;
-        StartNewWave = false; 
-        WaveUI_Object.SetActive(false);
+        //WaveStartedDelay = true;
+        //StartNewWave = false; 
+        //WaveUI_Object.SetActive(false);
 
-        if(WaveData.Waves.Length > currentWave)
-        currentWave++;
+        //if(WaveData.Waves.Length > currentWave)
+        //currentWave++;
 
-        if (WaveData.Waves[currentWave - 1].ChangeMusic)
-        {
-            MusicSource.Stop();
-            MusicSource.clip = WaveData.Waves[currentWave - 1].MusicClip;
+        //if (WaveData.Waves[currentWave - 1].ChangeMusic)
+        //{
+        //    MusicSource.Stop();
+        //    MusicSource.clip = WaveData.Waves[currentWave - 1].MusicClip;
 
-            if(WaveData.Waves[currentWave - 1].MusicStartTime != 0)
-                MusicSource.time = WaveData.Waves[currentWave - 1].MusicStartTime;
+        //    if(WaveData.Waves[currentWave - 1].MusicStartTime != 0)
+        //        MusicSource.time = WaveData.Waves[currentWave - 1].MusicStartTime;
 
-            MusicSource.Play();
+        //    MusicSource.Play();
 
-        }
-        StartCoroutine(MusicFadeIn());
+        //}
+        //StartCoroutine(MusicFadeIn());
 
-        StartCoroutine(SpawnBasicEnemy());
-        StartCoroutine(SpawnExplosiveEnemy());
-        StartCoroutine(SpawnFlyingEnemy());
-        StartCoroutine(SpawnGiantEnemy());
-        StartCoroutine(SpawnRangedEnemy());
+        //StartCoroutine(SpawnBasicEnemy());
+        //StartCoroutine(SpawnExplosiveEnemy());
+        //StartCoroutine(SpawnFlyingEnemy());
+        //StartCoroutine(SpawnGiantEnemy());
+        //StartCoroutine(SpawnRangedEnemy());
 
-        Invoke("RemoveWaveDelay", 15f);
+        //Invoke("RemoveWaveDelay", 15f);
 
-        FindObjectOfType<WeaponSpawnManager>().RemoveRandomLoot();
+        //FindObjectOfType<WeaponSpawnManager>().RemoveRandomLoot();
     }
 
-    IEnumerator MusicFadeOut()
-    {
-        while (MusicSource.volume > 0)
-        {
-            MusicSource.volume -= 0.0075f;
-            yield return new WaitForSeconds(0.1f);
-        }
-    }
-    IEnumerator MusicFadeIn()
-    {
-        while (MusicSource.volume < 0.25f)
-        {
-            MusicSource.volume += 0.0075f;
-            yield return new WaitForSeconds(0.1f);
-        }
-    }
+    //IEnumerator MusicFadeOut()
+    //{
+    //    while (MusicSource.volume > 0)
+    //    {
+    //        MusicSource.volume -= 0.0075f;
+    //        yield return new WaitForSeconds(0.1f);
+    //    }
+    //}
+    //IEnumerator MusicFadeIn()
+    //{
+    //    while (MusicSource.volume < 0.25f)
+    //    {
+    //        MusicSource.volume += 0.0075f;
+    //        yield return new WaitForSeconds(0.1f);
+    //    }
+    //}
 
     #region Spawners
-    IEnumerator SpawnBasicEnemy()
-    {
-        yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeToSpawnBasicEnemy);
+    //IEnumerator SpawnBasicEnemy()
+    //{
+    //    yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeToSpawnBasicEnemy);
 
-        for (int i = 0; i < WaveData.Waves[currentWave - 1].BasicEnemy;)
-        {
-            Vector3 pos = new Vector3(Random.Range(-25, 25), 2, Random.Range(-25, 25));
-            Collider[] touching = Physics.OverlapSphere(pos, 1, DetectLayer, QueryTriggerInteraction.Ignore); // chekcs if enemy is spawned inside an object
-            if (touching.Length == 0)
-            {
-                i++;
-                Instantiate(WaveData.BasicEnemyPrefab, pos , Quaternion.identity);
-                TotalEnemies++;
-                yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeBetweenBasicEnemy);
-                EnemiesLeftText.text = "Enemies Left: " + TotalEnemies.ToString("0");
-            }
-        }
-    }
-    IEnumerator SpawnExplosiveEnemy()
-    {
-        yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeToSpawnExplosiveEnemy);
+    //    for (int i = 0; i < WaveData.Waves[currentWave - 1].BasicEnemy;)
+    //    {
+    //        Vector3 pos = new Vector3(Random.Range(-25, 25), 2, Random.Range(-25, 25));
+    //        Collider[] touching = Physics.OverlapSphere(pos, 1, DetectLayer, QueryTriggerInteraction.Ignore); // chekcs if enemy is spawned inside an object
+    //        if (touching.Length == 0)
+    //        {
+    //            i++;
+    //            Instantiate(WaveData.BasicEnemyPrefab, pos , Quaternion.identity);
+    //            TotalEnemies++;
+    //            yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeBetweenBasicEnemy);
+    //            EnemiesLeftText.text = "Enemies Left: " + TotalEnemies.ToString("0");
+    //        }
+    //    }
+    //}
+    //IEnumerator SpawnExplosiveEnemy()
+    //{
+    //    yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeToSpawnExplosiveEnemy);
 
-        for (int i = 0; i < WaveData.Waves[currentWave - 1].ExplosiveEnemies;)
-        {
-            Vector3 pos = new Vector3(Random.Range(-25, 25), 2, Random.Range(-25, 25));
-            Collider[] touching = Physics.OverlapSphere(pos, 1, DetectLayer, QueryTriggerInteraction.Ignore); // chekcs if enemy is spawned inside an object
-            if (touching.Length == 0)
-            {
-                i++;
-                Instantiate(WaveData.ExposiveEnemyPrefab, pos, Quaternion.identity);
-                TotalEnemies++;
-                yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeBetweenExplosiveEnemy);
-                EnemiesLeftText.text = "Enemies Left: " + TotalEnemies.ToString("0");
-            }
-        }
-    }
-    IEnumerator SpawnFlyingEnemy()
-    {
-        yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeToSpawnFlyingEnemy);
+    //    for (int i = 0; i < WaveData.Waves[currentWave - 1].ExplosiveEnemies;)
+    //    {
+    //        Vector3 pos = new Vector3(Random.Range(-25, 25), 2, Random.Range(-25, 25));
+    //        Collider[] touching = Physics.OverlapSphere(pos, 1, DetectLayer, QueryTriggerInteraction.Ignore); // chekcs if enemy is spawned inside an object
+    //        if (touching.Length == 0)
+    //        {
+    //            i++;
+    //            Instantiate(WaveData.ExposiveEnemyPrefab, pos, Quaternion.identity);
+    //            TotalEnemies++;
+    //            yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeBetweenExplosiveEnemy);
+    //            EnemiesLeftText.text = "Enemies Left: " + TotalEnemies.ToString("0");
+    //        }
+    //    }
+    //}
+    //IEnumerator SpawnFlyingEnemy()
+    //{
+    //    yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeToSpawnFlyingEnemy);
 
-        for (int i = 0; i < WaveData.Waves[currentWave - 1].FlyingEnemies;)
-        {
-            Vector3 pos = new Vector3(Random.Range(-25, 25), 2, Random.Range(-25, 25));
-            Collider[] touching = Physics.OverlapSphere(pos, 1, DetectLayer, QueryTriggerInteraction.Ignore); // chekcs if enemy is spawned inside an object
-            if (touching.Length == 0)
-            {
-                i++;
-                Instantiate(WaveData.FlyingEnemyPrefab, pos, Quaternion.identity);
-                TotalEnemies++;
-                yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeBetweenFlyingEnemy);
-                EnemiesLeftText.text = "Enemies Left: " + TotalEnemies.ToString("0");
-            }
-        }
-    }
-    IEnumerator SpawnGiantEnemy()
-    {
-        yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeToSpawnGiantEnemy);
+    //    for (int i = 0; i < WaveData.Waves[currentWave - 1].FlyingEnemies;)
+    //    {
+    //        Vector3 pos = new Vector3(Random.Range(-25, 25), 2, Random.Range(-25, 25));
+    //        Collider[] touching = Physics.OverlapSphere(pos, 1, DetectLayer, QueryTriggerInteraction.Ignore); // chekcs if enemy is spawned inside an object
+    //        if (touching.Length == 0)
+    //        {
+    //            i++;
+    //            Instantiate(WaveData.FlyingEnemyPrefab, pos, Quaternion.identity);
+    //            TotalEnemies++;
+    //            yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeBetweenFlyingEnemy);
+    //            EnemiesLeftText.text = "Enemies Left: " + TotalEnemies.ToString("0");
+    //        }
+    //    }
+    //}
+    //IEnumerator SpawnGiantEnemy()
+    //{
+    //    yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeToSpawnGiantEnemy);
 
-        for (int i = 0; i < WaveData.Waves[currentWave - 1].GiantEnemies;)
-        {
-            Vector3 pos = new Vector3(Random.Range(-25, 25), 2, Random.Range(-25, 25));
-            Collider[] touching = Physics.OverlapSphere(pos, 1, DetectLayer, QueryTriggerInteraction.Ignore); // chekcs if enemy is spawned inside an object
-            if (touching.Length == 0)
-            {
-                i++;
-                Instantiate(WaveData.GiantEnemyPrefab, pos, Quaternion.identity);
-                TotalEnemies++;
-                yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeBetweenGiantEnemy);
-                EnemiesLeftText.text = "Enemies Left: " + TotalEnemies.ToString("0");
-            }
-        }
-    }
-    IEnumerator SpawnRangedEnemy()
-    {
-        yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeToSpawnRangedEnemy);
+    //    for (int i = 0; i < WaveData.Waves[currentWave - 1].GiantEnemies;)
+    //    {
+    //        Vector3 pos = new Vector3(Random.Range(-25, 25), 2, Random.Range(-25, 25));
+    //        Collider[] touching = Physics.OverlapSphere(pos, 1, DetectLayer, QueryTriggerInteraction.Ignore); // chekcs if enemy is spawned inside an object
+    //        if (touching.Length == 0)
+    //        {
+    //            i++;
+    //            Instantiate(WaveData.GiantEnemyPrefab, pos, Quaternion.identity);
+    //            TotalEnemies++;
+    //            yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeBetweenGiantEnemy);
+    //            EnemiesLeftText.text = "Enemies Left: " + TotalEnemies.ToString("0");
+    //        }
+    //    }
+    //}
+    //IEnumerator SpawnRangedEnemy()
+    //{
+    //    yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeToSpawnRangedEnemy);
 
-        for (int i = 0; i < WaveData.Waves[currentWave - 1].RangedEnemies;)
-        {
-            Vector3 pos = new Vector3(Random.Range(-25, 25), 2, Random.Range(-25, 25));
-            Collider[] touching = Physics.OverlapSphere(pos, 1, DetectLayer, QueryTriggerInteraction.Ignore); // chekcs if enemy is spawned inside an object
-            if (touching.Length == 0)
-            {
-                i++;
-                Instantiate(WaveData.RangedEnemyPrefab, pos, Quaternion.identity);
-                TotalEnemies++;
-                yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeBetweenRangedEnemy);
-                EnemiesLeftText.text = "Enemies Left: " + TotalEnemies.ToString("0");
-            }
-        }
-    }
+    //    for (int i = 0; i < WaveData.Waves[currentWave - 1].RangedEnemies;)
+    //    {
+    //        Vector3 pos = new Vector3(Random.Range(-25, 25), 2, Random.Range(-25, 25));
+    //        Collider[] touching = Physics.OverlapSphere(pos, 1, DetectLayer, QueryTriggerInteraction.Ignore); // chekcs if enemy is spawned inside an object
+    //        if (touching.Length == 0)
+    //        {
+    //            i++;
+    //            Instantiate(WaveData.RangedEnemyPrefab, pos, Quaternion.identity);
+    //            TotalEnemies++;
+    //            yield return new WaitForSeconds(WaveData.Waves[currentWave - 1].TimeBetweenRangedEnemy);
+    //            EnemiesLeftText.text = "Enemies Left: " + TotalEnemies.ToString("0");
+    //        }
+    //    }
+    //}
     #endregion
 
-    private void RemoveWaveDelay()
-    {
-        WaveStartedDelay = false;
-        if (TotalEnemies == 0)
-        {
-            StartNewWave = true;
-            WaveUI_Object.SetActive(true);
-            FindObjectOfType<WeaponSpawnManager>().SpawnRandomLoot();
-            StartCoroutine(MusicFadeOut());
-        }
-    }
+    //private void RemoveWaveDelay()
+    //{
+    //    WaveStartedDelay = false;
+    //    if (TotalEnemies == 0)
+    //    {
+    //        StartNewWave = true;
+    //        WaveUI_Object.SetActive(true);
+    //        FindObjectOfType<WeaponSpawnManager>().SpawnRandomLoot();
+    //        StartCoroutine(MusicFadeOut());
+    //    }
+    //}
     private void OnDisable()
     {
         EnemyActions.AddEnemyAttacking -= AddenemyAttacking;
@@ -276,9 +275,9 @@ public class EnemyManager : MonoBehaviour
             CanGetCombo = true;
             AddCombo(enemy.ScoreToAdd);
         }
-        TotalEnemies--;
-        EnemiesLeftText.text = "Enemies Left: " + TotalEnemies.ToString("0");
-        if (TotalEnemies == 0 && !WaveStartedDelay)
-            RemoveWaveDelay();
+        //TotalEnemies--;
+       // EnemiesLeftText.text = "Enemies Left: " + TotalEnemies.ToString("0");
+        //if (TotalEnemies == 0 && !WaveStartedDelay)
+            //RemoveWaveDelay();
     }
 }

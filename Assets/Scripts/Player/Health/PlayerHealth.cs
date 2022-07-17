@@ -14,6 +14,8 @@ public class PlayerHealth : MonoBehaviour
     {
         waveManager = FindObjectOfType<WaveManager>();
         waveManager.onWaveEnded += _ => HealPlayer();
+
+        currentHealth = maxHealth;
     }
 
     private void Start()

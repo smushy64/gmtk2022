@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -19,12 +18,8 @@ public class UIMainMenu : MonoBehaviour
 
     Selectable[] buttons;
     
-    void Awake() {
+    void Start() {
         buttons = transform.Find("Sidebar").GetComponentsInChildren<Selectable>();
-    }
-
-    private void Start()
-    {
         MusicPlayer.Instance.PlayClip(mainMenuMusic);
     }
 

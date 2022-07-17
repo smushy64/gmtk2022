@@ -9,6 +9,8 @@ public class UIHud : MonoBehaviour
     UIAmmoCounter ammoCounter;
     [SerializeField]
     UIAmmoType ammoType;
+    [SerializeField]
+    TMPro.TMP_Text qualityText;
 
     public void UpdateHealth( float newHealth, float maxHealth ) {
         float value = newHealth / maxHealth;
@@ -32,4 +34,8 @@ public class UIHud : MonoBehaviour
         ammoType.gameObject.SetActive(false);
     }
 
+    public void UpdateWeaponQuality(string text)
+    {
+        qualityText.text = text;
+    }
 }
