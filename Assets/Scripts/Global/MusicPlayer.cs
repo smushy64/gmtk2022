@@ -13,8 +13,6 @@ public class MusicPlayer : MonoBehaviour
         }
 
         audioSource = GetComponent<AudioSource>();
-
-        DontDestroyOnLoad(this);
     }
 
     public void PlayClip( AudioClip clip, bool loop ) {

@@ -7,8 +7,11 @@ public class UIGameOver : MonoBehaviour
     [SerializeField]
     GameObject menu;
 
+    SoundEffectPlayer sfxPlayer;
+
     private void Start()
     {
+        sfxPlayer = GetComponentInChildren<SoundEffectPlayer>();
         GameOverManager.Instance.OnPlayerDeath += Activate;
     }
     private void OnDisable()
@@ -17,6 +20,7 @@ public class UIGameOver : MonoBehaviour
     }
 
     public void Activate() {
+        sfxPlayer.Play();
         FindObjectOfType<PauseMenu>().gameObject.SetActive(false);
         menu.SetActive(true);
         Cursor.lockState = CursorLockMode.None;

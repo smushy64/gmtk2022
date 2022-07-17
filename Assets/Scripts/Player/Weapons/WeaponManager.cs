@@ -35,7 +35,7 @@ public class WeaponManager : MonoBehaviour
     int energyAmmo  = 40;
 
     int currentWeaponIndex = 0;
-    const int MAX_WEAPON_COUNT = 9;
+    const int MAX_WEAPON_COUNT = 4;
     GunData[] weapons = new GunData[MAX_WEAPON_COUNT];
     bool weaponsContainsNull = true;
 
