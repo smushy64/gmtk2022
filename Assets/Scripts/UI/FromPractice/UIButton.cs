@@ -83,7 +83,7 @@ public class UIButton :
                 timer / animationLength
             );
 
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime;
 
             yield return null;
         }
@@ -101,7 +101,7 @@ public class UIButton :
                 timer / animationLength
             );
 
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime;
 
             yield return null;
         }
@@ -114,7 +114,7 @@ public class UIButton :
                 timer / animationLength
             );
 
-            timer += Time.deltaTime;
+            timer += Time.unscaledDeltaTime;
 
             yield return null;
         }

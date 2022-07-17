@@ -31,7 +31,7 @@ public class SoundEffectPlayer : MonoBehaviour
 
     IEnumerator LifetimeCounter() {
         yield return new WaitForSeconds(lengthOfCurrentClip);
-        Destroy(gameObject);
+        Destroy(this.gameObject);
     }
 
 }

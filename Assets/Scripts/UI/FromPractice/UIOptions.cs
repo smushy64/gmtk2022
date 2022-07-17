@@ -30,8 +30,8 @@ public class UIOptions : MonoBehaviour
         cameraSensitivityXSlider.SliderComponent.onValueChanged.AddListener(GameOptions.SetCameraSensitivityX);
         cameraSensitivityYSlider.SliderComponent.onValueChanged.AddListener(GameOptions.SetCameraSensitivityY);
 
-        fullscreenModeDropdown.onValueChanged.AddListener(ChangeFullscreenMode);
-        resolutionDropdown.onValueChanged.AddListener(ChangeResolution);
+        fullscreenModeDropdown?.onValueChanged.AddListener(ChangeFullscreenMode);
+        resolutionDropdown?.onValueChanged.AddListener(ChangeResolution);
         vsyncDropdown.onValueChanged.AddListener(SetVsync);
 
         invertCameraX.OnToggle.AddListener(GameOptions.SetInvertCameraX);
@@ -60,7 +60,7 @@ public class UIOptions : MonoBehaviour
         Screen.fullScreenMode = chosenFullscreenMode;
 
         popUp.CreatePopup(
-            fullscreenModeDropdown.gameObject,
+            fullscreenModeDropdown?.gameObject,
             "Would you like to keep this screen mode?\nReverting back in 5s",
             "Revert",
             "Keep",
@@ -147,8 +147,10 @@ public class UIOptions : MonoBehaviour
         invertCameraX.SetInteractable           (true);
         invertCameraY.SetInteractable           (true);
         skipSplashScreen.SetInteractable        (true);
-        fullscreenModeDropdown.interactable    = true;
-        resolutionDropdown.interactable        = true;
+        if( fullscreenModeDropdown != null )
+            fullscreenModeDropdown.interactable    = true;
+        if( resolutionDropdown != null )
+            resolutionDropdown.interactable        = true;
         vsyncDropdown.interactable             = true;
         scrollbar.interactable                 = true;
     }
@@ -162,8 +164,10 @@ public class UIOptions : MonoBehaviour
         invertCameraX.SetInteractable           (false);
         invertCameraY.SetInteractable           (false);
         skipSplashScreen.SetInteractable        (false);
-        fullscreenModeDropdown.interactable    = false;
-        resolutionDropdown.interactable        = false;
+        if( fullscreenModeDropdown != null )
+            fullscreenModeDropdown.interactable    = false;
+        if( resolutionDropdown != null )
+            resolutionDropdown.interactable        = false;
         vsyncDropdown.interactable             = false;
         scrollbar.interactable                 = false;
     }
@@ -196,8 +200,10 @@ public class UIOptions : MonoBehaviour
         cameraSensitivityXSlider.SetValue( o.cameraSensitivityX );
         cameraSensitivityYSlider.SetValue( o.cameraSensitivityY );
 
-        fullscreenModeDropdown.SetValueWithoutNotify((int)o.fullscreenMode);
-        resolutionDropdown.SetValueWithoutNotify((int)o.resolution);
+        if( fullscreenModeDropdown != null )
+            fullscreenModeDropdown.SetValueWithoutNotify((int)o.fullscreenMode);
+        if( resolutionDropdown != null )
+            resolutionDropdown.SetValueWithoutNotify((int)o.resolution);
         vsyncDropdown.SetValueWithoutNotify((int)o.vsync);
         invertCameraX.Set(o.invertCameraX);
         invertCameraY.Set(o.invertCameraY);
