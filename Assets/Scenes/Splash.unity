@@ -225,7 +225,7 @@ MonoBehaviour:
   endSize: 0.8
   dngAnimationLength: 6
   gmtkAnimationLength: 6
-  splashScreenMusic: {fileID: 8300000, guid: 581d77c1b18daa94c94b92bb3228a64f, type: 3}
+  splashScreenMusic: {fileID: 8300000, guid: 2470649b18be39e4bb98b0ca5e64f957, type: 3}
 --- !u!1 &1145902744
 GameObject:
   m_ObjectHideFlags: 0

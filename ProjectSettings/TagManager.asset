@@ -9,13 +9,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Weapon
+  - WeaponDisplay
   - Water
   - UI
   - Player
   - Ground
-  - "\xC9nemy"
-  - Projectile
+  - Enemy
+  - 
   - 
   - 
   - 
@@ -39,6 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: HUD
+    uniqueID: 1793217223
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

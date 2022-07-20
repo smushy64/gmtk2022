@@ -21,7 +21,10 @@ public class GunData
 
     public float recoilMultiplier { get; private set; }
 
-   
+    // TODO: generate random names for each gun
+    public string GunText() {
+        return quality.ToString() + " " + GunTypeText( type ) ;
+    }
     
     /// <summary>
     /// returns how much ammo is taken from reserve
@@ -73,10 +76,7 @@ public class GunData
         }
     }
 
-    public GunData(ScoreManager SM) {
-
-        if (scoreManager == null)
-            scoreManager = SM;
+    public GunData() {
 
         this.quality = GenerateGunQuality();
         this.type = (GunType)Random.Range(0, 4);
@@ -125,12 +125,12 @@ public class GunData
     }
 
     GunQuality GenerateGunQuality() {
-        int generatedValue = Random.Range(0, 100 - scoreManager.BetterChance);
+        int generatedValue = Random.Range(0, 100);
         if( generatedValue == 0 )
             return GunQuality.Legendary;
         int step = 1;
         while( true ) {
-            generatedValue = Random.Range(0, 100 - scoreManager.BetterChance);
+            generatedValue = Random.Range(0, 100);
             switch( step ) {
                 case 1:
                     if( generatedValue < (int)GunQuality.Incredible )

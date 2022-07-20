@@ -5,11 +5,11 @@ using TMPro;
 public class UIOptions : MonoBehaviour
 {
     [SerializeField]
-    UISlider masterSlider, musicSlider, sfxSlider, cameraSensitivityXSlider, cameraSensitivityYSlider;
+    UISlider masterSlider, musicSlider, sfxSlider; //cameraSensitivityXSlider, cameraSensitivityYSlider;
     [SerializeField]
     TMP_Dropdown fullscreenModeDropdown, resolutionDropdown, vsyncDropdown;
     [SerializeField]
-    UIToggle invertCameraX, invertCameraY, skipSplashScreen;
+    UIToggle skipSplashScreen; //invertCameraX, invertCameraY, 
     [SerializeField]
     Scrollbar scrollbar;
 
@@ -27,15 +27,15 @@ public class UIOptions : MonoBehaviour
         musicSlider.SliderComponent.onValueChanged.AddListener( GameOptions.SetMusicVolume );
         sfxSlider.SliderComponent.onValueChanged.AddListener( GameOptions.SetSFXVolume );
 
-        cameraSensitivityXSlider.SliderComponent.onValueChanged.AddListener(GameOptions.SetCameraSensitivityX);
-        cameraSensitivityYSlider.SliderComponent.onValueChanged.AddListener(GameOptions.SetCameraSensitivityY);
+        // cameraSensitivityXSlider.SliderComponent.onValueChanged.AddListener(GameOptions.SetCameraSensitivityX);
+        // cameraSensitivityYSlider.SliderComponent.onValueChanged.AddListener(GameOptions.SetCameraSensitivityY);
 
         fullscreenModeDropdown?.onValueChanged.AddListener(ChangeFullscreenMode);
         resolutionDropdown?.onValueChanged.AddListener(ChangeResolution);
         vsyncDropdown.onValueChanged.AddListener(SetVsync);
 
-        invertCameraX.OnToggle.AddListener(GameOptions.SetInvertCameraX);
-        invertCameraY.OnToggle.AddListener(GameOptions.SetInvertCameraY);
+        // invertCameraX.OnToggle.AddListener(GameOptions.SetInvertCameraX);
+        // invertCameraY.OnToggle.AddListener(GameOptions.SetInvertCameraY);
         skipSplashScreen.OnToggle.AddListener(GameOptions.SetSkipSplash);
         UpdateOptionsDisplay();
     }
@@ -142,10 +142,10 @@ public class UIOptions : MonoBehaviour
         masterSlider.SetInteractable            (true);
         musicSlider.SetInteractable             (true);
         sfxSlider.SetInteractable               (true);
-        cameraSensitivityXSlider.SetInteractable(true);
-        cameraSensitivityYSlider.SetInteractable(true);
-        invertCameraX.SetInteractable           (true);
-        invertCameraY.SetInteractable           (true);
+        // cameraSensitivityXSlider.SetInteractable(true);
+        // cameraSensitivityYSlider.SetInteractable(true);
+        // invertCameraX.SetInteractable           (true);
+        // invertCameraY.SetInteractable           (true);
         skipSplashScreen.SetInteractable        (true);
         if( fullscreenModeDropdown != null )
             fullscreenModeDropdown.interactable    = true;
@@ -159,10 +159,10 @@ public class UIOptions : MonoBehaviour
         masterSlider.SetInteractable            (false);
         musicSlider.SetInteractable             (false);
         sfxSlider.SetInteractable               (false);
-        cameraSensitivityXSlider.SetInteractable(false);
-        cameraSensitivityYSlider.SetInteractable(false);
-        invertCameraX.SetInteractable           (false);
-        invertCameraY.SetInteractable           (false);
+        // cameraSensitivityXSlider.SetInteractable(false);
+        // cameraSensitivityYSlider.SetInteractable(false);
+        // invertCameraX.SetInteractable           (false);
+        // invertCameraY.SetInteractable           (false);
         skipSplashScreen.SetInteractable        (false);
         if( fullscreenModeDropdown != null )
             fullscreenModeDropdown.interactable    = false;
@@ -197,16 +197,16 @@ public class UIOptions : MonoBehaviour
         masterSlider.SetValue( o.masterVolume );
         musicSlider.SetValue( o.musicVolume );
         sfxSlider.SetValue( o.sfxVolume );
-        cameraSensitivityXSlider.SetValue( o.cameraSensitivityX );
-        cameraSensitivityYSlider.SetValue( o.cameraSensitivityY );
+        // cameraSensitivityXSlider.SetValue( o.cameraSensitivityX );
+        // cameraSensitivityYSlider.SetValue( o.cameraSensitivityY );
 
         if( fullscreenModeDropdown != null )
             fullscreenModeDropdown.SetValueWithoutNotify((int)o.fullscreenMode);
         if( resolutionDropdown != null )
             resolutionDropdown.SetValueWithoutNotify((int)o.resolution);
         vsyncDropdown.SetValueWithoutNotify((int)o.vsync);
-        invertCameraX.Set(o.invertCameraX);
-        invertCameraY.Set(o.invertCameraY);
+        // invertCameraX.Set(o.invertCameraX);
+        // invertCameraY.Set(o.invertCameraY);
         skipSplashScreen.Set(o.skipSplash);
     }
 

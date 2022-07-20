@@ -6,7 +6,7 @@ using Docien.Math;
 namespace Docien.FPSMovement
 {
     [RequireComponent(typeof(Rigidbody), typeof(PlayerInput))]
-    public class PlayerMovement : MonoBehaviour
+    public class PlayerMovement : MonoBehaviour, IImpulse
     {
         public Action<float> onLanded;
         public Action onJump;
@@ -731,6 +731,10 @@ namespace Docien.FPSMovement
             GUI.Label(new Rect(10f, 100f, 300f, 30f), $"Is Grounded: {m_IsGrounded}", GUI.skin.box);
             GUI.Label(new Rect(10f, 130f, 300f, 30f), $"Slope Angle: {Vector3.Angle(Vector3.up, m_GroundNormal)}", GUI.skin.box);
             GUI.Label(new Rect(10f, 160f, 300f, 30f), $"Touching Wall: {m_IsTouchingWall}", GUI.skin.box);
+        }
+
+        public void Impulse(Vector3 force) {
+            m_Rigidbody.velocity = m_Rigidbody.velocity + force;
         }
     }
 }

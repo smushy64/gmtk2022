@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
         var health = collision.gameObject.GetComponent<PlayerHealth>();
         if (health != null)
         {
-            health.TakeDamage(Mathf.RoundToInt(Damage));
+            // health.TakeDamage(Mathf.RoundToInt(Damage));
         }
 
         Destroy(this.gameObject);

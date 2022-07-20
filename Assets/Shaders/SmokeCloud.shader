@@ -16,8 +16,6 @@ Shader "Custom/Particles/SmokeCloud"
             CGPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            // make fog work
-            #pragma multi_compile_fog
 
             #include "UnityCG.cginc"
             
@@ -34,7 +32,6 @@ Shader "Custom/Particles/SmokeCloud"
                 float2 uv : TEXCOORD0;
                 float4 particleInfo : TEXCOORD1;
                 float4 color : COLOR;
-                UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
             };
 
@@ -45,7 +42,6 @@ Shader "Custom/Particles/SmokeCloud"
                 o.color = v.color;
                 o.uv = v.uv;
                 o.particleInfo = v.particleInfo;
-                UNITY_TRANSFER_FOG(o,o.vertex);
                 return o;
             }
             
@@ -91,8 +87,8 @@ Shader "Custom/Particles/SmokeCloud"
                 float4 voronoi = voronoiNoise(st);
                 clip(voronoi - i.particleInfo.x);
 
-                UNITY_APPLY_FOG(i.fogCoord, col);
-                return i.color;
+                float4 col = i.color;
+                return col;
             }
 
             ENDCG

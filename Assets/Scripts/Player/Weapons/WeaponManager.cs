@@ -10,9 +10,11 @@ public class WeaponManager : MonoBehaviour
     Hitscan hitscanWeapon;
     [SerializeField]
     Projectile projectileWeapon;
-
-    [SerializeField]
     UIHud hud;
+
+    [Header("Debug ======================")]
+    [SerializeField]
+    bool spawnWithWeapons = false;
 
     PlayerInput input;
     PlayerLook look;
@@ -41,27 +43,34 @@ public class WeaponManager : MonoBehaviour
 
     public GunData CurrentWeapon => weapons[currentWeaponIndex];
 
-    private ScoreManager SM;
-
     private void Awake()
     {
-        SM = FindObjectOfType<ScoreManager>();
         input = GetComponentInParent<PlayerInput>();
         look = GetComponentInParent<PlayerLook>();
         fire = input.actions["Fire"];
         switchWeapon = input.actions["Change Weapon"];
         reloadWeapon = input.actions["Reload"];
+        hud = FindObjectOfType<UIHud>();
 
         CheckForEmptyWeaponSlot();
 
-        hud.DisableAmmo();
+        if( spawnWithWeapons ) {
+            for (int i = 0; i < MAX_WEAPON_COUNT; ++i) {
+                weapons[i] = new GunData();
+            }
+            hud.UpdateAmmoType(CurrentWeapon.type);
+            hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
+        }
+        else {
+            hud.DisableAmmo();
+        }
     }
 
     private void Update()
     {
         if (CurrentWeapon != null)
         {
-            hud.UpdateWeaponQuality(CurrentWeapon.quality.ToString());
+            hud.UpdateWeaponQuality(CurrentWeapon.GunText());
         }
         else
         {
@@ -213,7 +222,7 @@ public class WeaponManager : MonoBehaviour
                 if (fireRateCanShoot) {
                     if( CurrentWeapon.Shoot() ) {
                         OnWeaponFire?.Invoke();
-                        projectileWeapon.Fire();
+                        projectileWeapon.Fire(CurrentWeapon.damagePerShot);
                         ShootDelay(CurrentWeapon.delayBetweenShots);
                         hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
                         look.Recoil();
@@ -224,7 +233,7 @@ public class WeaponManager : MonoBehaviour
                 if (fireRateCanShoot) {
                     if( CurrentWeapon.Shoot() ) {
                         OnWeaponFire?.Invoke();
-                        hitscanWeapon.Fire( CurrentWeapon.pelletsPerShot, Mathf.RoundToInt(CurrentWeapon.damagePerShot));
+                        hitscanWeapon.Fire( CurrentWeapon.pelletsPerShot, CurrentWeapon.damagePerShot);
                         ShootDelay(CurrentWeapon.delayBetweenShots);
                         hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
                         look.Recoil();
@@ -235,7 +244,7 @@ public class WeaponManager : MonoBehaviour
                 if(fireRateCanShoot) {
                     if (CurrentWeapon.Shoot()) {
                         OnWeaponFire?.Invoke();
-                        hitscanWeapon.Fire( Mathf.RoundToInt(CurrentWeapon.damagePerShot) );
+                        hitscanWeapon.Fire( CurrentWeapon.damagePerShot );
                         ShootDelay(CurrentWeapon.delayBetweenShots);
                         hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
                         look.Recoil();
@@ -306,7 +315,7 @@ public class WeaponManager : MonoBehaviour
     }
 
     void OnReload( InputAction.CallbackContext ctx ) {
-        if( PauseMenu.Paused )
+        if( PauseMenu.Paused || CurrentWeapon == null )
             return;
         if( !isReloading ) {
             Reload();

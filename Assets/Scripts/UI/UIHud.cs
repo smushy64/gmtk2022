@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class UIHud : MonoBehaviour
@@ -11,11 +12,30 @@ public class UIHud : MonoBehaviour
     UIAmmoType ammoType;
     [SerializeField]
     TMPro.TMP_Text qualityText;
+    float barAnimationLength = 0.1f;
 
     public void UpdateHealth( float newHealth, float maxHealth ) {
         float value = newHealth / maxHealth;
-        reticleHealthBar.SetValue(value);
-        healthBar.SetValue(value);
+        if( animatedHealthBar != null ) {
+            this.StopCoroutine(animatedHealthBar);
+        }
+        animatedHealthBar = AnimatedHealthBar(value);
+        this.StartCoroutine(animatedHealthBar);
+    }
+    IEnumerator animatedHealthBar;
+    IEnumerator AnimatedHealthBar( float newValue ) {
+        float timer = 0f;
+        float startValue = healthBar.Value;
+        while( timer < barAnimationLength ) {
+            float t = timer / barAnimationLength;
+            float value = Mathf.Lerp(startValue, newValue, t);
+            reticleHealthBar.SetValue(value);
+            healthBar.SetValue(value);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+        reticleHealthBar.SetValue(newValue);
+        healthBar.SetValue(newValue);
     }
 
     public void UpdateAmmo( int count, int totalMagazine, int totalReserve ) {
@@ -34,8 +54,7 @@ public class UIHud : MonoBehaviour
         ammoType.gameObject.SetActive(false);
     }
 
-    public void UpdateWeaponQuality(string text)
-    {
+    public void UpdateWeaponQuality(string text) {
         qualityText.text = text;
     }
 }

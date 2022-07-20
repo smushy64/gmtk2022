@@ -16,10 +16,8 @@ public class Explosion : MonoBehaviour
         {
             foreach (Collider item in touching)
             {
-                print("touch");
                 if (item.TryGetComponent(out Enemy enemy))
                 {
-                    print("enemy");
                     enemy.transform.gameObject.GetComponent<Enemy>().TakeDamage(Damage);
 
                 }
@@ -31,10 +29,10 @@ public class Explosion : MonoBehaviour
     {
         if (collision.TryGetComponent(out PlayerHealth health))
         {
-            if(collision.gameObject.tag == "PlayerExplosion")
-                health.TakeDamage(Damage / 5);
-            else
-                health.TakeDamage(Damage);
+            // if(collision.gameObject.tag == "PlayerExplosion")
+            //     health.TakeDamage(Damage / 5);
+            // else
+            //     health.TakeDamage(Damage);
         }
     }
 

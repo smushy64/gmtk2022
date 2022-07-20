@@ -5,31 +5,31 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: -2514127780736276347
-    second: Monster1Armature|Attack2
+    second: Monster_Attack2
   - first:
       74: -4342594802196932658
-    second: Monster1Armature|Chase
+    second: Monster_Chase
   - first:
       74: 2906279922418236656
-    second: Monster1Armature|ChaseFast
+    second: Monster_ChaseFast
   - first:
       74: 3015607186482988911
-    second: Monster1Armature|Damage
+    second: Monster_TakingDamage
   - first:
       74: 7336318378903079313
-    second: Monster1Armature|Death
+    second: Monster_Death
   - first:
       74: -6521131649301336454
-    second: Monster1Armature|Idle
+    second: Monster_Idle
   - first:
       74: -9122977467470087461
-    second: Monster1Armature|None.001
+    second: A_Monster_None
   - first:
       74: 1013456847231416411
-    second: Monster1Armature|Attack
+    second: Monster_Attack
   - first:
       74: -8719904397264482252
-    second: Monster1Armature|Walk
+    second: Monster_Walk
   - first:
       74: 2116532724941763908
     second: Armature|None
@@ -39,6 +39,9 @@ ModelImporter:
   - first:
       74: 3680201527246846624
     second: Armature|Attack.001
+  - first:
+      74: -2002773592846740962
+    second: Monster_Idle
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -59,7 +62,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -68,36 +71,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Monster1Armature|Attack2
-      takeName: Monster1Armature|Attack2
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 30
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Monster1Armature|Chase
+      name: Monster_Chase
       takeName: Monster1Armature|Chase
       internalID: 0
       firstFrame: 0
@@ -108,7 +82,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -126,7 +100,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Monster1Armature|ChaseFast
+      name: Monster_ChaseFast
       takeName: Monster1Armature|ChaseFast
       internalID: 0
       firstFrame: 0
@@ -137,7 +111,7 @@ ModelImporter:
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -155,7 +129,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Monster1Armature|Damage
+      name: Monster_TakingDamage
       takeName: Monster1Armature|Damage
       internalID: 0
       firstFrame: 0
@@ -184,7 +158,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Monster1Armature|Death
+      name: Monster_Death
       takeName: Monster1Armature|Death
       internalID: 0
       firstFrame: 0
@@ -213,69 +187,11 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Monster1Armature|Idle
+      name: Monster_Idle
       takeName: Monster1Armature|Idle
       internalID: 0
       firstFrame: 0
       lastFrame: 120
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Monster1Armature|None.001
-      takeName: Monster1Armature|None.001
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 1
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Monster1Armature|Attack
-      takeName: Monster1Armature|Attack
-      internalID: 0
-      firstFrame: 0
-      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -300,11 +216,98 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Monster1Armature|Walk
+      name: A_Monster_None
+      takeName: Monster1Armature|None.001
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 1
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Monster_Attack
+      takeName: Monster1Armature|Attack
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Monster_Walk
       takeName: Monster1Armature|Walk
       internalID: 0
       firstFrame: 0
       lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Monster_Attack2
+      takeName: Monster1Armature|Attack2
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -374,7 +377,142 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: monster_enemy(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: monster1
+      parentName: monster_enemy(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Monster1Armature
+      parentName: monster_enemy(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
+      scale: {x: 100, y: 100, z: 100}
+    - name: Base
+      parentName: Monster1Armature
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.21721691, y: -0.08415732, z: -0.95144314, w: 0.2012223}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Spine1
+      parentName: Base
+      position: {x: -3.627318e-18, y: -0.007421728, z: 0.015244877}
+      rotation: {x: 0.5746835, y: -0.10190643, z: 0.15802816, w: 0.7964804}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Spine2
+      parentName: Spine1
+      position: {x: -3.7252902e-11, y: 0.012296154, z: 2.2351741e-10}
+      rotation: {x: -0.091362596, y: 0.013894945, z: -0.029300142, w: 0.99528956}
+      scale: {x: 0.9999998, y: 1.0000001, z: 1.0000001}
+    - name: Head
+      parentName: Spine2
+      position: {x: 0.0000000014714896, y: 0.012497039, z: 0.0000000021606683}
+      rotation: {x: -0.5939881, y: -0.025062231, z: -0.10999609, w: 0.7965242}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Head_end
+      parentName: Head
+      position: {x: -0, y: 0.018020691, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shoulder_R
+      parentName: Spine1
+      position: {x: -0.006559015, y: 0.020835845, z: -0.008419838}
+      rotation: {x: 0.7458434, y: -0.44045323, z: -0.2728115, w: -0.41867945}
+      scale: {x: 0.9999997, y: 0.99999964, z: 0.99999994}
+    - name: Arm1_R
+      parentName: Shoulder_R
+      position: {x: 1.4901161e-10, y: 0.007070565, z: 0}
+      rotation: {x: 0.15512858, y: -0.08596509, z: -0.015450416, w: 0.9840256}
+      scale: {x: 0.99999994, y: 0.99999994, z: 0.9999999}
+    - name: Arm2_R
+      parentName: Arm1_R
+      position: {x: 5.2154064e-10, y: 0.012572033, z: 0.0000000017881393}
+      rotation: {x: 0.015675439, y: 0.07412963, z: 0.005603153, w: 0.9971098}
+      scale: {x: 1.0000001, y: 1, z: 0.9999998}
+    - name: Hand_R
+      parentName: Arm2_R
+      position: {x: 5.9604643e-10, y: 0.008905736, z: 0.0000000017881393}
+      rotation: {x: -0.074951336, y: 0.055388134, z: -0.0017880473, w: 0.9956462}
+      scale: {x: 0.99999994, y: 0.99999976, z: 0.9999998}
+    - name: Hand_R_end
+      parentName: Hand_R
+      position: {x: -0, y: 0.017912332, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Shoulder_L
+      parentName: Spine1
+      position: {x: 0.006071802, y: 0.01819548, z: -0.0058149253}
+      rotation: {x: 0.6017091, y: 0.637984, z: 0.4742006, w: 0.07782334}
+      scale: {x: 0.9999997, y: 0.99999964, z: 1.0000001}
+    - name: Arm1_L
+      parentName: Shoulder_L
+      position: {x: -4.842877e-10, y: 0.0070705647, z: -6.705522e-10}
+      rotation: {x: 0.18443738, y: 0.20216137, z: 0.019126056, w: 0.9616381}
+      scale: {x: 1.0000001, y: 1.0000001, z: 0.99999994}
+    - name: Arm2_L
+      parentName: Arm1_L
+      position: {x: 0.000000002682209, y: 0.0125720315, z: 5.9604643e-10}
+      rotation: {x: -0.026831016, y: -0.048885345, z: 0.010300307, w: 0.9983909}
+      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+    - name: Hand_L
+      parentName: Arm2_L
+      position: {x: -8.9406965e-10, y: 0.008905736, z: 0.000000003427267}
+      rotation: {x: -0.089525774, y: 0.50963604, z: -0.10760134, w: 0.84892774}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Hand_L_end
+      parentName: Hand_L
+      position: {x: -0, y: 0.017912332, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hip_R
+      parentName: Base
+      position: {x: -7.4505804e-11, y: -0.007023568, z: 0.014153764}
+      rotation: {x: -0.10266001, y: -0.13857299, z: 0.32044816, w: 0.93143517}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000001}
+    - name: Leg_R
+      parentName: Hip_R
+      position: {x: 5.9604643e-10, y: 0.010684055, z: 0.0000000010430813}
+      rotation: {x: -0.6700755, y: 0.07438522, z: -0.027484277, w: 0.73804504}
+      scale: {x: 1, y: 0.9999998, z: 1}
+    - name: Leg_R_end
+      parentName: Leg_R
+      position: {x: -0, y: 0.010684435, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hip_L
+      parentName: Base
+      position: {x: 1.4901161e-10, y: -0.011747055, z: 0.014153764}
+      rotation: {x: -0.083320536, y: 0.2625298, z: -0.6026884, w: 0.7489343}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Leg_L
+      parentName: Hip_L
+      position: {x: -6.705522e-10, y: 0.010684056, z: -0.0000000020861626}
+      rotation: {x: -0.44812843, y: -0.2294176, z: -0.19181535, w: 0.8424698}
+      scale: {x: 1, y: 1, z: 0.9999999}
+    - name: Leg_L_end
+      parentName: Leg_L
+      position: {x: -0, y: 0.010684435, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tail1
+      parentName: Base
+      position: {x: 3.1899817e-17, y: -0.009194787, z: 0.01469932}
+      rotation: {x: 0.92863256, y: -0.15076044, z: 0.00682176, w: -0.3389194}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.9999995}
+    - name: Tail2
+      parentName: Tail1
+      position: {x: 9.685754e-10, y: 0.01595829, z: -5.587935e-10}
+      rotation: {x: -0.36403978, y: 0.0032711315, z: 0.11487988, w: 0.9242657}
+      scale: {x: 0.99999994, y: 1, z: 1}
+    - name: Tail2_end
+      parentName: Tail2
+      position: {x: -0, y: 0.018295834, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -385,7 +523,7 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1

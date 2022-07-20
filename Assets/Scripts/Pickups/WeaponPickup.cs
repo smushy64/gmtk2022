@@ -15,8 +15,7 @@ public class WeaponPickup : MonoBehaviour
 
     private void Awake()
     {
-        SM = FindObjectOfType<ScoreManager>();
-        UpdateGunData(new GunData(SM));
+        UpdateGunData(new GunData());
     }
 
     public void UpdateGunData(GunData data)
