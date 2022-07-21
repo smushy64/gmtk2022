@@ -44,8 +44,12 @@ namespace Docien.FPSMovement
             mouseOffset = Vector2.Lerp(mouseOffset, Vector2.zero, Time.deltaTime * 25f);
         }
 
-        public void Recoil() {
-            mouseOffset += new Vector2(Random.Range(-RECOIL_OFFSET, RECOIL_OFFSET), Random.Range(-RECOIL_OFFSET, -RECOIL_OFFSET / 2f));
+        public void Recoil(float magnitude) {
+            mouseOffset +=
+                new Vector2(
+                    Random.Range(-RECOIL_OFFSET, RECOIL_OFFSET),
+                    Random.Range(-RECOIL_OFFSET, -RECOIL_OFFSET / 2f)
+                ) * magnitude;
         }
 
         /// <summary>

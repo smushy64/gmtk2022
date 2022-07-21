@@ -1,75 +1,67 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponPickup : MonoBehaviour
+public class WeaponPickup : MonoBehaviour, IInteractable
 {
-    private GunData data;
+    GunData data;
+    [SerializeField]
+    GameObject[] guns;
+    Renderer[] gunRenderers;
+    MaterialPropertyBlock mpb;
 
-    [SerializeField] private GameObject pistolPrefab;
-    [SerializeField] private GameObject shotgunPrefab;
-    [SerializeField] private GameObject riflePrefab;
-    [SerializeField] private GameObject rocketLauncherPrefab;
+    static WeaponManager weaponManager;
+    bool isReturnedWeapon = false;
 
-    private ScoreManager SM;
-
-    private void Awake()
-    {
-        UpdateGunData(new GunData());
+    private void Awake() {
+        mpb = new MaterialPropertyBlock();
+        gunRenderers = new Renderer[guns.Length];
+        int i = 0;
+        foreach(GameObject gun in guns) {
+            gunRenderers[i] = gun.GetComponentInChildren<Renderer>();
+            ++i;
+        }
+        if(weaponManager == null) {
+            weaponManager = FindObjectOfType<WeaponManager>();
+        }
     }
 
-    public void UpdateGunData(GunData data)
-    {
+    public void Generate( Vector3 atPosition ) {
+        transform.position = atPosition;
+        SetData(new GunData());
+        isReturnedWeapon = false;
+    }
+
+    public void SetData(GunData data) {
         this.data = data;
-        GenerateModel();
+        mpb.SetColor("_EmissionColor", data.GunQualityColor() / 2f);
+        foreach( GameObject gun in guns ) {
+            gun.SetActive(false);
+        }
+        int index = (int)data.type;
+        guns[index].SetActive(true);
+        gunRenderers[index].SetPropertyBlock(mpb);
     }
 
-    private void GenerateModel()
-    {
-        GameObject prefab;
-        switch (data.type)
-        {
-            case GunType.Pistol:
-                prefab = pistolPrefab;
-                break;
-            case GunType.Shotgun:
-                prefab = shotgunPrefab;
-                break;
-            case GunType.Rifle:
-                prefab = riflePrefab;
-                break;
-            case GunType.Rocket:
-                prefab = rocketLauncherPrefab;
-                break;
-            default:
-                Debug.LogError("Invalid weapon type assigned to this gun");
-                return;
-        }
+    private void Start() {
+        Generate(transform.position);
+    }
 
-        if (prefab != null)
-        {
-            Transform model = Instantiate(prefab, transform).transform;
-            model.localScale = Vector3.one * 0.1f;
+    void PickedUp() {
+        if(!isReturnedWeapon) {
+            weaponManager.UpdateAmmoCount(data.type, data.magazineCapacity);
+        }
+        GunData returnWeapon = weaponManager.PickupWeapon(data);
+        if(returnWeapon != null) {
+            SetData(returnWeapon);
+            isReturnedWeapon = true;
+        }
+        else {
+            foreach( GameObject gun in guns ) {
+                gun.SetActive(false);
+            }
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            var weaponManager = other.GetComponentInChildren<WeaponManager>();
-
-            if (weaponManager != null)
-            {
-                weaponManager.SwapWeapon(data);
-                weaponManager.ChangeAmmoCount(data.type, -data.magazineCapacity);
-                Destroy(gameObject);
-            }
-            else
-            {
-                Debug.Log("[WeaponPickup] No weapon manager detected on player.");
-            }
-
-        }
+    public void OnInteract() {
+        PickedUp();
     }
 }

@@ -1,20 +1,32 @@
 using System.Collections;
 using UnityEngine;
+using TMPro;
 
 public class UIHud : MonoBehaviour
 {
     
     [SerializeField]
-    UIBar reticleHealthBar, healthBar, ammoBar;
+    UIBar reticleHealthBar, ammoBar;
     [SerializeField]
-    UIAmmoCounter ammoCounter;
+    UIHealth health;
+
     [SerializeField]
-    UIAmmoType ammoType;
+    TMP_Text ammoCounter, pistolAmmoCounter, shotgunAmmoCounter, rifleAmmoCounter, rocketAmmoCounter, weaponName;
+
     [SerializeField]
-    TMPro.TMP_Text qualityText;
+    UIWeaponList weapons;
+    public UIWeaponList Weapons => weapons;
+
+    [SerializeField]
+    GameObject pickUpText;
     float barAnimationLength = 0.1f;
 
+    public void SetPickUpTextEnabled(bool enabled) {
+        pickUpText.SetActive(enabled);
+    }
+
     public void UpdateHealth( float newHealth, float maxHealth ) {
+        health.UpdateHealthDamaged(newHealth);
         float value = newHealth / maxHealth;
         if( animatedHealthBar != null ) {
             this.StopCoroutine(animatedHealthBar);
@@ -25,36 +37,35 @@ public class UIHud : MonoBehaviour
     IEnumerator animatedHealthBar;
     IEnumerator AnimatedHealthBar( float newValue ) {
         float timer = 0f;
-        float startValue = healthBar.Value;
+        float startValue = reticleHealthBar.Value;
         while( timer < barAnimationLength ) {
             float t = timer / barAnimationLength;
             float value = Mathf.Lerp(startValue, newValue, t);
             reticleHealthBar.SetValue(value);
-            healthBar.SetValue(value);
             timer += Time.deltaTime;
             yield return null;
         }
         reticleHealthBar.SetValue(newValue);
-        healthBar.SetValue(newValue);
     }
 
-    public void UpdateAmmo( int count, int totalMagazine, int totalReserve ) {
+    public void UpdateAmmoCounter( int count, int max ) {
         ammoCounter.gameObject.SetActive(true);
-        ammoType.gameObject.SetActive(true);
-        ammoCounter.UpdateCounter(count, totalReserve);
-        ammoBar.SetValue( (float)count / (float)totalMagazine );
+        ammoCounter.text = count.ToString("D3");
+        ammoBar.SetValue((float)count / (float)max);
+    }
+    public void UpdateReserveCounters( int pistol, int shotgun, int rifle, int rocket ) {
+        pistolAmmoCounter.text = pistol.ToString("D3");
+        shotgunAmmoCounter.text = shotgun.ToString("D3");
+        rifleAmmoCounter.text = rifle.ToString("D3");
+        rocketAmmoCounter.text = rocket.ToString("D3");
     }
 
-    public void UpdateAmmoType( GunType type ) {
-        ammoType.SetAmmoType(type);
-    }
-
-    public void DisableAmmo() {
+    public void NoWeapon() {
         ammoCounter.gameObject.SetActive(false);
-        ammoType.gameObject.SetActive(false);
+        weaponName.text = "";
     }
 
-    public void UpdateWeaponQuality(string text) {
-        qualityText.text = text;
+    public void UpdateWeaponName(string text) {
+        weaponName.text = text;
     }
 }

@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class GunData
 {
-    public ScoreManager scoreManager;
     public string name { get; private set; }
     public GunType type { get; private set; }
 
@@ -20,11 +19,6 @@ public class GunData
     public int ammoConsumptionPerShot { get; private set; }
 
     public float recoilMultiplier { get; private set; }
-
-    // TODO: generate random names for each gun
-    public string GunText() {
-        return quality.ToString() + " " + GunTypeText( type ) ;
-    }
     
     /// <summary>
     /// returns how much ammo is taken from reserve
@@ -51,22 +45,6 @@ public class GunData
         }
     }
 
-    public bool IsHitScan() {
-        return this.type != GunType.Rocket && this.type != GunType.Energy;
-    }
-
-    public bool IsRifle() {
-        return this.type == GunType.Rifle;
-    }
-
-    public bool IsShotgun() {
-        return this.type == GunType.Shotgun;
-    }
-
-    public bool IsProjectile() {
-        return this.type == GunType.Rocket;
-    }
-
     public float ReloadDelayMultiplier() {
         switch( this.type ) {
             case GunType.Shotgun: return 1.15f;
@@ -81,7 +59,7 @@ public class GunData
         this.quality = GenerateGunQuality();
         this.type = (GunType)Random.Range(0, 4);
 
-        this.name = this.quality.ToString() + " " + GunTypeText(this.type);
+        this.name = GenerateName();
 
         Vector2 range = dataRanges.GetDamagePerShotRange( this.quality );
         this.damagePerShot = Random.Range(range.x, range.y) *
@@ -112,6 +90,30 @@ public class GunData
         this.recoilMultiplier = Random.Range(range.x, range.y);
 
         this.ammoCount = this.magazineCapacity;
+    }
+
+    // TODO: generate random names for each gun
+    string GenerateName() {
+        return this.quality.ToString() + " " + GunTypeText(this.type);
+    }
+
+    public Color GunQualityColor() {
+        switch(this.quality) {
+            case GunQuality.Legendary:
+                return Color.magenta;
+            case GunQuality.Incredible:
+                return Color.blue;
+            case GunQuality.Terrible:
+                return Color.red;
+            case GunQuality.Mediocre:
+                return new Color( 0.5f, 0f, 0f, 1f );
+            case GunQuality.Great:
+                return Color.yellow;
+            case GunQuality.Good:
+                return Color.green;
+            default: case GunQuality.Common:
+                return Color.white;
+        }
     }
 
     public override string ToString()

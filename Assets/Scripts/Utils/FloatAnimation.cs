@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FloatAnimation : MonoBehaviour
@@ -12,7 +10,7 @@ public class FloatAnimation : MonoBehaviour
 
     private void Awake()
     {
-        y = amplitude + 0.1f;
+        y = amplitude / 2f;
     }
 
     private void Update()

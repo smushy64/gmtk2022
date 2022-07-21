@@ -353,8 +353,7 @@ public class MonsterBehavior : Health, IImpulse
     {
         if( IsAlive ) {
             base.Damage(delta);
-            if( CurrentState != MonsterBehaviorState.Attack )
-                ChangeState(MonsterBehaviorState.Hurt);
+            ChangeState(MonsterBehaviorState.Hurt);
         }
     }
 

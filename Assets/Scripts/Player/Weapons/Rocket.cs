@@ -92,9 +92,12 @@ public class Rocket : MonoBehaviour
                 hit.transform.GetComponent<IImpulse>().Impulse(impulse);
             }
         }
-        Vector3 playerDirection = (playerMovement.transform.position - transform.position ).normalized;
+        Vector3 playerDirection = playerMovement.transform.position - transform.position;
+        if(playerDirection.magnitude > explosionRadius)
+            return;
+        playerDirection = playerDirection.normalized;
         // cast a ray to the player and if there's nothing blocking, apply impulse force at player
-        if (!Physics.Raycast(transform.position, playerDirection, explosionRadius, blockingLayers)) {
+        if(!Physics.Raycast(transform.position, playerDirection, explosionRadius, blockingLayers)) {
             float falloff = damageFalloff.Evaluate(
                 Vector3.Distance( transform.position, playerMovement.transform.position ) / explosionRadius
             );

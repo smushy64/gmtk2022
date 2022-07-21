@@ -16,12 +16,18 @@ public class WeaponManager : MonoBehaviour
     [SerializeField]
     bool spawnWithWeapons = false;
 
+    PlayerMovement movement;
     PlayerInput input;
     PlayerLook look;
+    UIAimBar aimBar;
 
     InputAction fire;
-    InputAction switchWeapon;
     InputAction reloadWeapon;
+    InputAction switchWeapon;
+    InputAction switchWeapon0;
+    InputAction switchWeapon1;
+    InputAction switchWeapon2;
+    InputAction switchWeapon3;
 
     public Action OnWeaponStartSwitch;
     public Action OnWeaponSwitch;
@@ -29,6 +35,7 @@ public class WeaponManager : MonoBehaviour
     public Action OnWeaponFire;
     public Action OnWeaponStartReload;
     public Action OnWeaponEndReload;
+    public Action OnWeaponPickup;
 
     int pistolAmmo  = 20;
     int shotgunAmmo = 5;
@@ -39,100 +46,152 @@ public class WeaponManager : MonoBehaviour
     int currentWeaponIndex = 0;
     const int MAX_WEAPON_COUNT = 4;
     GunData[] weapons = new GunData[MAX_WEAPON_COUNT];
-    bool weaponsContainsNull = true;
+    bool weaponsContainNull = true;
+    int weaponCount = 0;
 
     public GunData CurrentWeapon => weapons[currentWeaponIndex];
+    float recoilMagnitude = 1f;
 
     private void Awake()
     {
         input = GetComponentInParent<PlayerInput>();
         look = GetComponentInParent<PlayerLook>();
+        movement = GetComponentInParent<PlayerMovement>();
+        aimBar = FindObjectOfType<UIAimBar>();
         fire = input.actions["Fire"];
-        switchWeapon = input.actions["Change Weapon"];
+        switchWeapon = input.actions["ScrollWeapon"];
+        switchWeapon0 = input.actions["SwitchWeapon0"];
+        switchWeapon1 = input.actions["SwitchWeapon1"];
+        switchWeapon2 = input.actions["SwitchWeapon2"];
+        switchWeapon3 = input.actions["SwitchWeapon3"];
         reloadWeapon = input.actions["Reload"];
         hud = FindObjectOfType<UIHud>();
 
         CheckForEmptyWeaponSlot();
 
+        movement.OnCrouch += OnCrouch;
+        movement.OnAirborne += OnAirborneOrSlide;
+        movement.OnSlide += OnAirborneOrSlide;
+        movement.OnGrounded += OnGrounded;
+
         if( spawnWithWeapons ) {
             for (int i = 0; i < MAX_WEAPON_COUNT; ++i) {
                 weapons[i] = new GunData();
             }
-            hud.UpdateAmmoType(CurrentWeapon.type);
-            hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
+            weaponsContainNull = false;
+            weaponCount = 4;
+            hud.Weapons.UpdateList(weapons);
+            hud.UpdateAmmoCounter(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity);
+            hud.UpdateReserveCounters(pistolAmmo, shotgunAmmo, rifleAmmo, rocketAmmo);
+            hud.UpdateWeaponName(CurrentWeapon.name);
         }
         else {
-            hud.DisableAmmo();
+            hud.NoWeapon();
         }
     }
 
-    private void Update()
-    {
-        if (CurrentWeapon != null)
-        {
-            hud.UpdateWeaponQuality(CurrentWeapon.GunText());
-        }
-        else
-        {
-            hud.UpdateWeaponQuality("");
+    void OnCrouch() {
+        recoilMagnitude = 0.7f;
+        aimBar.SetDelta(-0.25f);
+    }
+    void OnAirborneOrSlide() {
+        recoilMagnitude = 1.2f;
+        aimBar.SetDelta(0.5f);
+    }
+    void OnGrounded() {
+        if( movement.IsMoving ) {
+            recoilMagnitude = 1f;
+            aimBar.SetDelta(0.25f);
+        } else {
+            recoilMagnitude = 0.9f;
+            aimBar.SetDelta(0f);
         }
     }
 
-    public void ChangeAmmoCount( GunType type, int delta ) {
-        UpdateReserve(type, delta);
+    public void UpdateAmmoCount( GunType type, int delta ) {
+        AddToReserve(type, delta);
         if( CurrentWeapon != null ) {
-            hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
+            hud.UpdateAmmoCounter(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity);
+            hud.UpdateReserveCounters(pistolAmmo, shotgunAmmo, rifleAmmo, rocketAmmo);
         }
     }
 
-    public void SwapWeapon( GunData newWeapon ) {
-        if( weaponsContainsNull ) {
+    /// <summary>
+    /// returns weapon data if weapon swapped, otherwise null if weapon added
+    /// </summary>
+    /// <param name="newWeapon"></param>
+    /// <returns></returns>
+    public GunData PickupWeapon( GunData newWeapon ) {
+        GunData returnWeapon = null;
+        if( weaponsContainNull ) {
             for (int i = 0; i < weapons.Length; ++i){
                 if ( weapons[i] == null ) {
-                    Debug.Log("Weapon slots are not filled, adding new weapon!");
                     weapons[i] = newWeapon;
                     currentWeaponIndex = i;
                     if( i == weapons.Length - 1 ) {
-                        weaponsContainsNull = false;
+                        weaponsContainNull = false;
                     }
                     break;
                 }
             }
+            weaponCount++;
         } else {
-            Debug.Log("Weapon slots are filled, swapping weapon!");
+            returnWeapon = weapons[currentWeaponIndex];
             weapons[currentWeaponIndex] = newWeapon;
-            // TODO: spawn swapped weapon as pick up?
         }
 
         UpdateSelectedWeapon();
+        OnWeaponPickup?.Invoke();
+        hud.Weapons.UpdateList(weapons);
+        return returnWeapon;
     }
 
     private void CheckForEmptyWeaponSlot()
     {
-        weaponsContainsNull = false;
+        weaponsContainNull = false;
         for (int i = 0; i < weapons.Length; ++i)
         {
             if (weapons[i] == null)
             {
-                weaponsContainsNull = true;
+                weaponsContainNull = true;
             }
         }
     }
 
     void OnSwitchWeapon(InputAction.CallbackContext ctx)
     {
-        if( PauseMenu.Paused )
+        if( PauseMenu.Paused || weaponCount <= 1 )
             return;
-        if (ctx.ReadValue<float>() > 0f)
-        {
-            SwitchWeapon(1);
-        }
-        else
-        {
-            SwitchWeapon(-1);
-        }
-
+        SwitchWeapon((ctx.ReadValue<float>() > 0f) ? 1 : -1);
         UpdateSelectedWeapon();
+    }
+    void OnSwitchWeapon0(InputAction.CallbackContext ctx)
+    {
+        if( PauseMenu.Paused || weaponCount <= 1 )
+            return;
+        if( SwitchWeaponAtIndex(0) )
+            UpdateSelectedWeapon();
+    }
+    void OnSwitchWeapon1(InputAction.CallbackContext ctx)
+    {
+        if( PauseMenu.Paused || weaponCount <= 1 )
+            return;
+        if( SwitchWeaponAtIndex(1) )
+            UpdateSelectedWeapon();
+    }
+    void OnSwitchWeapon2(InputAction.CallbackContext ctx)
+    {
+        if( PauseMenu.Paused || weaponCount <= 1 )
+            return;
+        if( SwitchWeaponAtIndex(2) )
+            UpdateSelectedWeapon();
+    }
+    void OnSwitchWeapon3(InputAction.CallbackContext ctx)
+    {
+        if( PauseMenu.Paused || weaponCount <= 1 )
+            return;
+        if( SwitchWeaponAtIndex(3) )
+            UpdateSelectedWeapon();
     }
 
     private void UpdateSelectedWeapon()
@@ -147,10 +206,9 @@ public class WeaponManager : MonoBehaviour
 
         if (CurrentWeapon != null)
         {
-            // TODO: remove this
-            Debug.Log("Index: " + currentWeaponIndex + " | " + CurrentWeapon.name);
-            hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
-            hud.UpdateAmmoType(CurrentWeapon.type);
+            hud.Weapons.UpdateSelected(currentWeaponIndex);
+            hud.UpdateAmmoCounter(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity);
+            hud.UpdateWeaponName(CurrentWeapon.name);
             hitscanWeapon.SetSpreadMultiplier(CurrentWeapon.recoilMultiplier);
         }
     }
@@ -193,6 +251,23 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// returns true if operation was successful
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    bool SwitchWeaponAtIndex(int index) {
+        if(index == currentWeaponIndex)
+            return false;
+        int lastIndex = currentWeaponIndex;
+        currentWeaponIndex = index;
+        if(CurrentWeapon == null) {
+            currentWeaponIndex = lastIndex;
+            return false;
+        }
+        return true;
+    }
+
     int WrapAddWeaponIndex( int delta ) {
         int result = currentWeaponIndex + delta;
         if( result < 0 ) {
@@ -224,8 +299,8 @@ public class WeaponManager : MonoBehaviour
                         OnWeaponFire?.Invoke();
                         projectileWeapon.Fire(CurrentWeapon.damagePerShot);
                         ShootDelay(CurrentWeapon.delayBetweenShots);
-                        hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
-                        look.Recoil();
+                        hud.UpdateAmmoCounter(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity);
+                        look.Recoil(CurrentWeapon.recoilMultiplier * recoilMagnitude);
                     }
                 }
                 break;
@@ -235,8 +310,8 @@ public class WeaponManager : MonoBehaviour
                         OnWeaponFire?.Invoke();
                         hitscanWeapon.Fire( CurrentWeapon.pelletsPerShot, CurrentWeapon.damagePerShot);
                         ShootDelay(CurrentWeapon.delayBetweenShots);
-                        hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
-                        look.Recoil();
+                        hud.UpdateAmmoCounter(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity);
+                        look.Recoil(CurrentWeapon.recoilMultiplier * recoilMagnitude);
                     }
                 }
                 break;
@@ -246,8 +321,8 @@ public class WeaponManager : MonoBehaviour
                         OnWeaponFire?.Invoke();
                         hitscanWeapon.Fire( CurrentWeapon.damagePerShot );
                         ShootDelay(CurrentWeapon.delayBetweenShots);
-                        hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
-                        look.Recoil();
+                        hud.UpdateAmmoCounter(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity);
+                        look.Recoil(CurrentWeapon.recoilMultiplier * recoilMagnitude);
                     }
                 }
                 break;
@@ -281,8 +356,8 @@ public class WeaponManager : MonoBehaviour
     void StartRifleFire( float delayBetweenShots ) {
         if (CurrentWeapon.Shoot()) {
             OnWeaponFire?.Invoke();
-            hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
-            look.Recoil();
+            hud.UpdateAmmoCounter(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity);
+            look.Recoil( CurrentWeapon.recoilMultiplier * recoilMagnitude );
             rifleIsFiring = true;
             if( rifleFire != null ) {
                 this.StopCoroutine(rifleFire);
@@ -303,8 +378,8 @@ public class WeaponManager : MonoBehaviour
                 if (CurrentWeapon.Shoot()) {
                     OnWeaponFire?.Invoke();
                     hitscanWeapon.Fire(Mathf.RoundToInt(CurrentWeapon.damagePerShot));
-                    hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
-                    look.Recoil();
+                    hud.UpdateAmmoCounter(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity);
+                    look.Recoil( CurrentWeapon.recoilMultiplier * recoilMagnitude );
                     timer = 0f;
                 } else {
                     rifleIsFiring = false;
@@ -354,8 +429,9 @@ public class WeaponManager : MonoBehaviour
             yield return null;
         }
         isReloading = false;
-        UpdateReserve( CurrentWeapon.Reload( ReserveAmmo() ) );
-        hud.UpdateAmmo(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity, ReserveAmmo());
+        AddToReserve( -CurrentWeapon.Reload( ReserveAmmo() ) );
+        hud.UpdateAmmoCounter(CurrentWeapon.ammoCount, CurrentWeapon.magazineCapacity);
+        hud.UpdateReserveCounters(pistolAmmo, shotgunAmmo, rifleAmmo, rocketAmmo);
         OnWeaponEndReload?.Invoke();
     }
 
@@ -374,25 +450,25 @@ public class WeaponManager : MonoBehaviour
         }
     }
 
-    void UpdateReserve( int delta ) {
-        UpdateReserve(CurrentWeapon.type, delta);
+    void AddToReserve( int delta ) {
+        AddToReserve(CurrentWeapon.type, delta);
     }
-    void UpdateReserve( GunType type, int delta ) {
+    void AddToReserve( GunType type, int delta ) {
         switch( type ) {
             case GunType.Energy:
-                energyAmmo = SaturateAdd(energyAmmo, -delta);
+                energyAmmo = SaturateAdd(energyAmmo, delta);
                 break;
             case GunType.Rocket:
-                rocketAmmo = SaturateAdd(rocketAmmo, -delta);
+                rocketAmmo = SaturateAdd(rocketAmmo, delta);
                 break;
             case GunType.Rifle:
-                rifleAmmo = SaturateAdd(rifleAmmo, -delta);
+                rifleAmmo = SaturateAdd(rifleAmmo, delta);
                 break;
             case GunType.Shotgun:
-                shotgunAmmo = SaturateAdd(shotgunAmmo, -delta);
+                shotgunAmmo = SaturateAdd(shotgunAmmo, delta);
                 break;
             default: case GunType.Pistol:
-                pistolAmmo = SaturateAdd(pistolAmmo, -delta);
+                pistolAmmo = SaturateAdd(pistolAmmo, delta);
                 break;
         }
     }
@@ -406,6 +482,10 @@ public class WeaponManager : MonoBehaviour
         fire.performed += OnFire;
         fire.canceled += OnFireUp;
         switchWeapon.performed += OnSwitchWeapon;
+        switchWeapon0.performed += OnSwitchWeapon0;
+        switchWeapon1.performed += OnSwitchWeapon1;
+        switchWeapon2.performed += OnSwitchWeapon2;
+        switchWeapon3.performed += OnSwitchWeapon3;
         reloadWeapon.performed += OnReload;
     }
 
@@ -414,6 +494,10 @@ public class WeaponManager : MonoBehaviour
         fire.performed -= OnFire;
         fire.canceled -= OnFireUp;
         switchWeapon.performed -= OnSwitchWeapon;
+        switchWeapon0.performed -= OnSwitchWeapon0;
+        switchWeapon1.performed -= OnSwitchWeapon1;
+        switchWeapon2.performed -= OnSwitchWeapon2;
+        switchWeapon3.performed -= OnSwitchWeapon3;
         reloadWeapon.performed -= OnReload;
     }
 }

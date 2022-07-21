@@ -24,34 +24,30 @@ public class GunAnimator : MonoBehaviour
     [SerializeField]
     GameObject rifle, rocketLauncher;
     [SerializeField]
-    SoundEffectPlayer pistolSFX, shotgunSFX, shotgunPumpSFX, rifleSFX, rocketSFX, reloadSFX, switchSFX;
+    SoundEffectPlayer pistolSFX, shotgunSFX, shotgunPumpSFX, rifleSFX, rocketSFX, reloadSFX, switchSFX, pickupSFX;
     [SerializeField]
     ParticleSystem pistolFlash, shotgunFlash, rifleFlash, rocketLauncherFlash;
     [SerializeField]
     ParticleSystem pistolCasing, shotgunCasing, rifleCasing;
+    [SerializeField]
+    MuzzleFlashLight muzzleFlashLight;
 
     [SerializeField]
     WeaponManager weapons;
 
     void OnWeaponReload() {
-        if( reloadAnimation != null ) {
-            this.StopCoroutine(reloadAnimation);
-        }
+        this.StopAllCoroutines();
         reloadAnimation = SwitchAnimation( weapons.ReloadDelay );
         this.StartCoroutine(reloadAnimation);
         reloadSFX.Play();
     }
+    
+    void OnWeaponPickup() {
+        pickupSFX.Play();
+    }
 
     void OnWeaponSwitchStart() {
-        if( switchAnimation != null ) {
-            this.StopCoroutine(switchAnimation);
-        }
-        if( shootAnimation != null ) {
-            this.StopCoroutine(shootAnimation);
-        }
-        if( reloadAnimation != null ) {
-            this.StopCoroutine(reloadAnimation);
-        }
+        this.StopAllCoroutines();
         switchAnimation = SwitchAnimation( WeaponManager.WEAPON_SWITCH_DELAY );
         this.StartCoroutine(switchAnimation);
         switchSFX.Play();
@@ -66,7 +62,7 @@ public class GunAnimator : MonoBehaviour
         Vector3 startPosition = transform.localPosition;
         Quaternion startRotation = transform.localRotation;
         while( timer < total ) {
-            transform.localRotation = Quaternion.Lerp(
+            transform.localRotation = Quaternion.Slerp(
                 startRotation,
                 targetRotation,
                 timer / total
@@ -85,7 +81,7 @@ public class GunAnimator : MonoBehaviour
         transform.localPosition = Vector3.back;
         timer = 0f;
         while( timer < total ) {
-            transform.localRotation = Quaternion.Lerp(
+            transform.localRotation = Quaternion.Slerp(
                 targetRotation,
                 Quaternion.identity,
                 timer / total
@@ -114,6 +110,8 @@ public class GunAnimator : MonoBehaviour
             this.StopCoroutine(shootAnimation);
         shootAnimation = ShootAnimation();
         this.StartCoroutine(shootAnimation);
+
+        muzzleFlashLight.Flash();
 
         if( currentWeapon == 0 ) {
             pistol.SetBool("isShooting", true);
@@ -223,6 +221,7 @@ public class GunAnimator : MonoBehaviour
         weapons.OnWeaponStartSwitch += OnWeaponSwitchStart;
         weapons.OnWeaponFire += OnWeaponFire;
         weapons.OnWeaponStartReload += OnWeaponReload;
+        weapons.OnWeaponPickup += OnWeaponPickup;
     }
     private void OnDisable() {
         weapons.OnWeaponSwitch -= SwitchWeaponModel;

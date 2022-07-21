@@ -255,7 +255,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: MaxDistance
-      value: 100
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: rolloffMode
@@ -264,22 +264,38 @@ PrefabInstance:
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: 8187291490761018459, guid: 9d2b9779dd1eecb49b1811030a652f02, type: 2}
+      objectReference: {fileID: -1137677998954222221, guid: 9d2b9779dd1eecb49b1811030a652f02, type: 2}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].value
+      value: 0.65730286
+      objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].inSlope
+      value: -0.043769006
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].inSlope
-      value: -2.2802365
+      value: 0.03187933
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].outSlope
+      value: -0.043769006
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].inWeight
-      value: 0.094512224
+      value: 0.13981771
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].outSlope
-      value: -2.2802365
+      value: 0.03187933
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].outWeight
+      value: 0.16717324
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: clips.Array.size
@@ -523,7 +539,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: MaxDistance
-      value: 100
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: rolloffMode
@@ -534,20 +550,36 @@ PrefabInstance:
       value: 
       objectReference: {fileID: -1137677998954222221, guid: 9d2b9779dd1eecb49b1811030a652f02, type: 2}
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].value
+      value: 0.82722473
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].inSlope
+      value: -0.41481984
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].inSlope
-      value: -2.2802365
+      value: -0.00023416529
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].outSlope
+      value: -0.41481984
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].inWeight
-      value: 0.094512224
+      value: 0.051671803
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].outSlope
-      value: -2.2802365
+      value: -0.00023416529
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].outWeight
+      value: 0.17933129
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: clips.Array.size
@@ -663,37 +695,73 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: Priority
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: MaxDistance
-      value: 60
+      value: 1000000
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: rolloffMode
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: OutputAudioMixerGroup
       value: 
-      objectReference: {fileID: 8187291490761018459, guid: 9d2b9779dd1eecb49b1811030a652f02, type: 2}
+      objectReference: {fileID: -1137677998954222221, guid: 9d2b9779dd1eecb49b1811030a652f02, type: 2}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].time
+      value: 0.016666668
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].value
+      value: 1.0016174
+      objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].inSlope
+      value: -0.00006887385
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].inWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].inWeight
+      value: 0.12673235
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].outSlope
+      value: -0.00006887385
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[0].outWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7704809372239010409, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
+      propertyPath: rolloffCustomCurve.m_Curve.Array.data[1].outWeight
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: clips.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: clips.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: e5a20cc1f3dc038488509ad1d5eef3c8, type: 3}
+      objectReference: {fileID: 8300000, guid: 920a63bc2dfdae1458faeb1a1cd3b524, type: 3}
     - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: clips.Array.data[1]
       value: 
-      objectReference: {fileID: 8300000, guid: 920a63bc2dfdae1458faeb1a1cd3b524, type: 3}
+      objectReference: {fileID: 8300000, guid: 8b03a1763667ad642b0254a687934b96, type: 3}
     - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: clips.Array.data[2]
       value: 
-      objectReference: {fileID: 8300000, guid: 8b03a1763667ad642b0254a687934b96, type: 3}
+      objectReference: {fileID: 8300000, guid: 4c6aca27fc956c34ca11c23fbd610c5b, type: 3}
     - target: {fileID: 7704809372239010414, guid: 9000f73bda1c2b64dab2ea57b085f9e7, type: 3}
       propertyPath: clips.Array.data[3]
       value: 

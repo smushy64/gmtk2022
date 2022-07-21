@@ -93,7 +93,7 @@ public class Hitscan : MonoBehaviour
     }
 
     public void Fire(float damage) {
-        RayCast(CalculateSpread(this.multiplier), damage);
+        RayCast(transform.forward, damage);
     }
     public void Fire( int pelletCount, float damage ) {
         for (int x = 0; x < pelletCount; ++x) {

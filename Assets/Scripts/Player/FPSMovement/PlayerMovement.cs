@@ -94,6 +94,12 @@ namespace Docien.FPSMovement
         public void ToggleWalljumping(bool toggle) => m_WallJumpEnabled = toggle;
         public void ToggleWallrunning(bool toggle) => m_WallRunEnabled = toggle;
 
+        public Action OnCrouch;
+        public Action OnAirborne;
+        public Action OnSlide;
+        public Action OnGrounded;
+        public bool IsMoving { get; private set; } = false;
+
         private void Awake()
         {
             m_Rigidbody = GetComponent<Rigidbody>();
@@ -120,6 +126,7 @@ namespace Docien.FPSMovement
             m_JumpBufferTimer = 0f;
         }
 
+        
         private void OnCrouchPerformed(InputAction.CallbackContext ctx)
         {
             m_DesiresCrouch = !m_DesiresCrouch;
@@ -238,6 +245,8 @@ namespace Docien.FPSMovement
             }
         }
 
+        bool lastGrounded = false;
+        bool lastCrouch = false;
         private void UpdateState()
         {
             if (!IsSubmerged)
@@ -251,6 +260,16 @@ namespace Docien.FPSMovement
                         Uncrouch();
                     else if (!m_IsCrouched && m_DesiresCrouch)
                         Crouch();
+
+                    if( lastCrouch != m_IsCrouched ) {
+                        if(m_IsCrouched) {
+                            OnCrouch?.Invoke();
+                        }
+                        else {
+                            OnGrounded?.Invoke();
+                        }
+                    }
+                    lastCrouch = m_IsCrouched;
                 }
 
                 if (m_IsGrounded)
@@ -261,6 +280,15 @@ namespace Docien.FPSMovement
                 {
                     AirborneState();
                 }
+                if(lastGrounded != m_IsGrounded) {
+                    if (!m_IsGrounded) {
+                        OnAirborne?.Invoke();
+                    }
+                    else {
+                        OnGrounded?.Invoke();
+                    }
+                }
+                lastGrounded = m_IsGrounded;
             }
             else
             {
@@ -268,6 +296,7 @@ namespace Docien.FPSMovement
             }
         }
 
+        bool lastSliding = false;
         private void GroundedState()
         {
             m_TimeOnGround += Time.fixedDeltaTime;
@@ -278,6 +307,11 @@ namespace Docien.FPSMovement
                 UpdateSlide();
             }
 
+            bool isSliding = m_IsSliding;
+            if( isSliding != lastSliding && isSliding ) {
+                OnSlide?.Invoke();
+            }
+            lastSliding = isSliding;
             if (m_IsSliding)
             {
                 SlideMove(m_SlideMovementSettings);
@@ -407,11 +441,17 @@ namespace Docien.FPSMovement
         }
 
         // Reads movement input, then transforms it into world space.
+        bool lastMoving = false;
         private Vector3 GetDesiredMovementDirection()
         {
             input = m_MoveAction.ReadValue<Vector2>();
             // make sure that our input never exceeds one
             float magnitude = Mathf.Clamp01(input.magnitude);
+            IsMoving = magnitude > 0.1f;
+            if(lastMoving != IsMoving && !m_IsCrouched && m_IsGrounded) {
+                OnGrounded?.Invoke();
+            }
+            lastMoving = IsMoving;
 
             // world space transformation
             Vector3 movementDirection = m_Orientation.TransformDirection(input.x, 0f, input.y);
